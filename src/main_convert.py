@@ -35,8 +35,8 @@ def map_data(df,dt_type,protagonist,header_list):
     header_list.append(protagonist)
     return mapping
 
-def link_data():
-    dtMap = makeDatatypeIndex(header_list, df)
+def link_data(df, protagonist,entity_column):
+    dtMap = makeDatatypeIndex(df,entity_column)
     convertMap = {} 
     finalMap = {} 
     print("Start processing Table") 
@@ -66,5 +66,20 @@ def link_data():
                 else: 
                     finalMap[mapping[header]] = columnList 
     return finalMap
-def publish_data():
-    pass
+def generate_qs(df_map,df_asli,protagonist,literal_columns):
+    df_qs = pd.DataFrame(df_map)
+    df_qs=df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
+    double_columns = identify_double_columns(df_qs)
+    df_qs.rename({protagonist:'qid'}, axis=1, inplace=True)
+
+    # print(df_qs.columns[0])
+    #ngereplace QID(protagonist) yg sifat Qnew
+    df_qs.replace(["QNew","QNPNew"],"",inplace=True)
+
+    df_qs.columns=[c if c not in double_columns.keys() else double_columns[c] for c in df_qs.columns]
+
+    # print(literal_columns)
+    #nambain label dari csv asli sama nambain quote untuk literal columns
+    df_qs['Lid']=df_asli[protagonist]
+    df_final = format_qs_df(df_qs)
+    return df_final

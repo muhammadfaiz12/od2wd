@@ -18,7 +18,11 @@ def is_date(string):
         return False
     except OverflowError:
         return False
-    
+
+def load_data(file_name,folder):
+    df = pd.read_csv("data/{}/{}".format(folder,file_name), encoding='latin-1')
+    return df
+
 def ranking(candidateList, goal, flag, propertyLbl):
     scoreList = [0] * len(candidateList)
     for i in range(len(candidateList)):
@@ -66,19 +70,13 @@ def isCordinatLike(col):
     return False
 
     
-def makeDatatypeIndex(header_list, df):
+def makeDatatypeIndex(df, entityColumn):
     dtMap = []
-    for elem in df.loc[0, header_list]:
-        try:
-            if(elem.replace('.','').replace(',', '').replace('-', '').replace(' ', '').isdigit()):
-                dtMap.append(1)
-            elif('jl.' in elem.lower()):
-                dtMap.append(1)
-            elif(is_date(elem)):
-                dtMap.append(1)
-            else:
-                dtMap.append(0)
-        except AttributeError:
+    header_list = df.columns
+    for elem in header_list:
+        if elem in entityColumn:
+            dtMap.append(0)
+        else:
             dtMap.append(1)
     return dtMap
 
@@ -105,9 +103,9 @@ def makeDatatypeMap(header_list, df):
             if not is_float and is_date(elem):
                  dtColType="Time"
             elif pattern_globe.match(elem):
-                 dtColType="GeolocationCoordinate"
+                 dtColType="GlobeCoordinate"
             elif is_float and isCordinatLike(header_list[reference_row.index(elem)]):
-                dtColType="GeolocationCoordinate"
+                dtColType="GlobeCoordinate"
             else:
                 try:
                     x = float(elem)
@@ -258,3 +256,49 @@ def check_wb_type(property_id):
     res = searchPropertyRange(property_id)
     wd_type = res['results']['bindings'][0]['wbtype']['value']
     return wd_type[wd_type.find('#')+1:]
+
+def identify_literal_columns(df):
+    literal_columns = []
+    samplerow = df.shape[0]
+    a = df.loc[0:samplerow,:]
+    for col in a.columns:
+        isLiteral = False
+        for index, row in a.iterrows():
+#             print("==========> " + row[[col]])
+            pattern = re.compile("^Q([1-9]+)")#match the Q123123 pattern of entity name
+            
+            if pattern.match(str(row[col])):
+                continue
+            elif str(row[col]) == "QNPNew" or str(row[col]) == "QNew":
+                continue
+            else:
+                isLiteral = True
+        if isLiteral and col != protagonist:
+#             print(col)
+            literal_columns.append(col)
+    return literal_columns
+    
+def identify_double_columns(df):
+    double_columns = {}
+    columns = df.columns
+    for col in columns:
+        if "(" in col:
+            print(col + " " + col[:col.find("(")])
+            double_columns[col] = col[:col.find("(")]
+    return double_columns
+
+def format_qs_df(df, literal_columns):
+    print("START checking property range")
+    for liter_col in literal_columns:
+        print("checking for {}".format(liter_col))
+        range_type = check_wb_type(liter_col)
+        if range_type == 'String':
+            df_qs[liter_col]="\"\"\"\"" + df_qs[liter_col] + "\""
+        elif range_type == 'Monolingualtext':
+            df_qs[liter_col]="id:\"" + df_qs[liter_col] + "\""
+        elif range_type == 'GlobeCoordinate':
+            temp = list(df_qs[liter_col])
+            temp = ["@"+x.replace(",","/").replace(" ","") for x in temp]
+            df_qs[liter_col]=temp
+    print("END checking property range")
+    return df_qs

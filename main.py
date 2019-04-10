@@ -1,8 +1,11 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
 from werkzeug import secure_filename
 from src.main_convert import *
+from src.utils import load_data
+import var_settings 
 
 app = Flask(__name__)
+init_global_var()
 
 @app.route('/')
 def index():
@@ -33,7 +36,19 @@ def upload_file():
 def render_map(procId):
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
     mapping = map_data(df,dt_type,protagonist,header_list)
+    protagonist_dict[procId]=protagonist
+    entityheader_dict[procId]=dtMap
     return render_template('preview-map.html', mapping = mapping, procId=procId)
+
+@app.route('/createQS/<procId>', methods = ['GET', 'POST'])
+def render_qs(procId):
+    namaFile=procId
+    df = load_data(namaFile,'processed')
+    literal_columns = [x for x in df.columns if x not in entityheader_dict[procId]]
+    df_mapping = link_data(df,protagonist_dict[procId],entityheader_dict[procId])
+    df_final = generate_qs(df_mapping,df,protagonist_dict[procId],literal_columns)
+    df_final.to_csv('data/results/{}'.format(namaFile))
+    return render_template('preview-qs.html', mapping = mapping, procId=procId)
 
 
 if __name__ == '__main__':
