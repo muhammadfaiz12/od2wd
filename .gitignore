@@ -1,4 +1,5 @@
 venv/*
-data/*
+data/uncleaned/*
+data/processed/*
 .vscode/*
 .ipynb_checkpoints/*
