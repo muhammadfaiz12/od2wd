@@ -1,9 +1,22 @@
+from src.mapper import mapProperty, mpRankWTypeSim
+import csv
+import pandas as pd
+from src.wikimedia import searchEntity, searchObjWProperty, searchProperty, searchPropertyRange
+from dateutil.parser import parse
+import operator
+import re
+import numpy as np
+import sys, os
+import scipy.stats 
+from dateutil.parser import parse
 
 def is_date(string):
     try: 
         parse(string)
         return True
     except ValueError:
+        return False
+    except OverflowError:
         return False
     
 def ranking(candidateList, goal, flag, propertyLbl):
@@ -79,8 +92,8 @@ def makeDatatypeMap(header_list, df):
         pattern_quantity = re.compile("[-+.,()0-9]+")
         pattern_float = re.compile("[0-9\.-]+")
         pattern_globe = re.compile("^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$")
-#         pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
-        pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9_\-\.")
+        pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
+        # pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9_\-\.")
         pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
         is_quantity = pattern_quantity.search(elem)
         print("Elem : {} , is_quantity : {}, is_date: {}".format(elem,bool(is_quantity),is_date(elem)))
@@ -110,6 +123,7 @@ def makeDatatypeMap(header_list, df):
             elif is_literal_string:
                 dtColType="String"
             else :
+                dtMap.append(header_list[reference_row.index(elem)])
                 dtColType="WikibaseItem"
 
         dtColTypes[header_list[index]]=dtColType 
@@ -192,6 +206,7 @@ def give_verdict_columntb(df_entity, ranking_diversity):
                 maxColumns[0] = col
                 maxOrderScore = columnOrderScore
             ranking[col] = ranking[col]+columnOrderScore
+    print(ranking_diversity)
     return maxColumns[0], maxValue, ranking
 
 #tie breaker on , if any, highest value that have multiplie instances ( So it could be , not the highest value , but highest value that has multiple instances)
@@ -224,6 +239,8 @@ def determine_protagonist(df, dtMap):
     df_entity = df[entity_columns]
     ranking = check_protagonist(df_entity)
     hasil={}
+    print("AAAAA")
+    print(dtMap)
     hasil['base'], score, info = give_verdict_base(df_entity, ranking)
     hasil['normalize-0.5:0.5'], score, info = give_verdict_normalized(df_entity, ranking)
     hasil['normalize-0.7:0.3'], score, info = give_verdict_normalized(df_entity, ranking, 0.7, 0.3)

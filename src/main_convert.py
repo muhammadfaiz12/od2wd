@@ -5,23 +5,26 @@ def main_convert():
     pass
 
 def load_data(nama_file):
-    df = pd.read_csv(nama_file, encoding='latin-1')
+    df = pd.read_csv("data/uncleaned/{}".format(nama_file), encoding='latin-1')
     df_asli_column_asli = df.columns
     return df, df_asli_column_asli
 
-def preprocess_data():
+def preprocess_data(file_name):
+    df = pd.read_csv("data/uncleaned/{}".format(file_name), encoding='latin-1')
     header_list = [x.replace("_"," ").lower() for x in list(df.columns)]
     df.columns=header_list
     if 'no.' in header_list:
         header_list.remove('no.')
     
     dtMap, dt_type = makeDatatypeMap(header_list, df)
+    print(dtMap)
     hasil_verdict = determine_protagonist(df, dtMap)
-    protagonist = hasil_verdict['entropy']
-    return df,dtMap, dt_type,protagonist
+    protagonist = hasil_verdict['base-columntb']
+    df.to_csv('data/processed/'+file_name)
+    return df,dtMap, dt_type,protagonist,header_list
 
 
-def map_data(df,dt_type,protagonist):
+def map_data(df,dt_type,protagonist,header_list):
     dt_type.pop(protagonist)
     header_list.remove(protagonist)
     types_list = []

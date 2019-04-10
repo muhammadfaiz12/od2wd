@@ -19,18 +19,22 @@ def upload_file():
         if f.filename == '':
            flash('No selected file')
            return redirect(request.url)
-        filesave_name = 'data/'+secure_filename(f.filename)
+        filesave_name = 'data/uncleaned/'+secure_filename(f.filename)
         f.save(filesave_name)
-        flash('file uploaded successfully')
-        res, column = load_data(filesave_name)
+        file_name = secure_filename(f.filename)
+        print('file uploaded successfully {}'.format(filesave_name))
+        res, column = load_data(file_name)
         res = res.to_html(max_rows=15)
-        return render_template('preview.html', data=res)
+        return render_template('preview.html', data=res, procId=file_name)
     else:
         return redirect(url_for('index'))
 
-@app.route('/previewqs', methods = ['GET', 'POST'])
-def render_map():
-    pass
+@app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
+def render_map(procId):
+    df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
+    mapping = map_data(df,dt_type,protagonist,header_list)
+    return render_template('preview-map.html', mapping = mapping, procId=procId)
+
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
