@@ -1,5 +1,6 @@
 from src.utils import *
 import pandas as pd
+import var_settings
 
 def main_convert():
     pass
@@ -35,7 +36,7 @@ def map_data(df,dt_type,protagonist,header_list):
     header_list.append(protagonist)
     return mapping
 
-def link_data(df, protagonist,entity_column):
+def link_data(df, protagonist,entity_column,mapping):
     dtMap = makeDatatypeIndex(df,entity_column)
     convertMap = {} 
     finalMap = {} 
@@ -83,3 +84,6 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns):
     df_qs['Lid']=df_asli[protagonist]
     df_final = format_qs_df(df_qs)
     return df_final
+
+def check_result(nama_file)
+    return os.path.isfile('data/results/{}'.format(nama_file))   

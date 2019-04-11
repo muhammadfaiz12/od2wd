@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import Flask, request, render_template, flash, redirect, url_for, jsonify
 from werkzeug import secure_filename
 from src.main_convert import *
 from src.utils import load_data
@@ -45,10 +45,16 @@ def render_qs(procId):
     namaFile=procId
     df = load_data(namaFile,'processed')
     literal_columns = [x for x in df.columns if x not in entityheader_dict[procId]]
-    df_mapping = link_data(df,protagonist_dict[procId],entityheader_dict[procId])
+    df_mapping = link_data(df,protagonist_dict[procId],entityheader_dict[procId],mapping_dict[procId])
     df_final = generate_qs(df_mapping,df,protagonist_dict[procId],literal_columns)
     df_final.to_csv('data/results/{}'.format(namaFile))
     return render_template('preview-qs.html', mapping = mapping, procId=procId)
+
+@app.route('/check-result/<procId>', methods = ['GET', 'POST'])
+def check_result(procId):
+    namaFile=procId
+    result = check_result(namaFile)
+    return jsonify(result)
 
 
 if __name__ == '__main__':
