@@ -38,6 +38,7 @@ def map_data(df,dt_type,protagonist,header_list):
 
 def link_data(df, protagonist,entity_column,mapping):
     dtMap = makeDatatypeIndex(df,entity_column)
+    header_list=list(df.columns)
     convertMap = {} 
     finalMap = {} 
     print("Start processing Table") 
@@ -82,8 +83,8 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns):
     # print(literal_columns)
     #nambain label dari csv asli sama nambain quote untuk literal columns
     df_qs['Lid']=df_asli[protagonist]
-    df_final = format_qs_df(df_qs)
+    df_final = format_qs_df(df_qs,literal_columns)
     return df_final
 
-def check_result(nama_file)
+def check_result(nama_file):
     return os.path.isfile('data/results/{}'.format(nama_file))   

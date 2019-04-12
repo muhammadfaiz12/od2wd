@@ -23,7 +23,7 @@ def load_data(file_name,folder):
     df = pd.read_csv("data/{}/{}".format(folder,file_name), encoding='latin-1')
     return df
 
-def ranking(candidateList, goal, flag, propertyLbl):
+def ranking(candidateList, goal, flag, propertyLbl,threshold=0):
     scoreList = [0] * len(candidateList)
     for i in range(len(candidateList)):
         results = searchObjWProperty(candidateList[i]['id'], 'P17')
@@ -45,7 +45,7 @@ def ranking(candidateList, goal, flag, propertyLbl):
     idx = scoreList.index(maxScore)
     return candidateList[idx]['id']
 
-def searchID(flag, cell, rowHead):
+def searchID(flag, cell, rowHead,limit=5):
     json = searchEntity(cell.lower(), limit)['search']
     id = ''
     if(len(json) > 1):
@@ -287,7 +287,7 @@ def identify_double_columns(df):
             double_columns[col] = col[:col.find("(")]
     return double_columns
 
-def format_qs_df(df, literal_columns):
+def format_qs_df(df_qs, literal_columns):
     print("START checking property range")
     for liter_col in literal_columns:
         print("checking for {}".format(liter_col))

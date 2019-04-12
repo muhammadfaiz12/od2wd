@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, flash, redirect, url_for, jso
 from werkzeug import secure_filename
 from src.main_convert import *
 from src.utils import load_data
-import var_settings 
+from var_settings import *
 
 app = Flask(__name__)
 init_global_var()
@@ -26,7 +26,7 @@ def upload_file():
         f.save(filesave_name)
         file_name = secure_filename(f.filename)
         print('file uploaded successfully {}'.format(filesave_name))
-        res, column = load_data(file_name)
+        res = load_data(file_name,'uncleaned')
         res = res.to_html(max_rows=15)
         return render_template('preview.html', data=res, procId=file_name)
     else:
@@ -36,19 +36,20 @@ def upload_file():
 def render_map(procId):
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
     mapping = map_data(df,dt_type,protagonist,header_list)
-    protagonist_dict[procId]=protagonist
-    entityheader_dict[procId]=dtMap
+    var_settings.protagonist_dict[procId]=protagonist
+    var_settings.entityheader_dict[procId]=dtMap
+    var_settings.mapping_dict[procId]=mapping
     return render_template('preview-map.html', mapping = mapping, procId=procId)
 
 @app.route('/createQS/<procId>', methods = ['GET', 'POST'])
 def render_qs(procId):
     namaFile=procId
     df = load_data(namaFile,'processed')
-    literal_columns = [x for x in df.columns if x not in entityheader_dict[procId]]
-    df_mapping = link_data(df,protagonist_dict[procId],entityheader_dict[procId],mapping_dict[procId])
-    df_final = generate_qs(df_mapping,df,protagonist_dict[procId],literal_columns)
+    literal_columns = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
+    df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
+    df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns)
     df_final.to_csv('data/results/{}'.format(namaFile))
-    return render_template('preview-qs.html', mapping = mapping, procId=procId)
+    return render_template('preview-qs.html', data=df_final.to_html(max_rows=15))
 
 @app.route('/check-result/<procId>', methods = ['GET', 'POST'])
 def check_result(procId):
