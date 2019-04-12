@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, flash, redirect, url_for, jsonify
+from flask import Flask, request, render_template, flash, redirect, url_for, jsonify, send_from_directory, send_file
 from werkzeug import secure_filename
 from src.main_convert import *
 from src.utils import load_data
@@ -49,14 +49,19 @@ def render_qs(procId):
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns)
     df_final.to_csv('data/results/{}'.format(namaFile))
-    return render_template('preview-qs.html', data=df_final.to_html(max_rows=15))
+    return render_template('check-result.html', data=df_final.to_html(max_rows=15))
 
-@app.route('/check-result/<procId>', methods = ['GET', 'POST'])
+@app.route('/check-result/<procId>', methods = ['GET'])
 def check_result(procId):
     namaFile=procId
     result = check_result(namaFile)
     return jsonify(result)
 
+@app.route('/download-result/<procId>', methods=['GET', 'POST'])
+def download(procId):
+    directory='data/results/'
+    filename=procId
+    return send_file(directory+filename, attachment_filename='qs_result.csv')
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
