@@ -1,6 +1,9 @@
+<link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
 {% extends "layout.html" %}
 {% block body %}
-    <h1>Data Preview</h1>
-    {{data | safe }}
-    <a href="http://localhost:5000/previewMap/{{procId}}">Petakan Dokumen Ini</a>
+	<div class="container">
+	    <h1>Data Preview</h1>
+	    {{data | safe }}
+	    <a href="http://localhost:5000/previewMap/{{procId}}">Petakan Dokumen Ini</a>
+	</div>
 {% endblock %}

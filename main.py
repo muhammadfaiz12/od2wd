@@ -2,10 +2,11 @@ from flask import Flask, request, render_template, flash, redirect, url_for, jso
 from werkzeug import secure_filename
 from src.main_convert import *
 from src.utils import load_data
+
 import var_settings 
 
 app = Flask(__name__)
-init_global_var()
+var_settings.init_global_var()
 
 @app.route('/')
 def index():
@@ -26,8 +27,8 @@ def upload_file():
         f.save(filesave_name)
         file_name = secure_filename(f.filename)
         print('file uploaded successfully {}'.format(filesave_name))
-        res, column = load_data(file_name)
-        res = res.to_html(max_rows=15)
+        res= load_data(file_name,'uncleaned')
+        res = res.to_html(max_rows=15, classes=['table'])
         return render_template('preview.html', data=res, procId=file_name)
     else:
         return redirect(url_for('index'))

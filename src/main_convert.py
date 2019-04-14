@@ -85,5 +85,5 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns):
     df_final = format_qs_df(df_qs)
     return df_final
 
-def check_result(nama_file)
+def check_result(nama_file):
     return os.path.isfile('data/results/{}'.format(nama_file))   
