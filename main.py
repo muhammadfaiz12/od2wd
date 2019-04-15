@@ -28,7 +28,7 @@ def upload_file():
         file_name = secure_filename(f.filename)
         print('file uploaded successfully {}'.format(filesave_name))
         res= load_data(file_name,'uncleaned')
-        res = res.to_html(max_rows=15, classes=['table'])
+        res = res.to_html(max_rows=15, justify='left',classes=['table'])
         return render_template('preview.html', data=res, procId=file_name)
     else:
         return redirect(url_for('index'))

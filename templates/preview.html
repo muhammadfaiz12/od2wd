@@ -1,9 +1,13 @@
 <link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
 {% extends "layout.html" %}
 {% block body %}
-	<div class="container">
+<body style="background:#F6F8FA">
+	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
 	    <h1>Data Preview</h1>
-	    {{data | safe }}
-	    <a href="http://localhost:5000/previewMap/{{procId}}">Petakan Dokumen Ini</a>
+	    <div class="container" style="padding-bottom: 20px">
+	    	{{data | safe }}
+			<a class='btn btn-warning' href="http://localhost:5000/previewMap/{{procId}}">Petakan Dokumen Ini</a>
+		</div>
 	</div>
+</body>
 {% endblock %}
