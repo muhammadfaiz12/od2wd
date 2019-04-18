@@ -81,52 +81,75 @@ def makeDatatypeIndex(df, entityColumn):
     return dtMap
 
 def makeDatatypeMap(header_list, df):
-    reference_row = [str(x) for x in list(df.loc[0, header_list])]
+    reference_row0 = [str(x) for x in list(df.loc[0, header_list])]
+    reference_row1 = [str(x) for x in list(df.loc[1, header_list])]
+    reference_row2 = [str(x) for x in list(df.loc[2, header_list])]
+    ref_rows=[reference_row0,reference_row1,reference_row2]
     dtMap = []
     dtColTypes = {}
-    index=0
-    for elem in reference_row:
-        dtColType=""
-        pattern_quantity = re.compile("[-+.,()0-9]+")
-        pattern_float = re.compile("[0-9\.-]+")
-        pattern_globe = re.compile("^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$")
-        pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
-        # pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9_\-\.")
-        pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
-        is_quantity = pattern_quantity.search(elem)
-        print("Elem : {} , is_quantity : {}, is_date: {}".format(elem,bool(is_quantity),is_date(elem)))
-#         print(list(df.loc[0, header_list]))
-        if is_quantity:
-            is_float = pattern_float.match(elem)
-            is_kordinatLike = isCordinatLike(header_list[reference_row.index(elem)])
-            print( is_float)
-            if not is_float and is_date(elem):
-                 dtColType="Time"
-            elif pattern_globe.match(elem):
-                 dtColType="GlobeCoordinate"
-            elif is_float and isCordinatLike(header_list[reference_row.index(elem)]):
-                dtColType="GlobeCoordinate"
+    for reference_row in ref_rows:
+        index = 0
+        for elem in reference_row:
+            dtColType=""
+            pattern_quantity = re.compile("[-+.,()0-9]+")
+            pattern_float = re.compile("[0-9\.-]+")
+            pattern_globe = re.compile("^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$")
+    #         pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
+            pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\.")
+            pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
+            is_quantity = pattern_quantity.search(elem)
+#             print("Elem : {} , is_quantity : {}, is_date: {}".format(elem,bool(is_quantity),is_date(elem)))
+    #         print(list(df.loc[0, header_list]))
+            if is_quantity:
+                is_float = pattern_float.match(elem)
+                is_kordinatLike = isCordinatLike(header_list[reference_row.index(elem)])
+                print( is_float)
+                if not is_float and is_date(elem):
+                     dtColType="Time"
+                elif pattern_globe.match(elem):
+                     dtColType="GlobeCoordinate"
+                elif is_float and isCordinatLike(header_list[reference_row.index(elem)]):
+                    dtColType="GlobeCoordinate"
+                else:
+                    try:
+                        x = float(elem)
+                        dtColType="Quantity"
+                    except ValueError:
+                        dtColType="String"
             else:
-                try:
-                    x = float(elem)
-                    dtColType="Quantity"
-                except ValueError:
+                is_literal_string = bool(pattern_literal.match(elem))
+                is_url_string = bool(pattern_literal.match(elem))
+
+                if is_url_string:
+                    dtColType="URL"
+                elif is_literal_string:
                     dtColType="String"
-        else:
-            is_literal_string = bool(pattern_literal.match(elem))
-            is_url_string = bool(pattern_literal.match(elem))
+                else :
+                    dtMap.append(header_list[reference_row.index(elem)])
+                    dtColType="WikibaseItem"
 
-            if is_url_string:
-                dtColType="URL"
-            elif is_literal_string:
-                dtColType="String"
+            if header_list[index] in dtColTypes:
+                dtColTypes[header_list[index]].append(dtColType)
+            else:
+                dtColTypes[header_list[index]] = [dtColType]
+            index=index+1
+
+    print(dtColTypes)
+    for key, value in dtColTypes.items():
+        value_score = {}
+        max_score = 0
+        max_dt = ""
+        for x in value:
+            if x in value_score:
+                value_score[x]=value_score[x]+1
             else :
-                dtMap.append(header_list[reference_row.index(elem)])
-                dtColType="WikibaseItem"
-
-        dtColTypes[header_list[index]]=dtColType 
-        index=index+1
+                value_score[x] = 1
+            if value_score[x] > max_score:
+                max_score = value_score[x]
+                max_dt = x
+        dtColTypes[key]=max_dt     
     return dtMap, dtColTypes
+
 
 def lDistance(s1, s2):
     if len(s1) > len(s2):
@@ -149,7 +172,7 @@ def check_protagonist(df):
     for col in df.columns:
         entities = set()
         for index, row in df.iterrows():
-            entities.add(row[col])
+            entities.add(str(row[col]))
         ranking[col] = len(entities)
     return ranking
 
@@ -237,7 +260,6 @@ def determine_protagonist(df, dtMap):
     df_entity = df[entity_columns]
     ranking = check_protagonist(df_entity)
     hasil={}
-    print("AAAAA")
     print(dtMap)
     hasil['base'], score, info = give_verdict_base(df_entity, ranking)
     hasil['normalize-0.5:0.5'], score, info = give_verdict_normalized(df_entity, ranking)

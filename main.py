@@ -49,7 +49,7 @@ def render_qs(procId):
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns)
     df_final.to_csv('data/results/{}'.format(namaFile))
-    return render_template('check-result.html', data=df_final.to_html(max_rows=15))
+    return render_template('check-result.html', data=df_final.to_html(max_rows=15), procId=procId)
 
 @app.route('/check-result/<procId>', methods = ['GET'])
 def check_result(procId):
