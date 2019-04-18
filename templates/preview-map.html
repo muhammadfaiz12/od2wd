@@ -1,7 +1,11 @@
+<link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
 {% extends "layout.html" %}
 {% block body %}
+<body style="background:#F6F8FA">
+	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
     <h1>Mapping Preview</h1>
-    <table border=1>
+    <div class="container" style="padding-bottom: 20px">
+    <table class="table" >
         {% for key, value in mapping.items() %}
            <tr>
               <th> {{ key }} </th>
@@ -9,5 +13,8 @@
            </tr>
         {% endfor %}
      </table>
-    <a href="http://localhost:5000/createQS/{{procId}}">Buat Quickstatement Dari Dokumen Ini</a>
+    <a class='btn btn-warning' href="http://localhost:5000/createQS/{{procId}}">Buat Quickstatement Dari Dokumen Ini</a>
+    </div>
+</div>
+</body>
 {% endblock %}
