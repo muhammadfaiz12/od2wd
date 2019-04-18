@@ -5,7 +5,7 @@ from src.utils import load_data
 from var_settings import *
 
 app = Flask(__name__)
-init_global_var()
+var_settings.init_global_var()
 
 @app.route('/')
 def index():
@@ -26,8 +26,8 @@ def upload_file():
         f.save(filesave_name)
         file_name = secure_filename(f.filename)
         print('file uploaded successfully {}'.format(filesave_name))
-        res = load_data(file_name,'uncleaned')
-        res = res.to_html(max_rows=15)
+        res= load_data(file_name,'uncleaned')
+        res = res.to_html(max_rows=15, justify='left',classes=['table'])
         return render_template('preview.html', data=res, procId=file_name)
     else:
         return redirect(url_for('index'))
