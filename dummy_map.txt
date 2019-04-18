@@ -1,0 +1,3 @@
+protagonist = "nama sekolah"
+dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
+mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
