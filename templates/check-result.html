@@ -3,5 +3,7 @@
     <h1>Check Result</h1>
     {{data | safe }}
     <a class = "btn btn-warning" href="http://localhost:5000/">Kembali Ke Menu Utama</a>
-    <a class = "btn btn-primary" href="http://localhost:5000/download/{{procId}}">Unduh hasil CSV</a>
+<!--     <a class = "btn btn-primary" href="http://localhost:5000/download/{{procId}}">Unduh hasil CSV</a> -->
+	<a href= "{{address}}" download="result.csv">Download</a>
+
 {% endblock %}

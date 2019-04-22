@@ -9,6 +9,7 @@ import numpy as np
 import sys, os
 import scipy.stats 
 from dateutil.parser import parse
+import var_settings
 
 def is_date(string):
     try: 
@@ -312,15 +313,17 @@ def identify_double_columns(df):
 def format_qs_df(df_qs, literal_columns):
     print("START checking property range")
     for liter_col in literal_columns:
-        print("checking for {}".format(liter_col))
-        range_type = check_wb_type(liter_col)
-        if range_type == 'String':
-            df_qs[liter_col]="\"\"\"\"" + df_qs[liter_col] + "\""
-        elif range_type == 'Monolingualtext':
-            df_qs[liter_col]="id:\"" + df_qs[liter_col] + "\""
-        elif range_type == 'GlobeCoordinate':
-            temp = list(df_qs[liter_col])
-            temp = ["@"+x.replace(",","/").replace(" ","") for x in temp]
-            df_qs[liter_col]=temp
+        if liter_col in df_qs.columns:
+            print("checking for {}".format(liter_col))
+            range_type = check_wb_type(liter_col)
+            print(range_type)
+            if range_type == 'String':
+                df_qs[liter_col]="\"\"\"\"" + df_qs[liter_col] + "\""
+            elif range_type == 'Monolingualtext':
+                df_qs[liter_col]="id:\"" + df_qs[liter_col] + "\""
+            elif range_type == 'GlobeCoordinate':
+                temp = list(df_qs[liter_col])
+                temp = ["@"+x.replace(",","/").replace(" ","") for x in temp]
+                df_qs[liter_col]=temp
     print("END checking property range")
     return df_qs

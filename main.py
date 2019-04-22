@@ -35,7 +35,10 @@ def upload_file():
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
-    mapping = map_data(df,dt_type,protagonist,header_list)
+    # mapping = map_data(df,dt_type,protagonist,header_list)
+    protagonist = "nama sekolah"
+    dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
+    mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
     var_settings.protagonist_dict[procId]=protagonist
     var_settings.entityheader_dict[procId]=dtMap
     var_settings.mapping_dict[procId]=mapping
@@ -45,11 +48,12 @@ def render_map(procId):
 def render_qs(procId):
     namaFile=procId
     df = load_data(namaFile,'processed')
-    literal_columns = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
+    literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
-    df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns)
-    df_final.to_csv('data/results/{}'.format(namaFile))
-    return render_template('check-result.html', data=df_final.to_html(max_rows=15), procId=procId)
+    df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
+    res_address='data/results/{}'.format(namaFile)
+    df_final.to_csv(res_address)
+    return render_template('check-result.html', data=df_final.to_html(max_rows=15), procId=procId, address=res_address)
 
 @app.route('/check-result/<procId>', methods = ['GET'])
 def check_result(procId):

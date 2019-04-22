@@ -68,9 +68,9 @@ def link_data(df, protagonist,entity_column,mapping):
                 else: 
                     finalMap[mapping[header]] = columnList 
     return finalMap
-def generate_qs(df_map,df_asli,protagonist,literal_columns):
+def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     df_qs = pd.DataFrame(df_map)
-    df_qs=df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
+    df_qs = df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
     double_columns = identify_double_columns(df_qs)
     df_qs.rename({protagonist:'qid'}, axis=1, inplace=True)
 
@@ -83,7 +83,16 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns):
     # print(literal_columns)
     #nambain label dari csv asli sama nambain quote untuk literal columns
     df_qs['Lid']=df_asli[protagonist]
+
+    literal_columns = []
+    for x in literal_columns_label:
+        if x in var_settings.mapping_dict[procId]:
+            literal_columns.append(var_settings.mapping_dict[procId][x])
+     
+    print("LITERAL COLUMN : {}".format(literal_columns))
+
     df_final = format_qs_df(df_qs,literal_columns)
+    df_final.to_csv('data/results/{}'.format("-debug"))
     return df_final
 
 def check_result(nama_file):
