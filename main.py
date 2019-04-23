@@ -27,7 +27,7 @@ def upload_file():
         file_name = secure_filename(f.filename)
         print('file uploaded successfully {}'.format(filesave_name))
         res= load_data(file_name,'uncleaned')
-        res = res.to_html(max_rows=15, justify='left',classes=['table'])
+        res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
         return render_template('preview.html', data=res, procId=file_name)
     else:
         return redirect(url_for('index'))
@@ -42,7 +42,18 @@ def render_map(procId):
     var_settings.protagonist_dict[procId]=protagonist
     var_settings.entityheader_dict[procId]=dtMap
     var_settings.mapping_dict[procId]=mapping
-    return render_template('preview-map.html', mapping = mapping, procId=procId)
+    
+    #beautify mapping dict
+    mapping_beautified = dict(mapping)
+    mapping_beautified[protagonist]="Kolom Protagonis"
+    for key,value in mapping_beautified.items():
+        if len(value) < 1:
+            mapping_beautified[key]="Padanan Tidak Ditemukan"
+    sample_info = []
+    for x in mapping:
+        sample_info.append(str(df[x].iloc[0]))
+
+    return render_template('preview-map.html', mapping = mapping_beautified, sample_info = sample_info, procId=procId)
 
 @app.route('/createQS/<procId>', methods = ['GET', 'POST'])
 def render_qs(procId):
@@ -53,19 +64,25 @@ def render_qs(procId):
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
     res_address='data/results/{}'.format(namaFile)
     df_final.to_csv(res_address, index=False)
-    return render_template('check-result.html', data=df_final.to_html(max_rows=15), procId=procId, address=res_address)
+    return render_template('check-result.html', data=df_final.to_html(max_rows=15,classes=['table','table-striped']), procId=procId, address=res_address,result_finished=True)
 
 @app.route('/check-result/<procId>', methods = ['GET'])
 def check_result(procId):
     namaFile=procId
-    result = check_result(namaFile)
-    return jsonify(result)
+    res_address='data/results/{}'.format(namaFile)
+    namaFile=procId
+    result_finished, data_df = check_result_finished(namaFile)    
+    if result_finished:
+        data = data_df.to_html(max_rows=15,classes=['table','table-striped'])
+        return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=True)
+    else:
+        return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=False)
 
 @app.route('/download-result/<procId>', methods=['GET', 'POST'])
 def download(procId):
     directory='data/results/'
     filename=procId
-    return send_file(directory+filename, attachment_filename='qs_result.csv')
+    return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'

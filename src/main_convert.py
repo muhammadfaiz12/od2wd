@@ -100,5 +100,9 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     # df_final.to_csv('data/results/{}'.format("-debug"))
     return df_final
 
-def check_result(nama_file):
-    return os.path.isfile('data/results/{}'.format(nama_file))   
+def check_result_finished(nama_file):
+    status = os.path.isfile('data/results/{}'.format(nama_file))
+    if status:
+        return True, pd.read_csv("data/results/{}".format(nama_file), encoding='latin-1')
+    else:
+        return False, None   

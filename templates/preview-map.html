@@ -5,14 +5,43 @@
 	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
     <h1>Mapping Preview</h1>
     <div class="container" style="padding-bottom: 20px">
-    <table class="table" >
+    <!-- <table class="table" >
+            <tr>
+              <th>Nama Kolom</th>
+              <td>Property Padanan</td>
+            </tr>
         {% for key, value in mapping.items() %}
            <tr>
               <th> {{ key }} </th>
               <td> {{ value }} </td>
            </tr>
         {% endfor %}
+     </table> -->
+     <table class="table table-bordered" >
+           <tr>
+            <th>Nama Kolom</th>
+            {% for key, value in mapping.items() %}
+              <td> {{ key }} </td>
+            {% endfor %}
+           </tr>
+           <tr>
+             <th>Padanan Properti</th>
+             {% for key, value in mapping.items() %}
+              {% if value == "Padanan Tidak Ditemukan" %}
+              <td style="color:white;background-color: red"> {{ value }} </td>
+              {% else %}
+              <td> {{ value }} </td>
+              {% endif %}
+            {% endfor %}
+           </tr>
+           <tr>
+            <th>Sample Row</th>
+            {% for x in sample_info %}
+            <td>{{x}}</td>
+            {% endfor %}
+           </tr>
      </table>
+     <p> *Kolom yang tidak mempunyai padanan tidak akan dimasukan dalam proses selanjutnya</p> 
     <a class='btn btn-warning' href="http://localhost:5000/createQS/{{procId}}">Buat Quickstatement Dari Dokumen Ini</a>
     </div>
 </div>

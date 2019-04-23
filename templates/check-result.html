@@ -1,9 +1,15 @@
+<link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
 {% extends "layout.html" %}
 {% block body %}
+	{% if result_finished == True %}
     <h1>Check Result</h1>
-    {{data | safe }}
-    <a class = "btn btn-warning" href="http://localhost:5000/">Kembali Ke Menu Utama</a>
-<!--     <a class = "btn btn-primary" href="http://localhost:5000/download/{{procId}}">Unduh hasil CSV</a> -->
-	<a href= "{{address}}" download="result.csv">Download</a>
+	    {{data | safe }}
+	    <a class = "btn btn-warning" href="http://localhost:5000/">Kembali Ke Menu Utama</a>
+	    <a class = "btn btn-primary" href="http://localhost:5000/download-result/{{procId}}">Unduh hasil CSV</a>
+	<!-- <a href= "{{address}}" download="result.csv">Download</a> -->
+	{% else %}
+	<h1>Dokumen ini Sedang Di Proses</h1>
+	<p> Dokumen masih dalam proses konversi , harap muat ulang (reload) halaman ini dalam beberapa saat</p>
+	{% endif %}
 
 {% endblock %}
