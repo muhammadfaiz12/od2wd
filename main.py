@@ -11,10 +11,6 @@ var_settings.init_global_var()
 def index():
     return render_template('hello.html')
 
-@app.route('/hello/<user>')
-def hello_name(user):
-    return render_template('hello.html', name = user)
-
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -28,17 +24,17 @@ def upload_file():
         print('file uploaded successfully {}'.format(filesave_name))
         res= load_data(file_name,'uncleaned')
         res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
-        return render_template('preview.html', data=res, procId=file_name)
+        return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
     else:
         return redirect(url_for('index'))
 
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
-    # mapping = map_data(df,dt_type,protagonist,header_list)
-    protagonist = "nama sekolah"
-    dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
-    mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
+    mapping = map_data(df,dt_type,protagonist,header_list)
+    # protagonist = "nama sekolah"
+    # dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
+    # mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
     var_settings.protagonist_dict[procId]=protagonist
     var_settings.entityheader_dict[procId]=dtMap
     var_settings.mapping_dict[procId]=mapping
@@ -53,7 +49,7 @@ def render_map(procId):
     for x in mapping:
         sample_info.append(str(df[x].iloc[0]))
 
-    return render_template('preview-map.html', mapping = mapping_beautified, sample_info = sample_info, procId=procId)
+    return render_template('preview-map.html', mapping = mapping_beautified, sample_info = sample_info, procId=procId,parent_link=var_settings.parent_link)
 
 @app.route('/createQS/<procId>', methods = ['GET', 'POST'])
 def render_qs(procId):
@@ -64,7 +60,7 @@ def render_qs(procId):
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
     res_address='data/results/{}'.format(namaFile)
     df_final.to_csv(res_address, index=False)
-    return render_template('check-result.html', data=df_final.to_html(max_rows=15,classes=['table','table-striped']), procId=procId, address=res_address,result_finished=True)
+    return render_template('check-result.html', data=df_final.to_html(max_rows=15,classes=['table','table-striped']), procId=procId, address=res_address,result_finished=True,parent_link=var_settings.parent_link)
 
 @app.route('/check-result/<procId>', methods = ['GET'])
 def check_result(procId):
@@ -74,9 +70,9 @@ def check_result(procId):
     result_finished, data_df = check_result_finished(namaFile)    
     if result_finished:
         data = data_df.to_html(max_rows=15,classes=['table','table-striped'])
-        return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=True)
+        return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=True,parent_link=var_settings.parent_link)
     else:
-        return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=False)
+        return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=False,parent_link=var_settings.parent_link)
 
 @app.route('/download-result/<procId>', methods=['GET', 'POST'])
 def download(procId):
