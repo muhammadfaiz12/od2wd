@@ -68,23 +68,41 @@ def link_data(df, protagonist,entity_column,mapping):
                 else: 
                     finalMap[mapping[header]] = columnList 
     return finalMap
-def generate_qs(df_map,df_asli,protagonist,literal_columns):
+def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     df_qs = pd.DataFrame(df_map)
-    df_qs=df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
+    df_qs = df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
+    for col in df_qs.columns:
+        #drop any row that has unlinkable property
+        df_qs = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
+
     double_columns = identify_double_columns(df_qs)
     df_qs.rename({protagonist:'qid'}, axis=1, inplace=True)
 
-    # print(df_qs.columns[0])
     #ngereplace QID(protagonist) yg sifat Qnew
-    df_qs.replace(["QNew","QNPNew"],"",inplace=True)
+    df_qs.replace(["QNew"],"",inplace=True)
+    df_qs.columns=[c if c not in double_columns else double_columns[c] for c in df_qs.columns]
 
-    df_qs.columns=[c if c not in double_columns.keys() else double_columns[c] for c in df_qs.columns]
-
-    # print(literal_columns)
     #nambain label dari csv asli sama nambain quote untuk literal columns
     df_qs['Lid']=df_asli[protagonist]
+
+    literal_columns = []
+    for x in literal_columns_label:
+        if x in var_settings.mapping_dict[procId]:
+            literal_columns.append(var_settings.mapping_dict[procId][x])
+     
+    print("LITERAL COLUMN : {}".format(literal_columns))
+
     df_final = format_qs_df(df_qs,literal_columns)
+    valid_column = [x for x in list(df_final.columns) if len(x) >= 1 ]
+    df_final = df_final[['qid'] + [c for c in list(set(valid_column)) if c != 'qid']]
+    #mindain qid ke depan
+    print(df_final.columns)
+    # df_final.to_csv('data/results/{}'.format("-debug"))
     return df_final
 
-def check_result(nama_file):
-    return os.path.isfile('data/results/{}'.format(nama_file))   
+def check_result_finished(nama_file):
+    status = os.path.isfile('data/results/{}'.format(nama_file))
+    if status:
+        return True, pd.read_csv("data/results/{}".format(nama_file), encoding='latin-1')
+    else:
+        return False, None   

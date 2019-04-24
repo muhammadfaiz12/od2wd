@@ -6,3 +6,4 @@ data/dump/w2vec_wiki_id_case.trainables.syn1neg.npy
 data/dump/w2vec_wiki_id_case.wv.vectors.npy
 .vscode/*
 .ipynb_checkpoints/*
+src/__pycache__/*
