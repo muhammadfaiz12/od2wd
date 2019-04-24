@@ -55,6 +55,7 @@ def render_map(procId):
 def render_qs(procId):
     namaFile=procId
     df = load_data(namaFile,'processed')
+    print("mapping_dict {}".format(var_settings.entityheader_dict))
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
