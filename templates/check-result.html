@@ -1,6 +1,8 @@
 <link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
 {% extends "layout.html" %}
 {% block body %}
+<body style="background:#F6F8FA">
+	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
 	{% if result_finished == True %}
     <h1>Check Result</h1>
 	    {{data | safe }}
@@ -9,7 +11,10 @@
 	<!-- <a href= "{{address}}" download="result.csv">Download</a> -->
 	{% else %}
 	<h1>Dokumen ini Sedang Di Proses</h1>
-	<p> Dokumen masih dalam proses konversi , harap muat ulang (reload) halaman ini dalam beberapa saat</p>
+	<p> Dokumen masih dalam proses konversi , harap muat ulang (reload) halaman ini atau tekan tombol di bawah dalam beberapa saat</p>
+	<a class = "btn btn-warning" href="{{parent_link}}/check-result/{{procId}}">Kembali Ke Menu Utama</a>
 	{% endif %}
+	</div>
+</body>
 
 {% endblock %}
