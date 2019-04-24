@@ -3,6 +3,8 @@ from werkzeug import secure_filename
 from src.main_convert import *
 from src.utils import load_data
 from var_settings import *
+from threading import Thread
+
 
 app = Flask(__name__)
 var_settings.init_global_var()
@@ -54,16 +56,32 @@ def render_map(procId):
 @app.route('/createQS/<procId>', methods = ['GET', 'POST'])
 def render_qs(procId):
     namaFile=procId
+    print(namaFile)
+    Thread(target=create_qs,args=(procId,)).start()
+    print("this will be printed immediately")
+    # df = load_data(namaFile,'processed')
+    # literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
+    # df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
+    # df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
+    # res_address='data/results/{}'.format(namaFile)
+    # df_final.to_csv(res_address, index=False)
+    # return render_template('check-result.html', data=df_final.to_html(max_rows=15,classes=['table','table-striped']), procId=procId, address=res_address,result_finished=True,parent_link=var_settings.parent_link)
+    return redirect(url_for('check_result',procId = procId))
+
+def create_qs(procId):
+    print("anda di create_qs {}".format(procId))
+    namaFile=procId
     df = load_data(namaFile,'processed')
+    print("mulai gan")
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
     res_address='data/results/{}'.format(namaFile)
     df_final.to_csv(res_address, index=False)
-    return render_template('check-result.html', data=df_final.to_html(max_rows=15,classes=['table','table-striped']), procId=procId, address=res_address,result_finished=True,parent_link=var_settings.parent_link)
 
 @app.route('/check-result/<procId>', methods = ['GET'])
 def check_result(procId):
+    data=""
     namaFile=procId
     res_address='data/results/{}'.format(namaFile)
     namaFile=procId
