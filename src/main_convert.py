@@ -16,9 +16,12 @@ def preprocess_data(file_name):
     df.columns=header_list
     if 'no.' in header_list:
         header_list.remove('no.')
+        df.drop(columns=['no.'])
     
+    treshold=5
+    df.dropna(axis='columns', thresh=5)
+    df.dropna()
     dtMap, dt_type = makeDatatypeMap(header_list, df)
-    print(dtMap)
     hasil_verdict = determine_protagonist(df, dtMap)
     protagonist = hasil_verdict['base-columntb']
     df.to_csv('data/processed/'+file_name)
@@ -70,27 +73,42 @@ def link_data(df, protagonist,entity_column,mapping):
     return finalMap
 def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     df_qs = pd.DataFrame(df_map)
+    print(df_map)
+    print(df_qs.iloc[0:1,:])
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAaa")
     df_qs = df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
-    for col in df_qs.columns:
-        #drop any row that has unlinkable property
-        df_qs = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
+
+    print(df_qs.iloc[0:1,:])
 
     double_columns = identify_double_columns(df_qs)
     df_qs.rename({protagonist:'qid'}, axis=1, inplace=True)
+    for col in df_qs.columns:
+        #drop any row that has unlinkable property
+        x = df_qs[col].value_counts(sort=False).to_dict()
+        
+        if "QNPNew" in x:
+            if x["QNPNew"] > 5:
+               df_qs.drop(columns=[col])
+            else:
+                df_qs[col] = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
+    print(df_qs.iloc[0:1,:])
 
     #ngereplace QID(protagonist) yg sifat Qnew
     df_qs.replace(["QNew"],"",inplace=True)
     df_qs.columns=[c if c not in double_columns else double_columns[c] for c in df_qs.columns]
+    print(df_qs.iloc[0:1,:])
 
     #nambain label dari csv asli sama nambain quote untuk literal columns
     df_qs['Lid']=df_asli[protagonist]
 
+    print(df_qs.iloc[0:1,:])
     literal_columns = []
     for x in literal_columns_label:
         if x in var_settings.mapping_dict[procId]:
             literal_columns.append(var_settings.mapping_dict[procId][x])
      
     print("LITERAL COLUMN : {}".format(literal_columns))
+
 
     df_final = format_qs_df(df_qs,literal_columns)
     valid_column = [x for x in list(df_final.columns) if len(x) >= 1 ]

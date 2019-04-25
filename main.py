@@ -33,10 +33,10 @@ def upload_file():
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
-    mapping = map_data(df,dt_type,protagonist,header_list)
-    # protagonist = "nama sekolah"
-    # dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
-    # mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
+    # mapping = map_data(df,dt_type,protagonist,header_list)
+    protagonist = "nama sekolah"
+    dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
+    mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
     var_settings.protagonist_dict[procId]=protagonist
     var_settings.entityheader_dict[procId]=dtMap
     var_settings.mapping_dict[procId]=mapping
