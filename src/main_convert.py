@@ -82,6 +82,15 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
 
     double_columns = identify_double_columns(df_qs)
     df_qs.rename({protagonist:'qid'}, axis=1, inplace=True)
+    for col in df_qs.columns:
+        #drop any row that has unlinkable property
+        x = df_qs[col].value_counts(sort=False).to_dict()
+        
+        if "QNPNew" in x:
+            if x["QNPNew"] > 5:
+               df_qs.drop(columns=[col])
+            else:
+                df_qs[col] = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
     print(df_qs.iloc[0:1,:])
 
     #ngereplace QID(protagonist) yg sifat Qnew
@@ -100,26 +109,10 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
      
     print("LITERAL COLUMN : {}".format(literal_columns))
 
-    for col in df_qs.columns:
-        #drop any row that has unlinkable property
-        # df_qs = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
-        #COLOM NY ADA BANYAK
-        x = df_qs[col].value_counts(sort=False).to_dict()
-        if "QNPNew" in x:
-            if x["QNPNew"] > 5:
-                df_qs.drop(columns=[col])
-                if col in literal_columns:
-                    literal.columns.remove(col)
-                    print("DROPPED {}".format(col))
-            else:
-                df_qs[col] = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
 
     df_final = format_qs_df(df_qs,literal_columns)
-    print(df_qs.iloc[0:1,:])
     valid_column = [x for x in list(df_final.columns) if len(x) >= 1 ]
-    print(df_qs.iloc[0:1,:])
     df_final = df_final[['qid'] + [c for c in list(set(valid_column)) if c != 'qid']]
-    print(df_qs.iloc[0:1,:])
     #mindain qid ke depan
     print(df_final.columns)
     # df_final.to_csv('data/results/{}'.format("-debug"))
