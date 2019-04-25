@@ -173,7 +173,7 @@ def check_protagonist(df):
     for col in df.columns:
         entities = set()
         for index, row in df.iterrows():
-            entities.add(str(row[col]))
+            entities.add(str(row[col].values[0))
         ranking[col] = len(entities)
     return ranking
 
