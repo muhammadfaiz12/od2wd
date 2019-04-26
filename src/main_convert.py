@@ -16,10 +16,10 @@ def preprocess_data(file_name):
     df.columns=header_list
     if 'no.' in header_list:
         header_list.remove('no.')
-        df.drop(columns=['no.'])
+        df.drop(columns=['no.'], inplace=True)
     
-    treshold=5
-    df.dropna(axis='columns', thresh=5)
+    na_treshold=int(df.shape[1]/df.shape[0])+1
+    df.dropna(axis='columns', thresh=na_threshold)
     df.dropna()
     dtMap, dt_type = makeDatatypeMap(header_list, df)
     hasil_verdict = determine_protagonist(df, dtMap)
@@ -44,11 +44,11 @@ def link_data(df, protagonist,entity_column,mapping):
     header_list=list(df.columns)
     convertMap = {} 
     finalMap = {} 
-    print("Start processing Table") 
+    print("[LINKING] Start processing Table") 
     counter = 2 
     for header in header_list: 
         if(header in mapping): 
-            print("Processing {} Column".format(header)) 
+            print("[LINKING] Processing {} Column".format(header)) 
             columnList = [] 
             for cell in df[header]: 
                 if(dtMap[header_list.index(header)]): 
@@ -61,7 +61,7 @@ def link_data(df, protagonist,entity_column,mapping):
                         id = searchID(protagonist == header, str(cell), header) 
                         convertMap[temp] = id 
                 columnList.append(id) 
-            print("finished processing {} datas".format(len(columnList))) 
+            print("[LINKING] finished processing {} datas".format(len(columnList))) 
             if(header == protagonist): 
                 finalMap[header] = columnList 
             else: 
@@ -75,8 +75,9 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     df_qs = pd.DataFrame(df_map)
     df_qs = df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
 
-    threshold_qnpnew=(df_qs.shape[0]/3)
-    print(df_qs.iloc[0:1,:])
+    threshold_qnpnew=int(df_qs.shape[1]/df_qs.shape[0])+1
+
+    print("[PROC-{}--[Phase 3]]-- Generate QS -- threshold qnpnew {}".format(procId, str(threshold_qnpnew)))
 
     double_columns = identify_double_columns(df_qs)
     df_qs.rename({protagonist:'qid'}, axis=1, inplace=True)
@@ -89,29 +90,27 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
                df_qs.drop(columns=[col], inplace=True)
             else:
                 df_qs[col] = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
-    print(df_qs.iloc[0:1,:])
 
     #ngereplace QID(protagonist) yg sifat Qnew
     df_qs.replace(["QNew"],"",inplace=True)
     df_qs.columns=[c if c not in double_columns else double_columns[c] for c in df_qs.columns]
-    print(df_qs.iloc[0:1,:])
 
     #nambain label dari csv asli sama nambain quote untuk literal columns
     df_qs['Lid']=df_asli[protagonist]
 
-    print(df_qs.iloc[0:1,:])
     literal_columns = []
     for x in literal_columns_label:
         if x in var_settings.mapping_dict[procId]:
             literal_columns.append(var_settings.mapping_dict[procId][x])
      
-    print("LITERAL COLUMN : {}".format(literal_columns))
-    
+    print("[PROC-{}--[Phase 3]]-- Generate QS Literal Columns {}".format(procId, str(literal_columns)))
+
     df_final = format_qs_df(df_qs,literal_columns)
     valid_column = [x for x in list(df_final.columns) if len(x) >= 1 ]
     df_final = df_final[['qid'] + [c for c in list(set(valid_column)) if c != 'qid']]
     #mindain qid ke depan
-    print(df_final.columns)
+    print("[PROC-{}--[Phase 3]]-- Generate QS df_final Columns {}".format(procId, str(df_final.columns)))
+
     # df_final.to_csv('data/results/{}'.format("-debug"))
     return df_final
 

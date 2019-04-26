@@ -99,12 +99,9 @@ def makeDatatypeMap(header_list, df):
             pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\.")
             pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
             is_quantity = pattern_quantity.search(elem)
-#             print("Elem : {} , is_quantity : {}, is_date: {}".format(elem,bool(is_quantity),is_date(elem)))
-    #         print(list(df.loc[0, header_list]))
             if is_quantity:
                 is_float = pattern_float.match(elem)
                 is_kordinatLike = isCordinatLike(header_list[reference_row.index(elem)])
-                print( is_float)
                 if not is_float and is_date(elem):
                      dtColType="Time"
                 elif pattern_globe.match(elem):
@@ -135,7 +132,7 @@ def makeDatatypeMap(header_list, df):
                 dtColTypes[header_list[index]] = [dtColType]
             index=index+1
 
-    print(dtColTypes)
+    print("[DEBUG] DtColTypes ON MakeDtType \n == {}".format(dtColTypes))
     for key, value in dtColTypes.items():
         value_score = {}
         max_score = 0
@@ -228,7 +225,7 @@ def give_verdict_columntb(df_entity, ranking_diversity):
                 maxColumns[0] = col
                 maxOrderScore = columnOrderScore
             ranking[col] = ranking[col]+columnOrderScore
-    print(ranking_diversity)
+    print("[DEBUG] Ranking Diversity : {}".format(ranking_diversity))
     return maxColumns[0], maxValue, ranking
 
 #tie breaker on , if any, highest value that have multiplie instances ( So it could be , not the highest value , but highest value that has multiple instances)
@@ -248,7 +245,6 @@ def give_verdict_entropy(df_entity):
         for occ in counts:
             probs.append(occ/numbers_of_data)
         entropy = scipy.stats.entropy(probs)#base = e
-#         print(str(type(entropy))+ " " + str(maxEntropy))
         if entropy > maxEntropy:
             maxEntropy=entropy
             maxColumn=col
@@ -261,7 +257,6 @@ def determine_protagonist(df, dtMap):
     df_entity = df[entity_columns]
     ranking = check_protagonist(df_entity)
     hasil={}
-    print(dtMap)
     hasil['base'], score, info = give_verdict_base(df_entity, ranking)
     hasil['normalize-0.5:0.5'], score, info = give_verdict_normalized(df_entity, ranking)
     hasil['normalize-0.7:0.3'], score, info = give_verdict_normalized(df_entity, ranking, 0.7, 0.3)
@@ -287,7 +282,6 @@ def identify_literal_columns(df):
     for col in a.columns:
         isLiteral = False
         for index, row in a.iterrows():
-#             print("==========> " + row[[col]])
             pattern = re.compile("^Q([1-9]+)")#match the Q123123 pattern of entity name
             
             if pattern.match(str(row[col])):
@@ -297,7 +291,6 @@ def identify_literal_columns(df):
             else:
                 isLiteral = True
         if isLiteral and col != protagonist:
-#             print(col)
             literal_columns.append(col)
     return literal_columns
     
@@ -306,7 +299,7 @@ def identify_double_columns(df):
     columns = df.columns
     for col in columns:
         if "(" in col:
-            print(col + " " + col[:col.find("(")])
+            print("[DEBUG] Double Col "+col + " " + col[:col.find("(")])
             double_columns[col] = col[:col.find("(")]
     return double_columns
 
