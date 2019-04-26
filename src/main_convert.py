@@ -18,7 +18,8 @@ def preprocess_data(file_name):
         header_list.remove('no.')
         df.drop(columns=['no.'], inplace=True)
     
-    na_threshold=int(df.shape[1]/df.shape[0])+1
+    na_threshold=int(df.shape[0]/df.shape[1])+1
+    print("[DEBUG] NA THRESHOLD = {} ".format(na_threshold))
     df.dropna(axis='columns', thresh=na_threshold)
     df.dropna()
     dtMap, dt_type = makeDatatypeMap(header_list, df)
@@ -75,7 +76,7 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     df_qs = pd.DataFrame(df_map)
     df_qs = df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
 
-    threshold_qnpnew=int(df_qs.shape[1]/df_qs.shape[0])+1
+    threshold_qnpnew=int(df_qs.shape[0]/df_qs.shape[1])+1
 
     print("[PROC-{}--[Phase 3]]-- Generate QS -- threshold qnpnew {}".format(procId, str(threshold_qnpnew)))
 
