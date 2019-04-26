@@ -106,21 +106,7 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
             literal_columns.append(var_settings.mapping_dict[procId][x])
      
     print("LITERAL COLUMN : {}".format(literal_columns))
-
-    for col in df_qs.columns:
-        #drop any row that has unlinkable property
-        # df_qs = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
-        #COLOM NY ADA BANYAK
-        x = df_qs[col].value_counts(sort=False).to_dict()
-        if "QNPNew" in x:
-            if x["QNPNew"] > 5:
-                df_qs.drop(columns=[col], inplace=True)
-                if col in literal_columns:
-                    literal.columns.remove(col)
-                    print("DROPPED {}".format(col))
-            else:
-                df_qs[col] = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
-
+    
     df_final = format_qs_df(df_qs,literal_columns)
     valid_column = [x for x in list(df_final.columns) if len(x) >= 1 ]
     df_final = df_final[['qid'] + [c for c in list(set(valid_column)) if c != 'qid']]
@@ -136,9 +122,16 @@ def check_result_finished(nama_file):
     else:
         return False, None   
 
-def check_file_exist(nama_file):
+def check_file_name(nama_file):
+    fix_name=nama_file
+    idx = 2
     status = os.path.isfile('data/uncleaned/{}'.format(nama_file))
+    print("[PHASE-1] Checking old file with same name exist {}".format(str(status)))
     if status:
-        return True, pd.read_csv("data/results/{}".format(nama_file), encoding='latin-1')
+        while os.path.isfile('data/uncleaned/{}'.format(fix_name)):
+            fix_name= "{}-{}".format(str(idx),nama_file)
+            idx = idx + 1
+        print("[PHASE-1] Renaming File to {}".format(fix_name))
+        return fix_name
     else:
-        return False, None   
+        return fix_name
