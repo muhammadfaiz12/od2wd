@@ -107,7 +107,7 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
         x = df_qs[col].value_counts(sort=False).to_dict()
         if "QNPNew" in x:
             if x["QNPNew"] > 5:
-                df_qs.drop(columns=[col])
+                df_qs.drop(columns=[col], inplace=True)
                 if col in literal_columns:
                     literal.columns.remove(col)
                     print("DROPPED {}".format(col))
