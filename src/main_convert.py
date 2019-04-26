@@ -18,7 +18,7 @@ def preprocess_data(file_name):
         header_list.remove('no.')
         df.drop(columns=['no.'], inplace=True)
     
-    na_treshold=int(df.shape[1]/df.shape[0])+1
+    na_threshold=int(df.shape[1]/df.shape[0])+1
     df.dropna(axis='columns', thresh=na_threshold)
     df.dropna()
     dtMap, dt_type = makeDatatypeMap(header_list, df)
