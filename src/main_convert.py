@@ -73,9 +73,6 @@ def link_data(df, protagonist,entity_column,mapping):
     return finalMap
 def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     df_qs = pd.DataFrame(df_map)
-    print(df_map)
-    print(df_qs.iloc[0:1,:])
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAaa")
     df_qs = df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
 
     print(df_qs.iloc[0:1,:])
@@ -88,7 +85,7 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
         
         if "QNPNew" in x:
             if x["QNPNew"] > 5:
-               df_qs.drop(columns=[col])
+               df_qs.drop(columns=[col], inplace=True)
             else:
                 df_qs[col] = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
     print(df_qs.iloc[0:1,:])
