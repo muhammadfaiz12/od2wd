@@ -6,4 +6,4 @@ def init_global_var():
     protagonist_dict={}
     entityheader_dict={}
     mapping_dict={}
-    parent_link="http://localhost:5000"
+    parent_link="http://od2wd.id"

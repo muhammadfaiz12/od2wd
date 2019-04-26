@@ -23,7 +23,7 @@ def upload_file():
         filesave_name = 'data/uncleaned/'+secure_filename(f.filename)
         f.save(filesave_name)
         file_name = secure_filename(f.filename)
-        print('file uploaded successfully {}'.format(filesave_name))
+        print('[PHASE-1] file uploaded successfully {}'.format(filesave_name))
         res= load_data(file_name,'uncleaned')
         res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
         return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
@@ -34,9 +34,9 @@ def upload_file():
 def render_map(procId):
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
     mapping = map_data(df,dt_type,protagonist,header_list)
-    # protagonist = "nama sekolah"
-    # dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
-    # mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
+    #protagonist = "nama sekolah"
+    #dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
+    #mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
     var_settings.protagonist_dict[procId]=protagonist
     var_settings.entityheader_dict[procId]=dtMap
     var_settings.mapping_dict[procId]=mapping
@@ -58,7 +58,7 @@ def render_qs(procId):
     namaFile=procId
     print(namaFile)
     Thread(target=create_qs,args=(procId,)).start()
-    print("this will be printed immediately")
+    print("Thread Creation Succes")
     # df = load_data(namaFile,'processed')
     # literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     # df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
@@ -72,7 +72,7 @@ def create_qs(procId):
     print("anda di create_qs {}".format(procId))
     namaFile=procId
     df = load_data(namaFile,'processed')
-    print("mulai gan")
+    print("Process started for {}".format(procId))
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
@@ -85,7 +85,7 @@ def check_result(procId):
     namaFile=procId
     res_address='data/results/{}'.format(namaFile)
     namaFile=procId
-    result_finished, data_df = check_result_finished(namaFile)    
+    result_finished, data_df = check_result_finished(namaFile)
     if result_finished:
         data = data_df.to_html(max_rows=15,classes=['table','table-striped'])
         return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=True,parent_link=var_settings.parent_link)
