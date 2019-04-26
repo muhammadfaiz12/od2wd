@@ -6,7 +6,8 @@
 	{% if result_finished == True %}
     <h1>Check Result</h1>
 	    {{data | safe }}
-	    <a class = "btn btn-warning" href="{{parent_link}}/">Kembali Ke Menu Utama</a>
+	<p>* Suatu baris yang mempunyai nilai NaN di kolom qid adalah baris yang menjadi entity baru</p>
+		<a class = "btn btn-warning" href="{{parent_link}}/">Kembali Ke Menu Utama</a>
 	    <a class = "btn btn-primary" href="{{parent_link}}/download-result/{{procId}}">Unduh hasil CSV</a>
 	<!-- <a href= "{{address}}" download="result.csv">Download</a> -->
 	{% else %}
