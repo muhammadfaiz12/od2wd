@@ -62,9 +62,9 @@ def searchID(flag, cell, rowHead,limit=5):
     return id
 
 def isCordinatLike(col):
-    kordinatLike = ['koordinat','kordinat','latitude','longitude','latitude']
+    kordinatLike = ['koordinat','kordinat','latitude','longitude','latitude','bujur','lintang']
     for x in str(col).split(" "):
-        print("kata : {} , Kata in KordinatLike {}".format(x,x in kordinatLike))
+        print("[DEBUG-KordinatLike] kata : {} , Kata in KordinatLike {}".format(x,x in kordinatLike))
         if x in kordinatLike:
             return True
     
@@ -311,10 +311,10 @@ def identify_double_columns(df):
     return double_columns
 
 def format_qs_df(df_qs, literal_columns):
-    print("START checking property range")
+    print("[QS FORMATTING] Checking property range")
     for liter_col in list(set(literal_columns)):
         if liter_col in df_qs.columns:
-            print("checking for {}".format(liter_col))
+            print("[QS FORMATTING] checking for {}".format(liter_col))
             range_type = check_wb_type(liter_col)
             print(range_type)
             if range_type == 'String':
@@ -323,14 +323,13 @@ def format_qs_df(df_qs, literal_columns):
                 df_qs[liter_col]="id:\"" + df_qs[liter_col] + "\""
             elif range_type == 'GlobeCoordinate':
                 temp = df_qs[liter_col]
-                print(temp.shape)
                 if len(temp.shape) > 1 and temp.shape[1] > 1:
                     col1 = temp.iloc[:,0]
                     col2 = temp.iloc[:,1]
                     temp_col = "@"+col1.apply(str) + "/"+col2.apply(str)
                     df_qs.drop(columns=[liter_col], inplace=True)
                     df_qs[liter_col]=temp_col
-                elif len(temp.shape) > 1 and temp.shape[1] == 1:
+                elif len(temp.shape) == 1 or (len(temp.shape) > 1 and temp.shape[1] == 1) :
                     temp = ["@"+x.replace(",","/").replace(" ","") for x in temp]
                     df_qs[liter_col]=temp
     print("END checking property range")
