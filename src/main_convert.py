@@ -83,6 +83,7 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     double_columns = identify_double_columns(df_qs)
     df_qs.rename({protagonist:'qid'}, axis=1, inplace=True)
     for col in df_qs.columns:
+        print("[PROC-{}--[Phase 3]]-- Generate QS dropping unlikable in {}".format(procId,col))
         #drop any row that has unlinkable property
         x = df_qs[col].value_counts(sort=False).to_dict()
         
@@ -90,7 +91,8 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
             if x["QNPNew"] > threshold_qnpnew:
                df_qs.drop(columns=[col], inplace=True)
             else:
-                df_qs[col] = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
+                clean_df = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
+                df_qs=clean_df
 
     #ngereplace QID(protagonist) yg sifat Qnew
     df_qs.replace(["QNew"],"",inplace=True)
