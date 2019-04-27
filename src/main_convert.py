@@ -20,8 +20,8 @@ def preprocess_data(file_name):
     
     na_threshold=int(df.shape[0]/df.shape[1])+1
     print("[DEBUG] NA THRESHOLD = {} ".format(na_threshold))
-    df.dropna(axis='columns', thresh=na_threshold)
-    df.dropna()
+    df.dropna(axis='columns', thresh=na_threshold, inplace=True)
+    df.dropna(axis = 'rows', inplace=True)
     dtMap, dt_type = makeDatatypeMap(header_list, df)
     hasil_verdict = determine_protagonist(df, dtMap)
     protagonist = hasil_verdict['base-columntb']

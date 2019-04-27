@@ -82,10 +82,16 @@ def makeDatatypeIndex(df, entityColumn):
     return dtMap
 
 def makeDatatypeMap(header_list, df):
-    reference_row0 = [str(x) for x in list(df.loc[0, header_list])]
-    reference_row1 = [str(x) for x in list(df.loc[1, header_list])]
-    reference_row2 = [str(x) for x in list(df.loc[2, header_list])]
+    num_of_row = df.shape[0]
+    rr0=0
+    rr1=int(num_of_row/2)
+    rr2=num_of_row-1
+    reference_row0 = [str(x) for x in list(df.loc[rr0, header_list])]
+    reference_row1 = [str(x) for x in list(df.loc[rr1, header_list])]
+    reference_row2 = [str(x) for x in list(df.loc[rr2, header_list])]
     ref_rows=[reference_row0,reference_row1,reference_row2]
+    print("[DEBUG] dttyemap rr indx : {}-{}-{}".format(rr0,rr1,rr2))
+    print(list(df.loc[rr1, header_list]))
     dtMap = []
     dtColTypes = {}
     for reference_row in ref_rows:
@@ -98,7 +104,7 @@ def makeDatatypeMap(header_list, df):
     #         pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
             pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\.")
             pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
-            is_quantity = pattern_quantity.search(elem)
+            is_quantity = pattern_quantity.match(elem)
             if is_quantity:
                 is_float = pattern_float.match(elem)
                 is_kordinatLike = isCordinatLike(header_list[reference_row.index(elem)])
@@ -115,9 +121,9 @@ def makeDatatypeMap(header_list, df):
                     except ValueError:
                         dtColType="String"
             else:
-                is_literal_string = bool(pattern_literal.match(elem))
+                is_literal_string = bool(pattern_literal.search(elem))
                 is_url_string = bool(pattern_literal.match(elem))
-
+                print("[DEBUG] is_literal {} == {}".format(elem,is_literal_string))
                 if is_url_string:
                     dtColType="URL"
                 elif is_literal_string:
@@ -170,7 +176,11 @@ def check_protagonist(df):
     for col in df.columns:
         entities = set()
         for index, row in df.iterrows():
-            entities.add(str(row[col].values[0]))
+            if isinstance(row[col],str):
+                entities.add(str(row[col]))
+                print("[DEBUG] protagonist, row[col] string : {}".format(row[col]))
+            else:
+                entities.add(str(row[col].values[0]))
         ranking[col] = len(entities)
     return ranking
 

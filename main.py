@@ -21,8 +21,8 @@ def upload_file():
            flash('No selected file')
            return redirect(request.url)
         fix_name = check_file_name(f.filename)
-
-        filesave_name = 'data/uncleaned/'+secure_filename(fix_name)
+        fix_name = secure_filename(fix_name)
+        filesave_name = 'data/uncleaned/'+ fix_name
         f.save(filesave_name)
         file_name = fix_name
         print('[PHASE-1] file uploaded successfully {}'.format(filesave_name))
