@@ -22,6 +22,7 @@ def preprocess_data(file_name):
     print("[DEBUG] NA THRESHOLD = {} ".format(na_threshold))
     df.dropna(axis='columns', thresh=na_threshold, inplace=True)
     df.dropna(axis = 'rows', inplace=True)
+    df.index = range(df.shape[0])
     dtMap, dt_type = makeDatatypeMap(header_list, df)
     hasil_verdict = determine_protagonist(df, dtMap)
     protagonist = hasil_verdict['base-columntb']
@@ -93,6 +94,7 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
             else:
                 clean_df = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
                 df_qs=clean_df
+                df_qs.index=range(df_qs.shape[0])
 
     #ngereplace QID(protagonist) yg sifat Qnew
     df_qs.replace(["QNew"],"",inplace=True)
