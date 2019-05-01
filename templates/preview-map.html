@@ -25,10 +25,10 @@
             {% endfor %}
            </tr>
            <tr>
-             <th>Padanan Properti</th>
+             <th>Property Match</th>
              {% for key, value in mapping.items() %}
               {% if value == "Padanan Tidak Ditemukan" %}
-              <td style="color:white;background-color: red"> {{ value }} </td>
+              <td style="color:white;background-color: red"> Match Not Found </td>
               {% else %}
               <td> {{ value }} </td>
               {% endif %}
@@ -41,7 +41,7 @@
             {% endfor %}
            </tr>
      </table>
-     <p> *Kolom yang tidak mempunyai padanan tidak akan dimasukan dalam proses selanjutnya</p> 
+     <p> *Column that does not have a property match , would not be included in further conversion steps</p> 
     <a class='btn btn-warning' href="{{parent_link}}/createQS/{{procId}}">Buat Quickstatement Dari Dokumen Ini</a>
     </div>
 </div>
