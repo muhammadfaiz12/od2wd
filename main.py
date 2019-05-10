@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, flash, redirect, url_for, jso
 from werkzeug import secure_filename
 from src.main_convert import *
 from src.utils import load_data
+from src.main_utils import *
 from var_settings import *
 from threading import Thread
 
@@ -11,7 +12,8 @@ var_settings.init_global_var()
 
 @app.route('/')
 def index():
-    return render_template('hello.html')
+    catalogue = get_catalogue()
+    return render_template('hello.html', file_catalogue=catalogue)
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
@@ -45,7 +47,7 @@ def render_map(procId):
     var_settings.mapping_dict[procId]=mapping
     print("[PROC-{}--[Phase 2]]-- Mapping Info , Protagonist : {} , mapping_dict : {}".format(procId, protagonist, str(mapping)))
 
-    #beautify mapping dict
+    #beautify mapping dict to be sent to FE 
     mapping_beautified = dict(mapping)
     mapping_beautified[protagonist]="Kolom Protagonis"
     for key,value in mapping_beautified.items():
@@ -54,7 +56,7 @@ def render_map(procId):
     sample_info = []
     for x in mapping:
         sample_info.append(str(df[x].iloc[0]))
-
+    save_mapping_result(df, procId, mapping_beautified)
     return render_template('preview-map.html', mapping = mapping_beautified, sample_info = sample_info, procId=procId,parent_link=var_settings.parent_link)
 
 @app.route('/createQS/<procId>', methods = ['GET', 'POST'])
@@ -70,6 +72,7 @@ def create_qs(procId):
     df = load_data(namaFile,'processed')
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
+    save_linking_result(df_mapping, procId)
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
     res_address='data/results/{}'.format(namaFile)
     print("[PROC-{}--[Phase 3]]-- Saving to {}".format(procId, res_address))

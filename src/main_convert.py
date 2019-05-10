@@ -118,24 +118,3 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
 
     # df_final.to_csv('data/results/{}'.format("-debug"))
     return df_final
-
-def check_result_finished(nama_file):
-    status = os.path.isfile('data/results/{}'.format(nama_file))
-    if status:
-        return True, pd.read_csv("data/results/{}".format(nama_file), encoding='latin-1')
-    else:
-        return False, None   
-
-def check_file_name(nama_file):
-    fix_name=nama_file
-    idx = 2
-    status = os.path.isfile('data/uncleaned/{}'.format(nama_file))
-    print("[PHASE-1] Checking old file with same name exist {}".format(str(status)))
-    if status:
-        while os.path.isfile('data/uncleaned/{}'.format(fix_name)):
-            fix_name= "{}-{}".format(str(idx),nama_file)
-            idx = idx + 1
-        print("[PHASE-1] Renaming File to {}".format(fix_name))
-        return fix_name
-    else:
-        return fix_name
