@@ -1,0 +1,64 @@
+<link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
+{% extends "layout.html" %}
+{% block body %}
+<body style="background:#F6F8FA">
+	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
+    <h1>Job Detail</h1>
+    <h2>Name : {procId}</h2>
+    <div class="container" style="padding-bottom: 20px">
+     <table class="table table-bordered" >
+           <tr>
+            <th>Job's Phase</th>
+              <td> Raw Data </td>
+              <td> Cleaned Data </td>
+              <td> Property Mapping </td>
+              <td> Entity Lnking </td>
+              <td> Quickstatement File </td>
+           </tr>
+           <tr>
+             <th>Status</th>
+             {% for status_finished in job_status %}
+              {% if status_finished %}
+              <td style="background-color: green"> Finished </td>
+              {% else %}
+              <td style="color:black">Has Not Finished</td>
+              {% endif %}
+            {% endfor %}
+           </tr>
+           <tr>
+            <th>Download</th>
+              {% if job_status[0] %}
+              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/uncleaned">Download</a></td>
+              {% else %}
+              <td style="color:black">Has Not Finished</td>
+              {% endif %}
+              {% if job_status[1] %}
+              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/processed">Download</a></td>
+              {% else %}
+              <td style="color:black">Has Not Finished</td>
+              {% endif %}
+              {% if job_status[2] %}
+              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/mapped">Download</a></td>
+              {% else %}
+              <td style="color:black">Has Not Finished</td>
+              {% endif %}
+              {% if job_status[3] %}
+              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/linked">Download</a></td>
+              {% else %}
+              <td style="color:black">Has Not Finished</td>
+              {% endif %}
+
+              {% if job_status[4] %}
+              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/results">Download</a></td>
+              {% else %}
+              <td style="color:black">Has Not Finished</td>
+              {% endif %}
+           </tr>
+     </table>
+     <p> *Column that does not have a property match , would not be included in further conversion steps</p> 
+     <p> ** Press the "Create Quickstatement From This Document" Button below to continue</p> 
+    <a class='btn btn-warning' href="{{parent_link}}/createQS/{{procId}}">Create Quickstatement From This Document</a>
+    </div>
+</div>
+</body>
+{% endblock %}

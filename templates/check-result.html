@@ -6,13 +6,17 @@
 	{% if result_finished == True %}
     <h1>Check Result</h1>
 	    {{data | safe }}
-	    <a class = "btn btn-warning" href="{{parent_link}}/">Kembali Ke Menu Utama</a>
-	    <a class = "btn btn-primary" href="{{parent_link}}/download-result/{{procId}}">Unduh hasil CSV</a>
+	<!-- <p>* Suatu baris yang mempunyai nilai NaN di kolom qid adalah baris yang menjadi entity baru</p> -->
+	<p>* A row that has NaN as it's qid column value, is a row that would create new entity</p>
+		<a class = "btn btn-warning" href="{{parent_link}}/">Main Menu</a>
+	    <a class = "btn btn-primary" href="{{parent_link}}/download-result/{{procId}}">Download CSV Result</a>
 	<!-- <a href= "{{address}}" download="result.csv">Download</a> -->
 	{% else %}
-	<h1>Dokumen ini Sedang Di Proses</h1>
-	<p> Dokumen masih dalam proses konversi , harap muat ulang (reload) halaman ini atau tekan tombol di bawah dalam beberapa saat</p>
-	<a class = "btn btn-warning" href="{{parent_link}}/check-result/{{procId}}">Muat Ulang Halaman</a>
+<!-- 	<h1>Dokumen ini Sedang Di Proses</h1>
+	<p> Dokumen masih dalam proses konversi , harap muat ulang (reload) halaman ini atau tekan tombol di bawah dalam beberapa saat</p> -->
+	<h1>Document is still being processed</h1>
+	<p> Document is still being processed, please reload this page or press the button below in a few minutes</p>
+	<a class = "btn btn-warning" href="{{parent_link}}/check-result/{{procId}}">Reload Page</a>
 	{% endif %}
 	</div>
 </body>
