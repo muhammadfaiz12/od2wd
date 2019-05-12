@@ -19,8 +19,8 @@ def preprocess_data(file_name):
         df.drop(columns=['no.'])
     
     treshold=5
-    df.dropna(axis='columns', thresh=5)
-    df.dropna()
+    df.dropna(axis='columns', thresh=5, inplace=True)
+    df.dropna(inplace=True)
     dtMap, dt_type = makeDatatypeMap(header_list, df)
     hasil_verdict = determine_protagonist(df, dtMap)
     protagonist = hasil_verdict['base-columntb']

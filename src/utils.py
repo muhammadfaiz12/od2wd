@@ -82,15 +82,23 @@ def makeDatatypeIndex(df, entityColumn):
     return dtMap
 
 def makeDatatypeMap(header_list, df):
-    reference_row0 = [str(x) for x in list(df.loc[0, header_list])]
-    reference_row1 = [str(x) for x in list(df.loc[1, header_list])]
-    reference_row2 = [str(x) for x in list(df.loc[2, header_list])]
+    num_of_row = df.shape[0]
+    rr0=0
+    rr1=int(num_of_row/2)
+    rr2=num_of_row-1
+    reference_row0 = [str(x) for x in list(df.loc[rr0, header_list])]
+    reference_row1 = [str(x) for x in list(df.loc[rr1, header_list])]
+    reference_row2 = [str(x) for x in list(df.loc[rr2, header_list])]
     ref_rows=[reference_row0,reference_row1,reference_row2]
+    print("dttyemap {}-{}-{}".format(rr0,rr1,rr2))
+    print(list(df.loc[rr1, header_list]))
     dtMap = []
     dtColTypes = {}
     for reference_row in ref_rows:
         index = 0
+        print("+====================== {} ==========".format(reference_row))
         for elem in reference_row:
+            print("+?????????====================== {} ==========".format(elem))
             dtColType=""
             pattern_quantity = re.compile("[-+.,()0-9]+")
             pattern_float = re.compile("[0-9\.-]+")
@@ -98,7 +106,7 @@ def makeDatatypeMap(header_list, df):
     #         pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
             pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\.")
             pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
-            is_quantity = pattern_quantity.search(elem)
+            is_quantity = pattern_quantity.match(elem)
 #             print("Elem : {} , is_quantity : {}, is_date: {}".format(elem,bool(is_quantity),is_date(elem)))
     #         print(list(df.loc[0, header_list]))
             if is_quantity:
@@ -121,6 +129,7 @@ def makeDatatypeMap(header_list, df):
                 is_literal_string = bool(pattern_literal.match(elem))
                 is_url_string = bool(pattern_literal.match(elem))
 
+                print('is_literal {} == {}'.format(elem, is_literal_string))
                 if is_url_string:
                     dtColType="URL"
                 elif is_literal_string:
@@ -173,6 +182,8 @@ def check_protagonist(df):
     for col in df.columns:
         entities = set()
         for index, row in df.iterrows():
+            if isinstance(row[col],str):
+                print("[DEBUG] protagonist, row[col] string : {}".format(row[col]))
             entities.add(str(row[col]))
         ranking[col] = len(entities)
     return ranking
@@ -330,7 +341,7 @@ def format_qs_df(df_qs, literal_columns):
                     temp_col = "@"+col1.apply(str) + "/"+col2.apply(str)
                     df_qs.drop(columns=[liter_col], inplace=True)
                     df_qs[liter_col]=temp_col
-                elif len(temp.shape) > 1 and temp.shape[1] == 1:
+                elif len(temp.shape) == 1 or ((len(temp.shape) > 1) and temp.shape[1] == 1):
                     temp = ["@"+x.replace(",","/").replace(" ","") for x in temp]
                     df_qs[liter_col]=temp
     print("END checking property range")
