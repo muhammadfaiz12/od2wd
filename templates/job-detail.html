@@ -4,7 +4,7 @@
 <body style="background:#F6F8FA">
 	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
     <h1>Job Detail</h1>
-    <h2>Name : {procId}</h2>
+    <h2>Job Name : {{procId}}</h2>
     <div class="container" style="padding-bottom: 20px">
      <table class="table table-bordered" >
            <tr>
@@ -55,9 +55,31 @@
               {% endif %}
            </tr>
      </table>
-     <p> *Column that does not have a property match , would not be included in further conversion steps</p> 
-     <p> ** Press the "Create Quickstatement From This Document" Button below to continue</p> 
-    <a class='btn btn-warning' href="{{parent_link}}/createQS/{{procId}}">Create Quickstatement From This Document</a>
+  </div>
+</div>
+  {% if job_status[2] %}
+  <div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
+      <div class="container" style="padding-bottom: 20px">
+      <h1>Mapping Preview</h1>
+      <table class="table table-bordered" >
+           <tr>
+            <th>Column Name</th>
+            {% for key, value in mapping.items() %}
+              <td> {{ key }} </td>
+            {% endfor %}
+           </tr>
+           <tr>
+             <th>Property Match</th>
+             {% for key, value in mapping.items() %}
+              {% if value == "Padanan Tidak Ditemukan" %}
+              <td style="color:white;background-color: red"> Match Not Found </td>
+              {% else %}
+              <td> {{ value }} </td>
+              {% endif %}
+            {% endfor %}
+           </tr>
+     </table>
+     {% endif %}
     </div>
 </div>
 </body>
