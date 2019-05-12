@@ -20,8 +20,13 @@ def upload_file():
         if f.filename == '':
            flash('No selected file')
            return redirect(request.url)
+<<<<<<< HEAD
         fix_name = check_file_name(f.filename)
         fix_name = secure_filename(fix_name)
+=======
+        fix_name = check_file_name(secure_filename(f.filename))
+        # fix_name = secure_filename(fix_name)
+>>>>>>> b2d0826bcbdc296d8c3e1234886e67882d7e43de
         filesave_name = 'data/uncleaned/'+ fix_name
         f.save(filesave_name)
         file_name = fix_name
