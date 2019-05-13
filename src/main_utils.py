@@ -1,5 +1,5 @@
 import os
-import pandas
+import pandas as pd
 
 def get_catalogue():
     listOfFile = os.listdir('data/uncleaned/')
