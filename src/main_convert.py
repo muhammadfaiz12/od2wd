@@ -20,7 +20,7 @@ def preprocess_data(file_name):
     
     na_threshold=int(df.shape[0]/df.shape[1])+1
     print("[DEBUG] NA THRESHOLD = {} ".format(na_threshold))
-    df.dropna(axis='columns', thresh=na_threshold, inplace=True)
+    df.dropna(axis='columns', thresh=df.shape[0]-na_threshold, inplace=True)
     df.dropna(axis = 'rows', inplace=True)
     df.index = range(df.shape[0])
     dtMap, dt_type = makeDatatypeMap(header_list, df)

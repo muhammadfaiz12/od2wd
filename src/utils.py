@@ -90,13 +90,19 @@ def makeDatatypeMap(header_list, df):
     reference_row1 = [str(x) for x in list(df.loc[rr1, header_list])]
     reference_row2 = [str(x) for x in list(df.loc[rr2, header_list])]
     ref_rows=[reference_row0,reference_row1,reference_row2]
+<<<<<<< HEAD
+    print("dttyemap {}-{}-{}".format(rr0,rr1,rr2))
+=======
     print("[DEBUG] dttyemap rr indx : {}-{}-{}".format(rr0,rr1,rr2))
+>>>>>>> b2d0826bcbdc296d8c3e1234886e67882d7e43de
     print(list(df.loc[rr1, header_list]))
     dtMap = []
     dtColTypes = {}
     for reference_row in ref_rows:
         index = 0
+        print("+====================== {} ==========".format(reference_row))
         for elem in reference_row:
+            print("+?????????====================== {} ==========".format(elem))
             dtColType=""
             pattern_quantity = re.compile("[-+.,()0-9]+")
             pattern_float = re.compile("[0-9\.-]+")
@@ -105,6 +111,11 @@ def makeDatatypeMap(header_list, df):
             pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\.")
             pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
             is_quantity = pattern_quantity.match(elem)
+<<<<<<< HEAD
+#             print("Elem : {} , is_quantity : {}, is_date: {}".format(elem,bool(is_quantity),is_date(elem)))
+    #         print(list(df.loc[0, header_list]))
+=======
+>>>>>>> b2d0826bcbdc296d8c3e1234886e67882d7e43de
             if is_quantity:
                 is_float = pattern_float.match(elem)
                 is_kordinatLike = isCordinatLike(header_list[reference_row.index(elem)])
@@ -123,7 +134,12 @@ def makeDatatypeMap(header_list, df):
             else:
                 is_literal_string = bool(pattern_literal.search(elem))
                 is_url_string = bool(pattern_literal.match(elem))
+<<<<<<< HEAD
+
+                print('is_literal {} == {}'.format(elem, is_literal_string))
+=======
                 print("[DEBUG] is_literal {} == {}".format(elem,is_literal_string))
+>>>>>>> b2d0826bcbdc296d8c3e1234886e67882d7e43de
                 if is_url_string:
                     dtColType="URL"
                 elif is_literal_string:
@@ -177,10 +193,15 @@ def check_protagonist(df):
         entities = set()
         for index, row in df.iterrows():
             if isinstance(row[col],str):
+<<<<<<< HEAD
+                print("[DEBUG] protagonist, row[col] string : {}".format(row[col]))
+            entities.add(str(row[col]))
+=======
                 entities.add(str(row[col]))
                 print("[DEBUG] protagonist, row[col] string : {}".format(row[col]))
             else:
                 entities.add(str(row[col].values[0]))
+>>>>>>> b2d0826bcbdc296d8c3e1234886e67882d7e43de
         ranking[col] = len(entities)
     return ranking
 

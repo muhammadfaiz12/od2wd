@@ -5,21 +5,9 @@
 	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
     <h1>Mapping Preview</h1>
     <div class="container" style="padding-bottom: 20px">
-    <!-- <table class="table" >
-            <tr>
-              <th>Nama Kolom</th>
-              <td>Property Padanan</td>
-            </tr>
-        {% for key, value in mapping.items() %}
-           <tr>
-              <th> {{ key }} </th>
-              <td> {{ value }} </td>
-           </tr>
-        {% endfor %}
-     </table> -->
      <table class="table table-bordered" >
            <tr>
-            <th>Nama Kolom</th>
+            <th>Column Name</th>
             {% for key, value in mapping.items() %}
               <td> {{ key }} </td>
             {% endfor %}
@@ -42,7 +30,8 @@
            </tr>
      </table>
      <p> *Column that does not have a property match , would not be included in further conversion steps</p> 
-    <a class='btn btn-warning' href="{{parent_link}}/createQS/{{procId}}">Buat Quickstatement Dari Dokumen Ini</a>
+     <p> ** Press the "Create Quickstatement From This Document" Button below to continue</p> 
+    <a class='btn btn-warning' href="{{parent_link}}/createQS/{{procId}}">Create Quickstatement From This Document</a>
     </div>
 </div>
 </body>

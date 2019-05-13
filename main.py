@@ -22,8 +22,13 @@ def upload_file():
         if f.filename == '':
            flash('No selected file')
            return redirect(request.url)
+<<<<<<< HEAD
+        fix_name = check_file_name(f.filename)
+        fix_name = secure_filename(fix_name)
+=======
         fix_name = check_file_name(secure_filename(f.filename))
         # fix_name = secure_filename(fix_name)
+>>>>>>> b2d0826bcbdc296d8c3e1234886e67882d7e43de
         filesave_name = 'data/uncleaned/'+ fix_name
         f.save(filesave_name)
         file_name = fix_name
@@ -49,7 +54,7 @@ def render_map(procId):
 
     #beautify mapping dict to be sent to FE 
     mapping_beautified = dict(mapping)
-    mapping_beautified[protagonist]="Kolom Protagonis"
+    mapping_beautified[protagonist]="Protagonist Column"
     for key,value in mapping_beautified.items():
         if len(value) < 1:
             mapping_beautified[key]="Padanan Tidak Ditemukan"
@@ -95,6 +100,16 @@ def check_result(procId):
 @app.route('/download-result/<procId>', methods=['GET', 'POST'])
 def download(procId):
     directory='data/results/'
+    filename=procId
+    return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
+
+@app.route('/job-detail/<procId>')
+def job_detail(procId):
+    return render_template('job-detail.html', procId=procId, job_status=[True, True, False, False, False], mapping={"alamat":"P131","nama":"protagonist column"})
+
+@app.route('/download-detail/<procId>/<phase>', methods=['GET', 'POST'])
+def download_detail(procId, phase):
+    directory='data/<phase>/'
     filename=procId
     return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
 
