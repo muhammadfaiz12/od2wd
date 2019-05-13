@@ -19,7 +19,7 @@
              <th>Status</th>
              {% for status_finished in job_status %}
               {% if status_finished %}
-              <td style="background-color: green"> Finished </td>
+              <td style="background-color: rgb(58, 250, 58)"> Finished </td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
@@ -28,28 +28,28 @@
            <tr>
             <th>Download</th>
               {% if job_status[0] %}
-              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/uncleaned">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/uncleaned">Download</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[1] %}
-              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/processed">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/processed">Download</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[2] %}
-              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/mapped">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/mapped">Download</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[3] %}
-              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/linked">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/linked">Download</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
 
               {% if job_status[4] %}
-              <td><a class='btn' href="{{parent_link}}/download-detail/{{procId}}/results">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/results">Download</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
