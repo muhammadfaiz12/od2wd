@@ -38,7 +38,7 @@ def upload_file():
 def render_map(procId):
     print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
-    mapping = map_data(df,dt_type,protagonist,header_list)
+    mapping, label = map_data(df,dt_type,protagonist,header_list)
     # protagonist = "nama sekolah"
     # dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
     # mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
@@ -53,9 +53,13 @@ def render_map(procId):
     for key,value in mapping_beautified.items():
         if len(value) < 1:
             mapping_beautified[key]="Padanan Tidak Ditemukan"
+        else :
+            if key in label:
+                mapping_beautified[key]="{}-{}".format(mapping_beautified[key], label[key])
     sample_info = []
     for x in mapping:
         sample_info.append(str(df[x].iloc[0]))
+    var_settings.mappingbeautified_dict[procId]=mapping_beautified
     save_mapping_result(df, procId, mapping_beautified)
     return render_template('preview-map.html', mapping = mapping_beautified, sample_info = sample_info, procId=procId,parent_link=var_settings.parent_link)
 
@@ -102,13 +106,15 @@ def download(procId):
 def job_detail(procId):
     job_status = get_job_status(procId)
     mapping = {}
-    if procId in var_settings.mapping_dict:
-        mapping = var_settings.mapping_dict[procId]
+    if procId in var_settings.mappingbeautified_dict:
+        mapping = var_settings.mappingbeautified_dict[procId]
+    elif job_status[2] :
+        mapping = get_label_from_map_file(procId)
     return render_template('job-detail.html', procId=procId, job_status=job_status, mapping=mapping)
 
 @app.route('/download-detail/<procId>/<phase>', methods=['GET', 'POST'])
 def download_detail(procId, phase):
-    directory='data/<phase>/'
+    directory='data/{}/'.format(phase)
     filename=procId
     return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
 

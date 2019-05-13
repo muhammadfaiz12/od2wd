@@ -39,7 +39,7 @@ def map_data(df,dt_type,protagonist,header_list):
     mapping, mappingLabel = mpRankWTypeSim(header_list, types_list)
     mapping[protagonist]=protagonist
     header_list.append(protagonist)
-    return mapping
+    return mapping, mappingLabel
 
 def link_data(df, protagonist,entity_column,mapping):
     dtMap = makeDatatypeIndex(df,entity_column)

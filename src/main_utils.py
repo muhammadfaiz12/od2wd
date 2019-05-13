@@ -34,11 +34,11 @@ def save_mapping_result(df, procId, mapping):
         except KeyError:
             mapped_columns.append("padanan tidak ditemukan")
     df.columns = mapped_columns
-    df.to_csv("data/mapped/{}".format(procId))
+    df.to_csv("data/mapped/{}".format(procId), index=False)
     return
 
 def save_linking_result(df, procId):
-    df.to_csv("data/linked/{}".format(procId))
+    df.to_csv("data/linked/{}".format(procId), index=False)
     return
 
 def get_job_status(procId):
@@ -48,3 +48,15 @@ def get_job_status(procId):
         status = os.path.isfile('data/{}/{}'.format(state, procId))
         result.append(status)
     return result
+
+def get_label_from_map_file(procId):
+    try:
+        df = pd.read_csv("data/mapped/{}".format(procId), encoding='latin-1')
+        result = {}
+        for col in df.columns:
+            temp =  str(col).split('-')
+            result[temp[0]]=temp[1]
+        return result
+    except:
+        result = {}
+        return result
