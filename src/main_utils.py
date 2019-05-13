@@ -40,3 +40,11 @@ def save_mapping_result(df, procId, mapping):
 def save_linking_result(df, procId):
     df.to_csv("data/linked/{}".format(procId))
     return
+
+def get_job_status(procId):
+    result = []
+    states = ['uncleaned', 'processed', 'mapped', 'linked', 'results']
+    for state in states:
+        status = os.path.isfile('data/{}/{}'.format(state, procId))
+        result.append(status)
+    return result

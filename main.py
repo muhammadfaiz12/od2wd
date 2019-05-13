@@ -22,13 +22,8 @@ def upload_file():
         if f.filename == '':
            flash('No selected file')
            return redirect(request.url)
-<<<<<<< HEAD
         fix_name = check_file_name(f.filename)
         fix_name = secure_filename(fix_name)
-=======
-        fix_name = check_file_name(secure_filename(f.filename))
-        # fix_name = secure_filename(fix_name)
->>>>>>> b2d0826bcbdc296d8c3e1234886e67882d7e43de
         filesave_name = 'data/uncleaned/'+ fix_name
         f.save(filesave_name)
         file_name = fix_name
@@ -105,7 +100,11 @@ def download(procId):
 
 @app.route('/job-detail/<procId>')
 def job_detail(procId):
-    return render_template('job-detail.html', procId=procId, job_status=[True, True, False, False, False], mapping={"alamat":"P131","nama":"protagonist column"})
+    job_status = get_job_status(procId)
+    mapping = {}
+    if procId in var_settings.mapping_dict:
+        mapping = var_settings.mapping_dict[procId]
+    return render_template('job-detail.html', procId=procId, job_status=job_status, mapping=mapping)
 
 @app.route('/download-detail/<procId>/<phase>', methods=['GET', 'POST'])
 def download_detail(procId, phase):
