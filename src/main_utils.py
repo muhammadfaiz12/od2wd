@@ -31,7 +31,7 @@ def save_mapping_result(df, procId, mapping):
     for col in df.columns:
         try:
             mapped_columns.append(mapping[col])
-        except KeyError e:
+        except KeyError:
             mapped_columns.append("padanan tidak ditemukan")
     df.columns = mapped_columns
     df.to_csv("data/mapped/{}".format(procId))

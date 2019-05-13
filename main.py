@@ -72,7 +72,7 @@ def create_qs(procId):
     df = load_data(namaFile,'processed')
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
-    save_linking_result(df_mapping, procId)
+    save_linking_result(pd.DataFrame(df_mapping), procId)
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
     res_address='data/results/{}'.format(namaFile)
     print("[PROC-{}--[Phase 3]]-- Saving to {}".format(procId, res_address))
