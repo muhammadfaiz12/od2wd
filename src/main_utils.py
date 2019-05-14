@@ -1,9 +1,36 @@
 import os
+import platform
 import pandas as pd
+from datetime import datetime
 
 def get_catalogue():
     listOfFile = os.listdir('data/uncleaned/')
-    return listOfFile
+    date_map = {}
+    res = []
+    res_time = []
+    time = None
+    for f in listOfFile:
+        path_to_file='data/uncleaned/'+f
+        if platform.system() == 'Windows':
+            time = os.path.getctime(path_to_file)
+        else:
+            stat = os.stat(path_to_file)
+            try:
+                time = stat.st_birthtime
+            except AttributeError:
+                # Linux Probably 
+                time = stat.st_mtime
+        time = datetime.fromtimestamp(time).strftime('%Y-%m-%d %H:%M:%S')
+        res_time.append(time)
+        if time in date_map:
+            date_map[time] = date_map[time].append(f)
+        else:
+            date_map[time] = [f]
+    res_time = sorted(res_time, reverse=True)
+    for time in res_time:
+        for f in date_map[time]:
+            res.append(f)
+    return res, res_time
 
 def check_file_name(nama_file):
     fix_name=nama_file

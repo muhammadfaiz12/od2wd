@@ -12,8 +12,8 @@ var_settings.init_global_var()
 
 @app.route('/')
 def index():
-    catalogue = get_catalogue()
-    return render_template('hello.html', file_catalogue=catalogue)
+    catalogue, catalogue_time = get_catalogue()
+    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time))
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
