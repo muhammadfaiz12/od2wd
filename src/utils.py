@@ -106,11 +106,13 @@ def makeDatatypeMap(header_list, df):
     #         pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
             pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\.")
             pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
+            pattern_time = re.compile("^([0-2][0-9]|(3)[0-1])([\/,-])(((0)[0-9])|((1)[0-2]))([\/,-])\d{4}$")
             is_quantity = pattern_quantity.match(elem)
             if is_quantity:
                 is_float = pattern_float.match(elem)
+                is_time = pattern_time.match(elem)
                 is_kordinatLike = isCordinatLike(header_list[reference_row.index(elem)])
-                if not is_float and is_date(elem):
+                if is_time:
                      dtColType="Time"
                 elif pattern_globe.match(elem):
                      dtColType="GlobeCoordinate"
@@ -192,7 +194,7 @@ def give_verdict_base(df_entity, ranking_diversity):
     maxColumn = ""
     for key, value in ranking_diversity.items():
         score = value + len(df_entity.columns)-list(df_entity.columns).index(key)
-        if maxValue <= score:
+        if maxValue < score:
             maxValue = score
             maxColumn = key
         ranking[key] = score
@@ -207,7 +209,7 @@ def give_verdict_normalized(df_entity, ranking_diversity, weightDiverse=0.5, wei
         diverseScore = value/df_length
         columnOrderScore = 1 - (list(df_entity.columns).index(key)/len(df_entity.columns))
         score = (weightDiverse * diverseScore) + (weightColumnOrder * columnOrderScore)
-        if maxValue <= score:
+        if maxValue < score:
             maxValue = score
             maxColumn = key
         ranking[key] = score
