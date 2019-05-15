@@ -14,9 +14,10 @@ def preprocess_data(file_name):
     df = pd.read_csv("data/uncleaned/{}".format(file_name), encoding='latin-1')
     header_list = [x.replace("_"," ").lower() for x in list(df.columns)]
     df.columns=header_list
-    if 'no.' in header_list:
-        header_list.remove('no.')
-        df.drop(columns=['no.'], inplace=True)
+    no_col = ['no.', 'no', 'nomor', 'nomer']
+    if header_list[0] in no_col:
+        header_list.remove(header_list[0])
+        df.drop(columns=df.columns[0], inplace=True)
     
     na_threshold=int(df.shape[0]/df.shape[1])+1
     print("[DEBUG] NA THRESHOLD = {} ".format(na_threshold))
