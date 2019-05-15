@@ -155,7 +155,9 @@ def makeDatatypeMap(header_list, df):
             if value_score[x] > max_score:
                 max_score = value_score[x]
                 max_dt = x
-        dtColTypes[key]=max_dt     
+        dtColTypes[key]=max_dt
+        if max_dt == 'WikibaseItem':
+            dtMap.append(key)     
     return dtMap, dtColTypes
 
 
