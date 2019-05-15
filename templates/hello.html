@@ -43,11 +43,11 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
           <th>Job Name</th>
           <th>Upload Date</th>
         </tr>
-        {% for file, time in file_catalogue %}
+        {% for job, time in file_catalogue %}
         <tr>
-          <th>{{file}}</th>
+          <th>{{job}}</th>
           <th> {{time}}</th>
-          <th> <a class = "btn btn-primary" href="{{parent_link}}/job-detail/{{item}}">See Job Detail</a></th>
+          <th> <a class = "btn btn-primary" href="{{parent_link}}/job-detail/{{job}}">See Job Detail</a></th>
         </tr>
         {% endfor %}
   </div>
