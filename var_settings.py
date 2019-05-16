@@ -8,4 +8,4 @@ def init_global_var():
     entityheader_dict={}
     mapping_dict={}
     mappingbeautified_dict={}
-    parent_link="http://od2wd.id"
+    parent_link="http://localhost:5000"
