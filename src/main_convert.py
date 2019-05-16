@@ -34,10 +34,11 @@ def preprocess_data(file_name):
 def map_data(df,dt_type,protagonist,header_list):
     dt_type.pop(protagonist)
     header_list.remove(protagonist)
-    types_list = []
-    for head in header_list:
-        types_list.append(dt_type[head])
-    mapping, mappingLabel = mpRankWTypeSim(header_list, types_list)
+    # types_list = []
+    # for head in header_list:
+    #     types_list.append(dt_type[head])
+    # mapping, mappingLabel = mpRankWTypeSim(header_list, types_list)
+    mapping, mappingLabel = map_property_api(header_list, dt_type, parentApiURL=var_settings.parent_api_link)
     mapping[protagonist]=protagonist
     header_list.append(protagonist)
     return mapping, mappingLabel

@@ -6,7 +6,7 @@ from dateutil.parser import parse
 import operator
 import re
 import numpy as np
-import sys, os
+import sys, os, requests, json
 import scipy.stats 
 from dateutil.parser import parse
 import var_settings
@@ -343,3 +343,34 @@ def format_qs_df(df_qs, literal_columns):
                     df_qs[liter_col]=temp
     print("END checking property range")
     return df_qs
+
+def map_property_api(columns, dttype, parentApiURL="http://od2wd.id/api/"):
+    properties = []
+    parent_api_link=parentApiURL
+    for col in columns:
+        obj = {}
+        obj['item'] = col
+        obj['item_range'] = dttype[col]
+        obj['limit'] = 5
+        properties.append(obj)
+    payload = {}
+    payload['properties']=properties
+    # payload = json.dumps(payload)
+    print(payload)
+    print("[PHASE-2], Calling Url for Property Mapping")
+    url = "{}/main/property".format(parent_api_link)
+    response = requests.post(url, json=payload)
+    
+    json_data = json.loads(response.text)
+    result = {}
+    result_label = {}
+    print(json_data)
+    for obj in json_data['results']:
+        if len(obj['map_to']) > 0:
+            result[str(obj['item'])] = obj['map_to'][0]['id']
+            result_label[str(obj['item'])] = obj['map_to'][0]['label']
+        else:
+            result[str(obj['item'])] = ''
+            result_label[str(obj['item'])] = ''
+    return result, result_label
+

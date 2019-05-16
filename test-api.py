@@ -1,9 +1,9 @@
 import json
 import requests
 
-def test_api(columns, dttype):
+def test_api(columns, dttype, parentApiUrl="http://od2wd.id/api/"):
     properties = []
-    parent_api_link="http://od2wd.id/api/"
+    parent_api_link=parentApiUrl
     for col in columns:
         obj = {}
         obj['item'] = col
