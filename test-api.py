@@ -3,7 +3,7 @@ import requests
 
 def test_api(columns, dttype):
     properties = []
-    parent_api_link="http://od2wd.id/api/"
+    parent_api_link="http://localhost:8080"
     for col in columns:
         obj = {}
         obj['item'] = col
