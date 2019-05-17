@@ -1,9 +1,9 @@
 import json
 import requests
 
-def test_api(columns, dttype):
+def test_api(columns, dttype, parentApiUrl="http://od2wd.id/api/"):
     properties = []
-    parent_api_link="http://localhost:8080"
+    parent_api_link=parentApiUrl
     for col in columns:
         obj = {}
         obj['item'] = col
@@ -37,4 +37,4 @@ dt_col={'alamat':'String', 'kelurahan':'WikibaseItem', 'alamat sekolah':'Wikibas
 a, b = test_api(column, dt_col)
 print(a)
 print(b)
-    
+
