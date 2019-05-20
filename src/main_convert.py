@@ -32,6 +32,7 @@ def preprocess_data(file_name):
 
 
 def map_data(df,dt_type,protagonist,header_list):
+    p_map, p_label, p_desc = map_protagonist_api(protagonist, parentApiURL=var_settings.parent_api_link)
     dt_type.pop(protagonist)
     header_list.remove(protagonist)
     # types_list = []
@@ -39,7 +40,8 @@ def map_data(df,dt_type,protagonist,header_list):
     #     types_list.append(dt_type[head])
     # mapping, mappingLabel = mpRankWTypeSim(header_list, types_list)
     mapping, mappingLabel = map_property_api(header_list, dt_type, parentApiURL=var_settings.parent_api_link)
-    mapping[protagonist]=protagonist
+    mapping[protagonist]= p_map
+    mappingLabel[protagonist] = "{}-{}".format(p_label, p_desc)
     header_list.append(protagonist)
     return mapping, mappingLabel
 

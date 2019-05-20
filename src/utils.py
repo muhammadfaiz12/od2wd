@@ -374,3 +374,23 @@ def map_property_api(columns, dttype, parentApiURL="http://od2wd.id/api/"):
             result_label[str(obj['item'])] = ''
     return result, result_label
 
+def map_protagonist_api(protagonist, parentApiURL="http://od2wd.id/api/"):
+    url="{}/main/protagonist".format(parentApiURL)
+    payload = {}
+    payload['item'] = protagonist
+    payload['limit'] = 10
+    response = requests.post(url, json=payload)
+    print(response.text)
+     
+    json_data = json.loads(response.text)
+    # for obj in json_data['results']:
+    result = ''
+    result_label = 'Padanan Tidak Ditemukan'
+    result_description = ''
+    if len(json_data['results']) > 0:
+        result = json_data['results'][0]['id']
+        result_label = json_data['results'][0]['label']
+        result_description = json_data['results'][0]['description']
+
+    return result, result_label, result_description
+
