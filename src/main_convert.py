@@ -32,14 +32,12 @@ def preprocess_data(file_name):
 
 
 def map_data(df,dt_type,protagonist,header_list):
+    p_map, p_label, p_desc = map_protagonist_api(protagonist, parentApiURL=var_settings.parent_api_link)
     dt_type.pop(protagonist)
     header_list.remove(protagonist)
-    # types_list = []
-    # for head in header_list:
-    #     types_list.append(dt_type[head])
-    # mapping, mappingLabel = mpRankWTypeSim(header_list, types_list)
     mapping, mappingLabel = map_property_api(header_list, dt_type, parentApiURL=var_settings.parent_api_link)
-    mapping[protagonist]=protagonist
+    mapping[protagonist]= p_map
+    mappingLabel[protagonist] = "{}-{}".format(p_label, p_desc)
     header_list.append(protagonist)
     return mapping, mappingLabel
 
@@ -75,6 +73,7 @@ def link_data(df, protagonist,entity_column,mapping):
                 else: 
                     finalMap[mapping[header]] = columnList 
     return finalMap
+    
 def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     df_qs = pd.DataFrame(df_map)
     df_qs = df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
@@ -97,6 +96,11 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
                 clean_df = df_qs[~df_qs[col].astype(str).str.contains("QNPNew")]
                 df_qs=clean_df
                 df_qs.index=range(df_qs.shape[0])
+    
+    #Nambahin relasi instanceOF (p31)
+    df_qs, instanceOf_flag = qs_add_instance_of(df_qs, procId, protagonist)
+    print("[PROC-{}--[Phase 3]]-- Generate QS P31 Columns {}".format(procId, str(instanceOf_flag)))
+
 
     #ngereplace QID(protagonist) yg sifat Qnew
     df_qs.replace(["QNew"],"",inplace=True)

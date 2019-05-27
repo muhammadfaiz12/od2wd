@@ -102,7 +102,7 @@ def makeDatatypeMap(header_list, df):
             dtColType=""
             pattern_quantity = re.compile("[-+.,()0-9]+")
             pattern_float = re.compile("[0-9\.-]+")
-            pattern_globe = re.compile("^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$")
+            pattern_globe = re.compile("^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$")
     #         pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
             pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\.")
             pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
@@ -328,6 +328,8 @@ def format_qs_df(df_qs, literal_columns):
             print(range_type)
             if range_type == 'String':
                 df_qs[liter_col]="\"\"\"\"" + df_qs[liter_col] + "\""
+            elif range_type == 'Time':
+                df_qs[liter_col]="+" + df_qs[liter_col] + "T00:00:00Z/9"
             elif range_type == 'Monolingualtext':
                 df_qs[liter_col]="id:\"" + df_qs[liter_col] + "\""
             elif range_type == 'GlobeCoordinate':
@@ -374,3 +376,32 @@ def map_property_api(columns, dttype, parentApiURL="http://od2wd.id/api/"):
             result_label[str(obj['item'])] = ''
     return result, result_label
 
+def map_protagonist_api(protagonist, parentApiURL="http://od2wd.id/api/"):
+    url="{}/main/protagonist".format(parentApiURL)
+    payload = {}
+    payload['item'] = protagonist
+    payload['limit'] = 10
+    response = requests.post(url, json=payload)
+    print(response.text)
+     
+    json_data = json.loads(response.text)
+    # for obj in json_data['results']:
+    result = ''
+    result_label = 'Padanan Tidak Ditemukan'
+    result_description = ''
+    if len(json_data['results']) > 0:
+        result = json_data['results'][0]['id']
+        result_label = json_data['results'][0]['label']
+        result_description = json_data['results'][0]['description']
+
+    return result, result_label, result_description
+
+def qs_add_instance_of(df, procId, protagonist):
+    mapping = var_settings.mapping_dict[procId]
+    if protagonist not in mapping:
+        return df, False
+    protagonistMapping = mapping[protagonist]
+    pMapExist = len(protagonistMapping) > 1 
+    if pMapExist:
+        df['P31']=protagonistMapping
+    return df, pMapExist

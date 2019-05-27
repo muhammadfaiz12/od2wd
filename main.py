@@ -50,12 +50,13 @@ def render_map(procId):
 
     #beautify mapping dict to be sent to FE 
     mapping_beautified = dict(mapping)
-    mapping_beautified[protagonist]="Protagonist Column"
     for key,value in mapping_beautified.items():
         if len(value) < 1:
             mapping_beautified[key]="Padanan Tidak Ditemukan"
         else :
-            if key in label:
+            if key == protagonist:
+                mapping_beautified[key]="[Protagonist]-{}-{}".format(mapping_beautified[key], label[key])
+            elif key in label:
                 mapping_beautified[key]="{}-{}".format(mapping_beautified[key], label[key])
     sample_info = []
     for x in mapping:
