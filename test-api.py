@@ -34,7 +34,7 @@ def test_api(columns, dttype, parentApiUrl="http://od2wd.id/api/"):
 
 column=['alamat', 'kelurahan', 'alamat sekolah']
 dt_col={'alamat':'String', 'kelurahan':'WikibaseItem', 'alamat sekolah':'WikibaseItem'}
-a, b = test_api(column, dt_col)
+a, b = test_api(column, dt_col, parentApiUrl="http://localhost:8080/")
 print(a)
 print(b)
 
