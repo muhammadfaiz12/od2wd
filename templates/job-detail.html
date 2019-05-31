@@ -12,7 +12,7 @@
               <td> Raw Data </td>
               <td> Cleaned Data </td>
               <td> Property Mapping </td>
-              <td> Entity Lnking </td>
+              <td> Entity Linking </td>
               <td> Quickstatement File </td>
            </tr>
            <tr>
@@ -28,22 +28,22 @@
            <tr>
             <th>Download</th>
               {% if job_status[0] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/uncleaned">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/uncleaned">Download RAW Data</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[1] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/processed">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/processed">Download Cleaned Data</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[2] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/mapped">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/mapped">Download Mapping Info</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[3] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/linked">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/linked">Download Linked Info</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
