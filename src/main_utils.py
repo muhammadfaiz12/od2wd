@@ -57,7 +57,7 @@ def save_mapping_result(df, procId, mapping):
     mapped_columns = []
     for col in df.columns:
         try:
-            mapped_columns.append(mapping[col])
+            mapped_columns.append("{}-{}".format(str(col),mapping[col]))
         except KeyError:
             mapped_columns.append("padanan tidak ditemukan")
     df.columns = mapped_columns
@@ -82,7 +82,10 @@ def get_label_from_map_file(procId):
         result = {}
         for col in df.columns:
             temp =  str(col).split('-')
-            result[temp[0]]=temp[1]
+            label=''
+            for x in range(1,len(temp)):
+                label+="-"+str(temp[x])
+            result[temp[0]]=label[1:]
         return result
     except:
         result = {}

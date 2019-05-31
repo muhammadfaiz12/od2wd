@@ -381,7 +381,7 @@ def map_protagonist_api(protagonist, parentApiURL="http://od2wd.id/api/"):
     payload = {}
     payload['item'] = protagonist
     payload['limit'] = 10
-    response = requests.post(url, json=payload)
+    response = requests.get(url, params=payload)
     print(response.text)
      
     json_data = json.loads(response.text)
