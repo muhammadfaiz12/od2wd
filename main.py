@@ -40,9 +40,6 @@ def render_map(procId):
     print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
     mapping, label = map_data(df,dt_type,protagonist,header_list)
-    # protagonist = "nama sekolah"
-    # dtMap = ['nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan', 'nama sekolah', 'kelurahan', 'kecamatan', 'kondisi lingkungan']
-    # mapping = {'alamat': 'P6375', 'kelurahan': 'P131', 'kecamatan': 'P131', 'jumlah siswa': 'P2196', 'jumlah guru': 'P1128', 'telp sekolah': '', 'kondisi lingkungan': 'P1196', 'lokasi geografis': 'P625', 'nama sekolah': 'nama sekolah'}
     var_settings.protagonist_dict[procId]=protagonist
     var_settings.entityheader_dict[procId]=dtMap
     var_settings.mapping_dict[procId]=mapping
@@ -93,8 +90,9 @@ def check_result(procId):
     result_finished, data_df = check_result_finished(namaFile)
     print("[PROC-{}--[Phase 4]]-- Checking Result {}".format(procId, res_address))
     if result_finished:
+        publish_url = get_publish_qs_url(procId)
         data = data_df.to_html(max_rows=15,classes=['table','table-striped'])
-        return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=True,parent_link=var_settings.parent_link)
+        return render_template('check-result.html', data=data, procId=procId, publish_url=publish_url, address=res_address,result_finished=True,parent_link=var_settings.parent_link)
     else:
         return render_template('check-result.html', data=data, procId=procId, address=res_address,result_finished=False,parent_link=var_settings.parent_link)
 
@@ -106,19 +104,49 @@ def download(procId):
 
 @app.route('/job-detail/<procId>')
 def job_detail(procId):
+    publish_url = ''
     job_status = get_job_status(procId)
     mapping = {}
     if procId in var_settings.mappingbeautified_dict:
         mapping = var_settings.mappingbeautified_dict[procId]
     elif job_status[2] :
         mapping = get_label_from_map_file(procId)
-    return render_template('job-detail.html', procId=procId, job_status=job_status, mapping=mapping)
+    if job_status[4]:
+        publish_url = get_publish_qs_url(procId)
+    return render_template('job-detail.html', procId=procId, job_status=job_status, publish_url=publish_url, mapping=mapping)
 
 @app.route('/download-detail/<procId>/<phase>', methods=['GET', 'POST'])
 def download_detail(procId, phase):
     directory='data/{}/'.format(phase)
     filename=procId
     return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
+
+@app.route('/background-run/<procId>', methods = ['POST'])
+def background_run(procId):
+    print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
+    df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
+    mapping, label = map_data(df,dt_type,protagonist,header_list)
+    var_settings.protagonist_dict[procId]=protagonist
+    var_settings.entityheader_dict[procId]=dtMap
+    var_settings.mapping_dict[procId]=mapping
+    print("[PROC-{}--[Phase 2]]-- Mapping Info , Protagonist : {} , mapping_dict : {}".format(procId, protagonist, str(mapping)))
+
+    #beautify mapping dict to be sent to FE 
+    mapping_beautified = dict(mapping)
+    for key,value in mapping_beautified.items():
+        if len(value) < 1:
+            mapping_beautified[key]="Padanan Tidak Ditemukan"
+        else :
+            if key == protagonist:
+                mapping_beautified[key]="[Protagonist]-{}-{}".format(mapping_beautified[key], label[key])
+            elif key in label:
+                mapping_beautified[key]="{}-{}".format(mapping_beautified[key], label[key])
+    sample_info = []
+    for x in mapping:
+        sample_info.append(str(df[x].iloc[0]))
+    var_settings.mappingbeautified_dict[procId]=mapping_beautified
+    save_mapping_result(df, procId, mapping_beautified)
+    render_qs(procId)
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'

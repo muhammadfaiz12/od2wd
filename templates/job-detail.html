@@ -49,8 +49,10 @@
               {% endif %}
 
               {% if job_status[4] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/results">Download</a></td>
+              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/results">Download QS</a></td>
+              <td><a class = "btn btn-primary" href="{{publish_url}}">Execute QS</a></td>
               {% else %}
+              <td style="color:black">Has Not Finished</td>
               <td style="color:black">Has Not Finished</td>
               {% endif %}
            </tr>
