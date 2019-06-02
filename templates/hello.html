@@ -19,15 +19,23 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 <div class="container" style="margin-bottom: 15px">
 <div class="jumbotron" style="background: white ;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
   <div class="container">
-  <h5 >Convert Data Now</h5>
-  <p class="lead">Upload a csv file to be converted</p>
+  <h3>Convert Data Now</h3>
+  <p class="lead">Upload a csv file to be converted or Input the dataset link on open data sites</p>
   <hr class="my-4">
-  <p>Upload Your Data</p>
+  <h5>Upload Your Data</h5>
+  <p> Upload Open Data CSV File Manually </p>
   <form action = "{{parent_link}}/uploader" method = "POST" 
         enctype = "multipart/form-data">
         <div class="row col-md-12"><input type = "file" name = "file" /></div><br>
         <div class="row col-md-12"><input class="btn btn-primary" type = "submit"/></div>
      </form>
+  <hr class="my-4">
+  <h5>Input The Dataset Link</h5>
+  <p>Input the dataset link from open data sites</p>
+  <form action = "#" method="POST" enctype = "multipart/form-data">
+    <div class="row col-md-12"><input name="text"></div><br>
+    <div class="row col-md-12"><input class="btn btn-primary" type = "submit"/></div>
+</form>
 	  <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
 	</div>
 </div>
