@@ -2,7 +2,7 @@
 {% extends "layout.html" %}
 {% block body %}
 <body style="background:#F6F8FA">
-	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
+	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px;padding-bottom: 20px">
 	{% if result_finished == True %}
     <h1>Check Result</h1>
 	    {{data | safe }}
