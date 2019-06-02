@@ -326,8 +326,8 @@ def format_qs_df(df_qs, literal_columns):
             print("[QS FORMATTING] checking for {}".format(liter_col))
             range_type = check_wb_type(liter_col)
             print(range_type)
-            if range_type == 'String':
-                df_qs[liter_col]="\"\"\"\"" + df_qs[liter_col] + "\""
+            if range_type == 'String' or range_type =='ExternalId' :
+                df_qs[liter_col]="\"" + df_qs[liter_col] + "\""
             elif range_type == 'Time':
                 df_qs[liter_col]="+" + df_qs[liter_col] + "T00:00:00Z/9"
             elif range_type == 'Monolingualtext':
@@ -381,7 +381,7 @@ def map_protagonist_api(protagonist, parentApiURL="http://od2wd.id/api/"):
     payload = {}
     payload['item'] = protagonist
     payload['limit'] = 10
-    response = requests.post(url, json=payload)
+    response = requests.get(url, params=payload)
     print(response.text)
      
     json_data = json.loads(response.text)

@@ -57,7 +57,7 @@ def save_mapping_result(df, procId, mapping):
     mapped_columns = []
     for col in df.columns:
         try:
-            mapped_columns.append(mapping[col])
+            mapped_columns.append("{}-{}".format(str(col),mapping[col]))
         except KeyError:
             mapped_columns.append("padanan tidak ditemukan")
     df.columns = mapped_columns
@@ -82,8 +82,35 @@ def get_label_from_map_file(procId):
         result = {}
         for col in df.columns:
             temp =  str(col).split('-')
-            result[temp[0]]=temp[1]
+            label=''
+            for x in range(1,len(temp)):
+                label+="-"+str(temp[x])
+            result[temp[0]]=label[1:]
         return result
     except:
         result = {}
         return result
+
+def get_publish_qs_url(procId):
+    filename="data/results/{}".format(procId)
+    csv = ''
+    with open(filename) as f:
+        csv = f.read()
+    csv=csv.replace('\n',"%0A")
+    csv=csv.replace('\"',"%22")
+    csv=csv.replace(' ', "%20")
+
+    url="https://tools.wmflabs.org/quickstatements/api.php"
+    payload = {}
+    payload['action'] = 'import'
+    payload['format'] = 'csv'
+    payload['submit'] = 1
+    payload['openpage'] = 1
+    payload['temporary'] = 1
+    payload['data'] = csv
+    payload['username'] = 'od2wd'
+    payload['token'] = "%242y%2410%24rI5bLyGIWFKgFGeISauRHOeS1S7un5iwlqBDfcWmKHp9LEGqcUKTG"
+    payload_str = "&".join("{}={}".format(k,v) for k,v in payload.items())
+    final_url="{}?{}".format(url,payload_str)
+    print("[Phase-6-{}] Getting publication link :\n {} \n".format(procId,final_url))
+    return final_url
