@@ -121,7 +121,7 @@ def download_detail(procId, phase):
     filename=procId
     return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
 
-@app.route('/background-run/<procId>', methods = ['POST'])
+@app.route('/background-run/<procId>', methods = ['GET','POST'])
 def background_run(procId):
     print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
