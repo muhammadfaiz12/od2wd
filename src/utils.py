@@ -133,7 +133,6 @@ def makeDatatypeMap(header_list, df):
                 elif is_literal_string:
                     dtColType="String"
                 else :
-                    dtMap.append(header_list[reference_row.index(elem)])
                     dtColType="WikibaseItem"
 
             if header_list[index] in dtColTypes:
@@ -157,7 +156,7 @@ def makeDatatypeMap(header_list, df):
                 max_dt = x
         dtColTypes[key]=max_dt
         if max_dt == 'WikibaseItem':
-            dtMap.append(key)     
+            dtMap.append(key)
     return dtMap, dtColTypes
 
 
