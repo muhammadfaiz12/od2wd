@@ -48,8 +48,8 @@ def link_data(df, protagonist,entity_column,mapping):
     finalMap = {} 
     print("[LINKING] Start processing Table") 
     counter = 2 
-    for header in header_list: 
-        if(header in mapping): 
+    for header in header_list:
+        if(header in mapping):
             print("[LINKING] Processing {} Column".format(header)) 
             columnList = [] 
             for cell in df[header]: 

@@ -156,7 +156,7 @@ def makeDatatypeMap(header_list, df):
                 max_dt = x
         dtColTypes[key]=max_dt
         if max_dt == 'WikibaseItem':
-            dtMap.append(key)     
+            dtMap.append(key)
     return dtMap, dtColTypes
 
 

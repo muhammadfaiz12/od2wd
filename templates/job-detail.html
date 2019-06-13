@@ -1,12 +1,27 @@
 <link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 {% extends "layout.html" %}
 {% block body %}
 <body style="background:#F6F8FA">
-	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
-    <h1>Job Detail</h1>
-    <h2>Job Name : {{procId}}</h2>
-    <div class="container" style="padding-bottom: 20px">
-     <table class="table table-bordered" >
+<div class="warper" style="padding: 24px">
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-md-12" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); padding:24px; border-radius: 8px">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Job Detail</h2>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h5 style="opacity: 0.6"><strong>Job Name :</strong> {{procId}}</h5>
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered" >
            <tr>
             <th>Job's Phase</th>
               <td> Raw Data </td>
@@ -19,7 +34,7 @@
              <th>Status</th>
              {% for status_finished in job_status %}
               {% if status_finished %}
-              <td style="background-color: rgb(58, 250, 58)"> Finished </td>
+              <td style="color: #32CD32; font-weight: bold"> Finished </td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
@@ -28,40 +43,46 @@
            <tr>
             <th>Download</th>
               {% if job_status[0] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/uncleaned">Download RAW Data</a></td>
+              <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/uncleaned"><i class="fa fa-download"></i> &nbsp; RAW Data</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[1] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/processed">Download Cleaned Data</a></td>
+              <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/processed"><i class="fa fa-download"></i> &nbsp; Cleaned Data</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[2] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/mapped">Download Mapping Info</a></td>
+              <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/mapped"><i class="fa fa-download"></i> &nbsp; Mapping Info</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[3] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/linked">Download Linking Info</a></td>
+              <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/linked"><i class="fa fa-download"></i> &nbsp; Linking Info</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
 
               {% if job_status[4] %}
-              <td><a class='btn btn-primary' href="{{parent_link}}/download-detail/{{procId}}/results">Download QS</a></td>
+              <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/results"><i class="fa fa-download"></i> &nbsp; QS</a></td>
               <td><a class = "btn btn-primary" href="{{publish_url}}">Execute QS</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
            </tr>
-     </table>
+        </table>   
+      </div>
+    </div>
+     
+
   </div>
-</div>
-  {% if job_status[2] %}
-  <div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
-      <div class="container" style="padding-bottom: 20px">
-      <h1>Mapping Preview</h1>
+ </div>
+ <br>
+   {% if job_status[2] %}
+  <div class="row" >
+  <div class="col-md-12" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); padding:24px; border-radius: 8px">
+      <h2>Mapping Preview</h2>
+      <hr>
       <table class="table table-bordered" >
            <tr>
             <th>Column Name</th>
@@ -73,7 +94,7 @@
              <th>Property Match</th>
              {% for key, value in mapping.items() %}
               {% if value == "Padanan Tidak Ditemukan" %}
-              <td style="color:white;background-color: red"> Match Not Found </td>
+              <td style="color: red"><strong>Match Not Found</strong> </td>
               {% else %}
               <td> {{ value }} </td>
               {% endif %}
@@ -81,7 +102,9 @@
            </tr>
      </table>
      {% endif %}
-    </div>
+</div>
+</div>
+</div>
 </div>
 </body>
 {% endblock %}
