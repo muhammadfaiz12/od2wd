@@ -35,6 +35,15 @@ def upload_file():
     else:
         return redirect(url_for('index'))
 
+@app.route('/url-upload', methods = ['GET', 'POST'])
+def integrated_file():
+    url = request.form['url']
+    file_name = fetch_csv_from_link(url.lower())
+
+    res= load_data(file_name,'uncleaned')
+    res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
+    return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
+
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
     print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
