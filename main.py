@@ -38,8 +38,11 @@ def upload_file():
 @app.route('/url-upload', methods = ['GET', 'POST'])
 def integrated_file():
     url = request.form['url']
-    file_name = fetch_csv_from_link(url.lower())
-
+    try:
+        file_name = fetch_csv_from_link(url.lower())
+    except Exception as e:
+        flash("Error occured, please ensure you insert the correct URL and try again")
+        return redirect(url_for('index'))
     res= load_data(file_name,'uncleaned')
     res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
     return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
