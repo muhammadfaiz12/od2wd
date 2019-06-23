@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, flash, redirect, url_for, jsonify, send_from_directory, send_file
+from flask_paginate import Pagination, get_page_args
 from werkzeug import secure_filename
 from src.main_convert import *
 from src.utils import load_data
@@ -13,8 +14,13 @@ var_settings.init_global_var()
 @app.route('/')
 def index():
     catalogue, catalogue_time = get_catalogue()
-    print(catalogue)
-    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time))
+    page, per_page, offset = get_page_args()
+    ori_catalogue_len = len(catalogue)
+    catalogue = split_paginate(catalogue, offset=offset, per_page=per_page)
+    catalogue_time = split_paginate(catalogue_time, offset=offset, per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=ori_catalogue_len,
+                            css_framework='bootstrap4')
+    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination)
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():

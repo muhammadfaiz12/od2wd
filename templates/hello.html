@@ -38,6 +38,8 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
       <h5 >Data Catalogue</h5>
       <p class="lead">Files that have been uploaded to OD2WD System</p>
       <hr class="my-4">
+      {{ pagination.info }}
+      {{ pagination.links }}
       <table class="table table-bordered">
         <tr>
           <th>Job Name</th>
@@ -45,11 +47,13 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
         </tr>
         {% for job, time in file_catalogue %}
         <tr>
-          <th>{{job}}</th>
-          <th> {{time}}</th>
-          <th> <a class = "btn btn-primary" href="{{parent_link}}/job-detail/{{job}}">See Job Detail</a></th>
+          <td>{{job}}</td>
+          <td> {{time}}</td>
+          <td> <a class = "btn btn-primary" href="{{parent_link}}/job-detail/{{job}}">See Job Detail</a></td>
         </tr>
         {% endfor %}
+      </table>
+      {{pagination.links}}
   </div>
 </div>
 </body>
