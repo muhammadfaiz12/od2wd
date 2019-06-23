@@ -9,6 +9,7 @@ from threading import Thread
 
 
 app = Flask(__name__)
+app.secret_key="super secret key"
 var_settings.init_global_var()
 
 @app.route('/')
@@ -40,6 +41,18 @@ def upload_file():
         return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
     else:
         return redirect(url_for('index'))
+
+@app.route('/url-upload', methods = ['GET', 'POST'])
+def integrated_file():
+    url = request.form['url']
+    try:
+        file_name = fetch_csv_from_link(url.lower())
+    except Exception as e:
+        flash("Error occured, please ensure you insert the correct URL and try again")
+        return redirect(url_for('index'))
+    res= load_data(file_name,'uncleaned')
+    res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
+    return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
 
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
@@ -155,5 +168,4 @@ def background_run(procId):
     return render_qs(procId)
 
 if __name__ == '__main__':
-    app.secret_key = 'super secret key'
     app.run(debug = True)

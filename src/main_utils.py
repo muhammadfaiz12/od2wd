@@ -1,5 +1,6 @@
 import os
 import platform
+import requests, json, wget
 import pandas as pd
 from datetime import datetime
 
@@ -117,3 +118,26 @@ def get_publish_qs_url(procId):
     final_url="{}?{}".format(url,payload_str)
     print("[Phase-6-{}] Getting publication link :\n {} \n".format(procId,final_url))
     return final_url
+
+def fetch_csv_from_link(url):
+    startIdx=url.index("data.")
+    fileName = url[startIdx:]
+
+    #check origin
+    origin = ""
+    location = fileName[5:fileName.index(".go.id")]
+    if location in ['jakarta', 'bandung']:
+        origin = location
+    else:
+        origin = ''
+    
+    queryName = fileName[len(fileName)-fileName[::-1].find('/'):]
+    base_url = "http://data.{}.go.id/api/3/action/package_search".format(origin)
+    params = {}
+    params['q']=queryName
+    response = requests.get(url=base_url, params=params)
+    json_data = json.loads(response.text)
+    fetch_link = json_data['result']['results'][0]['resources'][0]['url']
+    file_name=check_file_name('{}.csv'.format(queryName))
+    wget.download(fetch_link, 'data/uncleaned/{}'.format(file_name))
+    return file_name
