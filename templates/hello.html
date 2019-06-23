@@ -38,8 +38,6 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
       <h5 >Data Catalogue</h5>
       <p class="lead">Files that have been uploaded to OD2WD System</p>
       <hr class="my-4">
-      {{ pagination.info }}
-      {{ pagination.links }}
       <table class="table table-bordered">
         <tr>
           <th>Job Name</th>
@@ -53,6 +51,7 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
         </tr>
         {% endfor %}
       </table>
+      {{ pagination.info }}
       {{pagination.links}}
   </div>
 </div>
