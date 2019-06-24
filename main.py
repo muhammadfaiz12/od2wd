@@ -52,7 +52,7 @@ def integrated_file():
         return redirect(url_for('index'))
     res= load_data(file_name,'uncleaned')
     res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
-    return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
+    return background_run(file_name)
 
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
@@ -140,8 +140,7 @@ def download_detail(procId, phase):
     filename=procId
     return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
 
-@app.route('/background-run/<procId>', methods = ['GET', 'POST'])
-def background_run(procId):
+def background_run_thread(procId):
     print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
     mapping, label = map_data(df,dt_type,protagonist,header_list)
@@ -165,7 +164,13 @@ def background_run(procId):
         sample_info.append(str(df[x].iloc[0]))
     var_settings.mappingbeautified_dict[procId]=mapping_beautified
     save_mapping_result(df, procId, mapping_beautified)
-    return render_qs(procId)
+    create_qs(procId)
+
+@app.route('/background-run/<procId>', methods = ['GET', 'POST'])
+def background_run(procId):
+    Thread(target=background_run_thread,args=(procId,)).start()
+    print("[PROC-{}--[Phase 3]]--Thread Creation Success".format(procId))
+    return redirect(url_for('job_detail',procId = procId))
 
 if __name__ == '__main__':
     app.run(debug = True)
