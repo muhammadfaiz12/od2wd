@@ -1,4 +1,6 @@
 <link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 {% extends "layout.html" %}
 {% block body %}
 <body style="background:#F6F8FA">
@@ -34,22 +36,42 @@ background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 	  <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
 	</div>
 </div>
-  <div class="jumbotron" style="background: white ;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+  <div class="jumbotron catalogue-div" style="background: white ;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
       <h5 >Data Catalogue</h5>
       <p class="lead">Files that have been uploaded to OD2WD System</p>
       <hr class="my-4">
-      <table class="table table-bordered">
+      {{ pagination.info }}
+      <table class="table table-bordered catalogue-table">
         <tr>
           <th>Job Name</th>
           <th>Upload Date</th>
         </tr>
         {% for job, time in file_catalogue %}
         <tr>
-          <th>{{job}}</th>
-          <th> {{time}}</th>
-          <th> <a class = "btn btn-primary" href="{{parent_link}}/job-detail/{{job}}">See Job Detail</a></th>
+          <td>{{job}}</td>
+          <td> {{time}}</td>
+          <td> <a class = "btn btn-primary" href="{{parent_link}}/job-detail/{{job}}">See Job Detail</a></td>
         </tr>
         {% endfor %}
+      </table>
+      {{pagination.links}}
+      <script type="text/javascript">
+        $(function () {
+            $('.page-link').click(function(){
+              console.log('Changing Page')
+              $.ajax({
+                url: $(this).attr('href'),
+                success: function(response) {
+                    $('.catalogue-div').replaceWith($(response).find('.catalogue-div'));
+                 },
+                error: function(response){
+                    alert('Connection Error')
+                }
+            });
+            return false;
+          });
+        });
+    </script>
   </div>
 </div>
 </body>

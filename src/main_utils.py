@@ -33,6 +33,9 @@ def get_catalogue():
             res.append(f)
     return res, res_time
 
+def split_paginate(arr, offset=0, per_page=10):
+    return arr[offset: offset + per_page]
+
 def check_file_name(nama_file):
     fix_name=nama_file
     idx = 2

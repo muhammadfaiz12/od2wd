@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, flash, redirect, url_for, jsonify, send_from_directory, send_file
+from flask_paginate import Pagination, get_page_args
 from werkzeug import secure_filename
 from src.main_convert import *
 from src.utils import load_data
@@ -14,8 +15,13 @@ var_settings.init_global_var()
 @app.route('/')
 def index():
     catalogue, catalogue_time = get_catalogue()
-    print(catalogue)
-    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time))
+    page, per_page, offset = get_page_args()
+    ori_catalogue_len = len(catalogue)
+    catalogue = split_paginate(catalogue, offset=offset, per_page=per_page)
+    catalogue_time = split_paginate(catalogue_time, offset=offset, per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=ori_catalogue_len,
+                            css_framework='bootstrap4')
+    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination)
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
@@ -46,7 +52,7 @@ def integrated_file():
         return redirect(url_for('index'))
     res= load_data(file_name,'uncleaned')
     res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
-    return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
+    return background_run(file_name)
 
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
@@ -134,8 +140,7 @@ def download_detail(procId, phase):
     filename=procId
     return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
 
-@app.route('/background-run/<procId>', methods = ['GET', 'POST'])
-def background_run(procId):
+def background_run_thread(procId):
     print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
     mapping, label = map_data(df,dt_type,protagonist,header_list)
@@ -159,7 +164,13 @@ def background_run(procId):
         sample_info.append(str(df[x].iloc[0]))
     var_settings.mappingbeautified_dict[procId]=mapping_beautified
     save_mapping_result(df, procId, mapping_beautified)
-    return render_qs(procId)
+    create_qs(procId)
+
+@app.route('/background-run/<procId>', methods = ['GET', 'POST'])
+def background_run(procId):
+    Thread(target=background_run_thread,args=(procId,)).start()
+    print("[PROC-{}--[Phase 3]]--Thread Creation Success".format(procId))
+    return redirect(url_for('job_detail',procId = procId))
 
 if __name__ == '__main__':
     app.run(debug = True)
