@@ -1,0 +1,43 @@
+<link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% extends "layout.html" %}
+{% block body %}
+<body style="background:#F6F8FA">
+
+<div class="wrapper" style="padding: 24px">
+<div class="jumbotron" style="background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+">
+    <div class="container">
+      <h1 class="display-4" style="color:white">About OD2WD</h1>
+      <p style="color:white">OD2WD is a tool to convert csv file from open data portals into quickstatements file that would be used to republish data to Wikidata</p>
+    </div>
+</div>
+</div>
+<div class="wrapper" style="padding: 24px">
+  <div class="jumbotron" style="background: white ;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+      <center><h5>Introduction Video</h5>
+      <iframe width="80%" height="55%" 
+              src="https://www.youtube.com/embed/eAORm-8b1Eg">
+      </iframe></center>
+  </div>
+</div>
+<div class="jumbotron" style="background: white ;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+  <div class="container">
+  <h3>What is OD2WD</h3>
+  <p> OD2WD is a project supported by Wikimedia foundation This account is made for the Wikimedia Foundation-funded project "Enhancing the Indonesian content of Wikidata", supported by Wikimedia Indonesia.</p>
+  <h3>Why OD2WD Exist</h3>
+  <p> Recently, there have been initiatives to publish more and more structured data on the Web. Wikidata is a community-driven effort to provide data, that is part of Wikimedia family. On the other hand, Open Data portals in Indonesia (e.g., data.go.id, data.jakarta.go.id, and data.bandung.go.id) are publishing valuable data related to Indonesia. Statistically, Wikidata describes over 54 million entities, while data.go.id, for instance, has nearly 80000 datasets. Even though Wikidata and Open Data portals in Indonesia share a common goal of publishing data, there is still a wide gap in how data provided by those parties can be linked to each other. This interoperability issue hinders not only data consuming but also data publishing itself.
+
+The main challenge of the project is how to provide a semantic bridge between Wikidata and Open Data portals in Indonesia, providing linking between those data publishers. Concretely, the project task is two-fold: (1) Data Import: Identify what data in Open Data portals of Indonesia can potentially be imported to Wikidata, create a framework for such imports, and implement imports as showcases; and (2) Semantic Enrichment: Analyze what data in Open Data portals of Indonesia can potentially be enriched by linking with Wikidata entities, create a framework for such semantic enrichment, and as showcases, implement the proposed semantic enrichment over the Open Data portal's datasets and demonstrate its added value (e.g., through the use of API or SPARQL queries).
+
+The beneficiaries of the project outputs are mainly Wikidata and Indonesian Open Data portal's users themselves (ranging from application developers to government employees), as well as researchers and academics. Other parties interested in conducting similar projects (e.g., linking data.gov.uk to Wikidata, linking data.gov to Wikidata) may adopt our approaches.
+
+The most tangible impact would be the creation of links between data in Wikidata and Open Data portals of Indonesia through data imports and semantic enrichment: (i) Data publishing: Indonesian Open Data portals can be an excellent data import source for Wikidata, that is, increase the amount of (quality) data over Wikidata; and (ii) Data consuming: Indonesian Open Data portals of Indonesia may benefit from the interlinkedness of Wikidata for more fine-grained data search and discovery. So, this project provides values for both Wikidata and Indonesian Open Data portals.</p>
+
+
+    <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+  </div>
+</body>
+{% endblock %}
