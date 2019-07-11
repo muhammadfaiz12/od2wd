@@ -23,6 +23,10 @@ def index():
                             css_framework='bootstrap4')
     return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination)
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
