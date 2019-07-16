@@ -139,5 +139,6 @@ def fetch_csv_from_link(url):
     json_data = json.loads(response.text)
     fetch_link = json_data['result']['results'][0]['resources'][0]['url']
     file_name=check_file_name('{}.csv'.format(queryName))
+    print("[PHASE-1] Fetching from "+str(fetch_link))
     wget.download(fetch_link, 'data/uncleaned/{}'.format(file_name))
     return file_name
