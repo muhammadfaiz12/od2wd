@@ -52,6 +52,7 @@ def integrated_file():
     try:
         file_name = fetch_csv_from_link(url.lower())
     except Exception as e:
+        print("ERROR in FETCH FILE \n"+str(e))
         flash("Error occured, please ensure you insert the correct URL and try again")
         return redirect(url_for('index'))
     res= load_data(file_name,'uncleaned')
