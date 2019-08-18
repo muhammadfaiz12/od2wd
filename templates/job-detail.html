@@ -102,8 +102,18 @@
            </tr>
      </table>
      {% endif %}
-</div>
-</div>
+     {% if job_status[3] %}
+     <h2 style="color:red;">Drop Inaccurate Column</h2>
+     <hr>
+     <form action = "{{parent_link}}/choose-column/{{procId}}" method = "POST">
+        {% for key, value in mapping.items() %}
+        <input type="checkbox" name="dropCol" value={{value}}>{{key}}
+        {% endfor %}
+        <input type="submit" value="Drop">
+      </form>
+     {% endif %}
+    </div>
+  </div>
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

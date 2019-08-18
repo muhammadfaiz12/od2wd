@@ -404,3 +404,22 @@ def qs_add_instance_of(df, procId, protagonist):
     if pMapExist:
         df['P31']=protagonistMapping
     return df, pMapExist
+
+
+
+def drop_export_column(procId, delColumns):
+    df = load_data(procId, "results")
+    df_m = load_data(procId, "mapped")
+    df_l = load_data(procId, "linked")
+    delColumns_m = delColumns.copy()
+    delColumns = [x[:x.index('-')] for x in delColumns]
+
+    df.drop(delColumns, inplace=True, axis=1)
+    # df_m.drop(delColumns_m, inplace=True, axis=1)
+    
+    print("[LOG] Dropping column {} on {}".format(delColumns, procId))
+    df.to_csv("data/results/{}".format(procId))
+    # df_m.to_csv("data/mapped/{}".format(procId))
+    return
+    
+    
