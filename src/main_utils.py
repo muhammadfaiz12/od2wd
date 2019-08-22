@@ -116,7 +116,7 @@ def get_publish_qs_url(procId):
     payload['token'] = "%242y%2410%24rI5bLyGIWFKgFGeISauRHOeS1S7un5iwlqBDfcWmKHp9LEGqcUKTG"
     payload_str = "&".join("{}={}".format(k,v) for k,v in payload.items())
     final_url="{}?{}".format(url,payload_str)
-    print("[Phase-6-{}] Getting publication link :\n {} \n".format(procId,final_url))
+    print("[Phase-6-{}] Getting publication link :\n".format(procId))
     return final_url
 
 def fetch_csv_from_link(url):
