@@ -107,7 +107,12 @@
      <hr>
      <form action = "{{parent_link}}/choose-column/{{procId}}" method = "POST">
         {% for key, value in mapping.items() %}
-        <input type="checkbox" name="dropCol" value={{value}}>{{key}}
+        {% if "[Protagonist]" in value %}
+        <input type="checkbox" name="dropCol" value="{{key}}">{{key}} (Dropping P31-Is property)
+        {% elif "[Protagonist-Column]" in value %}
+        {% else %}
+        <input type="checkbox" name="dropCol" value="{{key}}">{{key}}
+        {% endif %}
         {% endfor %}
         <input type="submit" value="Drop">
       </form>
