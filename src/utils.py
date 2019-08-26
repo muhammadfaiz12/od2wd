@@ -412,6 +412,11 @@ def getColumnName(procId, col, step):
     try:
         with shelve.open("db/col-db") as s:
             colName=s[procId]['column'][col][step]
+            print("{}-{}".format(colName, step))
+            if step == 'results' and "(" in colName:
+                occ_num = int(colName[colName.find("(")+1:].replace(")",""))
+                occ_num-=1
+                colName=colName[:colName.find("(")]+".{}".format(occ_num)
     except Exception as e:
         print("EXCEPTION on Removing Inaccurate colum \n {} \n ==== END ===".format(str(e)))
     return colName
@@ -447,20 +452,35 @@ def drop_export_column(procId, delColumns):
         return
     
     print(delColumns)
-    delColumns_m = delColumns.copy()
-    delColumns_l = delColumns.copy()
+    delColumns_m = []
+    delColumns_l = []
+    delColumns_r = []
 
-    delColumns_m = [getColumnName(procId, x, 'mapped') for x in delColumns_m]
-    delColumns_l = [getColumnName(procId, x, 'linked') for x in delColumns_l]
+    print(len(delColumns_m))
+    delColumns_m = [getColumnName(procId, x, 'mapped') for x in delColumns]
+    delColumns_l = [getColumnName(procId, x, 'linked') for x in delColumns]
     delColumns_r = [getColumnName(procId, x, 'results') for x in delColumns]
 
+    print(delColumns_m)
+    print(delColumns_r)
+    print(delColumns_l)
     df_r.drop(delColumns_r, inplace=True, axis=1)
     df_m.drop(delColumns_m, inplace=True, axis=1)
     df_l.drop(delColumns_l, inplace=True, axis=1)
     
+    print(len(delColumns_m))
     print("[LOG] Dropping column {} on {}".format(delColumns, procId))
-    df_r.to_csv("data/results/{}".format(procId), index=False)
+
     df_m.to_csv("data/mapped/{}".format(procId), index=False)
     df_l.to_csv("data/linked/{}".format(procId), index=False)
+
+    temp_col = []
+    for col in df_r.columns:
+        if "." in col:
+            col=col[:col.find(".")]
+        temp_col.append(col)
+    df_r.columns=temp_col
+
+    # df_r.to_csv("data/results/{}".format(procId), index=False)
 
     return
