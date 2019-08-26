@@ -1,5 +1,6 @@
 from src.mapper import mapProperty, mpRankWTypeSim
 import csv
+import shelve
 import pandas as pd
 from src.wikimedia import searchEntity, searchObjWProperty, searchProperty, searchPropertyRange
 from dateutil.parser import parse
@@ -404,3 +405,62 @@ def qs_add_instance_of(df, procId, protagonist):
     if pMapExist:
         df['P31']=protagonistMapping
     return df, pMapExist
+
+#col is original column name
+def getColumnName(procId, col, step):
+    colName = ""
+    try:
+        with shelve.open("db/col-db") as s:
+            colName=s[procId]['column'][col][step]
+    except Exception as e:
+        print("EXCEPTION on Removing Inaccurate colum \n {} \n ==== END ===".format(str(e)))
+    return colName
+
+#Dropping P31
+def dropP31(procId, df_m, df_r):
+    df_m.columns = [x[:x.find('-')]+"-[Protagonist-Column]" if "[Protagonist]" in x else x for x in df_m.columns]
+    df_r.drop(["P31"], inplace=True, axis=1)
+
+    df_r.to_csv("data/results/{}".format(procId), index=False)
+    df_m.to_csv("data/mapped/{}".format(procId), index=False)
+    return
+
+def checkProtagonist(procId):
+    protagonist = ""
+    try:
+        with shelve.open("db/col-db") as s:
+            protagonist=s[procId]['protagonist-column']
+    except Exception as e:
+        print("EXCEPTION on checking protagonist colum \n {} \n ==== END ===".format(str(e)))
+    return protagonist
+
+def drop_export_column(procId, delColumns):
+    df_r = load_data(procId, "results")
+    df_m = load_data(procId, "mapped")
+    df_l = load_data(procId, "linked")
+    protagonist = checkProtagonist(procId)
+    if protagonist in delColumns:
+        dropP31(procId, df_m, df_r)
+        delColumns.remove(protagonist)
+
+    if len(delColumns) < 1:
+        return
+    
+    print(delColumns)
+    delColumns_m = delColumns.copy()
+    delColumns_l = delColumns.copy()
+
+    delColumns_m = [getColumnName(procId, x, 'mapped') for x in delColumns_m]
+    delColumns_l = [getColumnName(procId, x, 'linked') for x in delColumns_l]
+    delColumns_r = [getColumnName(procId, x, 'results') for x in delColumns]
+
+    df_r.drop(delColumns_r, inplace=True, axis=1)
+    df_m.drop(delColumns_m, inplace=True, axis=1)
+    df_l.drop(delColumns_l, inplace=True, axis=1)
+    
+    print("[LOG] Dropping column {} on {}".format(delColumns, procId))
+    df_r.to_csv("data/results/{}".format(procId), index=False)
+    df_m.to_csv("data/mapped/{}".format(procId), index=False)
+    df_l.to_csv("data/linked/{}".format(procId), index=False)
+
+    return

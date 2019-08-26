@@ -182,5 +182,13 @@ def background_run(procId):
     print("[PROC-{}--[Phase 3]]--Thread Creation Success".format(procId))
     return redirect(url_for('job_detail',procId = procId))
 
+@app.route('/choose-column/<procId>', methods = ['POST'])
+def choose_column_handler(procId):
+    dropCol = request.form.getlist('dropCol')
+    drop_export_column(procId, dropCol)
+    return redirect(url_for('job_detail',procId = procId))
+
+
+
 if __name__ == '__main__':
     app.run(debug = True)
