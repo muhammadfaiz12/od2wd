@@ -3,19 +3,29 @@ import pandas as pd
 from src.utils import *
 from src.main_utils import get_label_from_map_file
 
-def migrate():
-	results_files = os.listdir('data/results')
-	results_files.remove('dummy')
+def migrate(file_name=""):
+	results_files=[]
+	if len(file_name) < 1:
+		results_files = os.listdir('data/results')
+		results_files.remove('dummy')
+	else:
+		results_files=[file_name]
+
 	if '-debug' in results_files:
 		results_files.remove('-debug')
 	db_payload = {}
 	s = shelve.open('db/col-db')
+	errors = []
 	#isi protagonist dan nama colum
 	for file_name in results_files:
 		print(file_name)
-		db_payload = getMapInfo(file_name, db_payload)
-		db_payload = getLinkInfo(file_name, db_payload)
-		s[file_name]=db_payload
+		try:
+			db_payload = getMapInfo(file_name, db_payload)
+			db_payload = getLinkInfo(file_name, db_payload)
+			s[file_name]=db_payload
+		except Exception as e:
+			print("error \n{}".format(e))
+	print("Succes: {}, Fail: {}".format(len(results_files)-len(errors), len(errors)))
 	s.close()
 
 def getMapInfo(file_name, db_payload):
@@ -41,6 +51,7 @@ def getMapInfo(file_name, db_payload):
 def getLinkInfo(file_name, db_payload):
 	df = load_data(file_name, "linked")
 	mapping = get_label_from_map_file(file_name)
+	processed_columns = []
 	for key, value in db_payload['column'].items():
 		value = value['mapped']
 		value_arr = value.split('-')
@@ -51,11 +62,13 @@ def getLinkInfo(file_name, db_payload):
 			db_payload['column'][key]['linked']=key
 			db_payload['column'][key]['results']='qid'
 		else:
-			db_payload['column'][key]['linked']=value_arr[1]
-			db_payload['column'][key]['results']=value_arr[1]
+			if processed_columns.count(value_arr[1]) == 0:
+				db_payload['column'][key]['linked']=value_arr[1]
+				db_payload['column'][key]['results']=value_arr[1]
+			else:
+				same_col = processed_columns.count(value_arr[1])
+
+				db_payload['column'][key]['linked']="{}({})".format(value_arr[1], str(same_col+1))
+				db_payload['column'][key]['results']="{}({})".format(value_arr[1], str(same_col+1))
+		processed_columns.append(value_arr[1])
 	return db_payload
-
-
-	
-
-migrate()

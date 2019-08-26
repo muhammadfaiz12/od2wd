@@ -5,6 +5,7 @@ from src.main_convert import *
 from src.utils import load_data
 from src.main_utils import *
 from var_settings import *
+from migrate import migrate
 from threading import Thread
 
 
@@ -175,6 +176,7 @@ def background_run_thread(procId):
     var_settings.mappingbeautified_dict[procId]=mapping_beautified
     save_mapping_result(df, procId, mapping_beautified)
     create_qs(procId)
+    migrate(procId)
 
 @app.route('/background-run/<procId>', methods = ['GET', 'POST'])
 def background_run(procId):
