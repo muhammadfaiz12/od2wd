@@ -53,6 +53,7 @@ def getLinkInfo(file_name, db_payload):
 	df = load_data(file_name, "linked")
 	mapping = get_label_from_map_file(file_name)
 	processed_columns = []
+	same_col=1
 	for key, value in db_payload['column'].items():
 		value = value['mapped']
 		value_arr = value.split('-')
@@ -67,15 +68,14 @@ def getLinkInfo(file_name, db_payload):
 				db_payload['column'][key]['linked']=value_arr[1]
 				db_payload['column'][key]['results']=value_arr[1]
 			else:
-				same_col = processed_columns.count(value_arr[1])
-
-<<<<<<< HEAD
-	
-
-migrate()
-=======
+				same_name_counter = processed_columns.count(value_arr[1])
 				db_payload['column'][key]['linked']="{}({})".format(value_arr[1], str(same_col+1))
-				db_payload['column'][key]['results']="{}({})".format(value_arr[1], str(same_col+1))
+				#special case merged on P625-latitude and longitude
+				if value_arr[1]=="P625":
+					db_payload['column'][key]['results']=value_arr[1]
+				else:
+					db_payload['column'][key]['results']="{}({})".format(value_arr[1], str(same_name_counter+1))
+				same_col+=1
 		processed_columns.append(value_arr[1])
 	return db_payload
->>>>>>> c7d4557200dcbbfcd68fd66778e3595147d54c6d
+
