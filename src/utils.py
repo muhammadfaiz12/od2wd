@@ -439,6 +439,24 @@ def checkProtagonist(procId):
         print("EXCEPTION on checking protagonist colum \n {} \n ==== END ===".format(str(e)))
     return protagonist
 
+def checkMergedColumn(procId, del_m, del_l, del_r):
+    isMerge = False
+    #check merged column
+    mergedColumn = "P625" #latitude/longitude into 1 column
+    for col in del_r:
+        if mergedColumn in col:
+            isMerge = True
+    if isMerge:
+        try:
+            with shelve.open("db/col-db") as s:
+                for col in s[procId]['column'].keys():
+                    if mergedColumn in s[procId]['column'][col]['results'] and s[procId][col]['results'] not in del_r:
+                        del_m.append(s[procId]['column'][col]['mapped'])
+                        del_l.append(s[procId]['column'][col]['linked'])
+        except Exception as e:
+            print("EXCEPTION on checking merged colum \n {} \n ==== END ===".format(str(e)))
+    return del_m, del_l, del_r
+
 def drop_export_column(procId, delColumns):
     df_r = load_data(procId, "results")
     df_m = load_data(procId, "mapped")
@@ -460,6 +478,8 @@ def drop_export_column(procId, delColumns):
     delColumns_m = [getColumnName(procId, x, 'mapped') for x in delColumns]
     delColumns_l = [getColumnName(procId, x, 'linked') for x in delColumns]
     delColumns_r = [getColumnName(procId, x, 'results') for x in delColumns]
+
+    delColumns_m, delColumns_l, delColumns_r = checkMergedColumn(procId, delColumns_m, delColumns_l, delColumns_r)
 
     print(delColumns_m)
     print(delColumns_r)

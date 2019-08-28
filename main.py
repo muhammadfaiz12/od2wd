@@ -105,6 +105,8 @@ def create_qs(procId):
     res_address='data/results/{}'.format(namaFile)
     print("[PROC-{}--[Phase 3]]-- Saving to {}".format(procId, res_address))
     df_final.to_csv(res_address, index=False)
+    migrate(procId)
+
 
 @app.route('/check-result/<procId>', methods = ['GET'])
 def check_result(procId):
@@ -176,7 +178,6 @@ def background_run_thread(procId):
     var_settings.mappingbeautified_dict[procId]=mapping_beautified
     save_mapping_result(df, procId, mapping_beautified)
     create_qs(procId)
-    migrate(procId)
 
 @app.route('/background-run/<procId>', methods = ['GET', 'POST'])
 def background_run(procId):
