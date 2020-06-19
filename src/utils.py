@@ -447,14 +447,12 @@ def checkMergedColumn(procId, del_m, del_l, del_r):
         if mergedColumn in col:
             isMerge = True
     if isMerge:
-        try:
             with shelve.open("db/col-db") as s:
                 for col in s[procId]['column'].keys():
-                    if mergedColumn in s[procId]['column'][col]['results'] and s[procId][col]['results'] not in del_r:
+                    if mergedColumn in s[procId]['column'][col]['results'] and s[procId]['column'][col]['mapped'] not in del_m:
                         del_m.append(s[procId]['column'][col]['mapped'])
                         del_l.append(s[procId]['column'][col]['linked'])
-        except Exception as e:
-            print("EXCEPTION on checking merged colum \n {} \n ==== END ===".format(str(e)))
+           # print("EXCEPTION on checking merged colum \n {} \n ==== END ===".format(e))
     return del_m, del_l, del_r
 
 def drop_export_column(procId, delColumns):
@@ -501,6 +499,6 @@ def drop_export_column(procId, delColumns):
         temp_col.append(col)
     df_r.columns=temp_col
 
-    # df_r.to_csv("data/results/{}".format(procId), index=False)
+    df_r.to_csv("data/results/{}".format(procId), index=False)
 
     return
