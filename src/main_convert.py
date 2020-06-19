@@ -122,5 +122,14 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     #mindain qid ke depan
     print("[PROC-{}--[Phase 3]]-- Generate QS df_final Columns {}".format(procId, str(df_final.columns)))
 
+     #addreference
+    doc_idx = 2
+    while doc_idx <= len(df_final.columns):
+        df_final.insert(doc_idx, "#-%d"%doc_idx, "\"\"\"\"" + "www.data.jakarta.go.id" + "\"")
+        doc_idx += 2
+    #All reference column (#-<idx>) should be formatted to "#" to match QS
+    cols_cleaning_reference = ["S248" if "#-" in col else col for col in df_final.columns]
+    df_final.columns = cols_cleaning_reference
+
     # df_final.to_csv('data/results/{}'.format("-debug"))
     return df_final
