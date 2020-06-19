@@ -14,5 +14,6 @@ db/*.dat
 db/*.bak
 db/*.dir
 db/*.db
+data1.csv
 
 
