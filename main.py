@@ -139,9 +139,9 @@ def job_detail(procId):
     publish_url = ''
     job_status = get_job_status(procId)
     mapping = {}
-    if procId in var_settings.mappingbeautified_dict:
-        mapping = var_settings.mappingbeautified_dict[procId]
-    elif job_status[2] :
+    #if procId in var_settings.mappingbeautified_dict:
+    #    mapping = var_settings.mappingbeautified_dict[procId]
+    if job_status[2] :
         mapping = get_label_from_map_file(procId)
     if job_status[4]:
         publish_url = get_publish_qs_url(procId)
