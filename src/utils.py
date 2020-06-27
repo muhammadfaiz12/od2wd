@@ -376,7 +376,7 @@ def map_property_api(columns, dttype, parentApiURL="http://od2wd.id/api/"):
             result_label[str(obj['item'])] = ''
     return result, result_label
 
-def map_protagonist_api(protagonist, parentApiURL="http://od2wd.id/api/"):
+def map_protagonist_api(protagonist, parentApiURL="https://od2wd.id/api/"):
     url="{}/main/protagonist".format(parentApiURL)
     payload = {}
     payload['item'] = protagonist
