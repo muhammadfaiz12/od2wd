@@ -151,7 +151,7 @@ def job_detail(procId):
 def download_detail(procId, phase):
     directory='data/{}/'.format(phase)
     filename=procId
-    return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
+    return send_file(directory+filename, attachment_filename='{}-{}.csv', mimetype='text/csv',as_attachment=True)
 
 def background_run_thread(procId):
     print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
