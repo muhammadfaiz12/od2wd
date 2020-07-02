@@ -58,7 +58,7 @@ def integrated_file():
         return redirect(url_for('index'))
     res= load_data(file_name,'uncleaned')
     res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
-    return background_run(file_name)
+    return background_run(file_name, url)
 
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
@@ -94,14 +94,14 @@ def render_qs(procId):
     print("[PROC-{}--[Phase 3]]--Thread Creation Success".format(procId))
     return redirect(url_for('check_result',procId = procId))
 
-def create_qs(procId):
+def create_qs(procId, sourceURL:str):
     print("[PROC-{}--[Phase 3]]-- Process Started Creating QS".format(procId))
     namaFile=procId
     df = load_data(namaFile,'processed')
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
     save_linking_result(pd.DataFrame(df_mapping), procId)
-    df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId)
+    df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId, sourceURL)
     res_address='data/results/{}'.format(namaFile)
     print("[PROC-{}--[Phase 3]]-- Saving to {}".format(procId, res_address))
     df_final.to_csv(res_address, index=False)
@@ -151,9 +151,9 @@ def job_detail(procId):
 def download_detail(procId, phase):
     directory='data/{}/'.format(phase)
     filename=procId
-    return send_file(directory+filename, attachment_filename='{}-{}.csv', mimetype='text/csv',as_attachment=True)
+    return send_file(directory+filename, attachment_filename='{}-{}.csv'.format(procId, phase), mimetype='text/csv',as_attachment=True)
 
-def background_run_thread(procId):
+def background_run_thread(procId, sourceURL):
     print("[PROC-{}--[Phase 2]]-- Rendering mapping".format(procId))
     df,dtMap, dt_type,protagonist,header_list = preprocess_data(procId)
     mapping, label = map_data(df,dt_type,protagonist,header_list)
@@ -177,11 +177,11 @@ def background_run_thread(procId):
         sample_info.append(str(df[x].iloc[0]))
     var_settings.mappingbeautified_dict[procId]=mapping_beautified
     save_mapping_result(df, procId, mapping_beautified)
-    create_qs(procId)
+    create_qs(procId, sourceURL)
 
 @app.route('/background-run/<procId>', methods = ['GET', 'POST'])
-def background_run(procId):
-    Thread(target=background_run_thread,args=(procId,)).start()
+def background_run(procId, sourceURL=""):
+    Thread(target=background_run_thread,args=(procId,sourceURL,)).start()
     print("[PROC-{}--[Phase 3]]--Thread Creation Success".format(procId))
     return redirect(url_for('job_detail',procId = procId))
 
