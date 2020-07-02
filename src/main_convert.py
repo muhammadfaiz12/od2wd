@@ -74,7 +74,7 @@ def link_data(df, protagonist,entity_column,mapping):
                     finalMap[mapping[header]] = columnList 
     return finalMap
     
-def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
+def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId, sourceURL:str):
     df_qs = pd.DataFrame(df_map)
     df_qs = df_qs.loc[:, ~df_qs.columns.str.contains('^Unnamed')] #drop unnamed col (index)
 
@@ -122,14 +122,15 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId):
     #mindain qid ke depan
     print("[PROC-{}--[Phase 3]]-- Generate QS df_final Columns {}".format(procId, str(df_final.columns)))
 
-     #addreference
-    doc_idx = 2
-    while doc_idx <= len(df_final.columns):
-        df_final.insert(doc_idx, "#-%d"%doc_idx, "\"\"\"\"" + "www.data.jakarta.go.id" + "\"")
-        doc_idx += 2
-    #All reference column (#-<idx>) should be formatted to "#" to match QS
-    cols_cleaning_reference = ["S248" if "#-" in col else col for col in df_final.columns]
-    df_final.columns = cols_cleaning_reference
+    if sourceURL != "": 
+        #addreference
+        doc_idx = 2
+        while doc_idx <= len(df_final.columns):
+            df_final.insert(doc_idx, "#-%d"%doc_idx, "\"\"\"\"" + sourceURL + "\"")
+            doc_idx += 2
+        #All reference column (#-<idx>) should be formatted to "#" to match QS
+        cols_cleaning_reference = ["S248" if "#-" in col else col for col in df_final.columns]
+        df_final.columns = cols_cleaning_reference
 
     # df_final.to_csv('data/results/{}'.format("-debug"))
     return df_final
