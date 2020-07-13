@@ -54,17 +54,22 @@
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[2] %}
-              <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/mapped"><i class="fa fa-download"></i> &nbsp; Mapping Info</a></td>
+              <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/processed"><i class="fa fa-download"></i> &nbsp; Metadata</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
               {% if job_status[3] %}
+              <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/mapped"><i class="fa fa-download"></i> &nbsp; Mapping Info</a></td>
+              {% else %}
+              <td style="color:black">Has Not Finished</td>
+              {% endif %}
+              {% if job_status[4] %}
               <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/linked"><i class="fa fa-download"></i> &nbsp; Linking Info</a></td>
               {% else %}
               <td style="color:black">Has Not Finished</td>
               {% endif %}
 
-              {% if job_status[4] %}
+              {% if job_status[5] %}
               <td><a class='btn btn-link' href="{{parent_link}}/download-detail/{{procId}}/results"><i class="fa fa-download"></i> &nbsp; QS</a></td>
               <td><a class = "btn btn-primary" href="{{publish_url}}">Execute QS</a></td>
               {% else %}
