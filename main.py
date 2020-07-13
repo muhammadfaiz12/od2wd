@@ -28,6 +28,15 @@ def index():
 def about():
     return render_template('about.html')
 
+@app.route('/form-metadata', methods=['POST'])
+def submit_form_metadata():
+    req = request.form
+    if 'job_id' not in req.keys():
+        print("job id not found")
+        return
+    job_metadata_dict[req['job_id']]=req
+    return
+
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
