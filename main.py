@@ -15,7 +15,11 @@ var_settings.init_global_var()
 
 @app.route('/')
 def index():
-    catalogue, catalogue_time = get_catalogue()
+    query = request.args.get('query')
+    sort = request.args.get('sort')
+    catalogue, catalogue_time = get_catalogue(query)
+    if sort=="DESC":
+        catalogue, catalogue_time = sorted(catalogue, reverse=True), sorted(catalogue_time, reverse=True)
     page, per_page, offset = get_page_args()
     ori_catalogue_len = len(catalogue)
     catalogue = split_paginate(catalogue, offset=offset, per_page=per_page)
