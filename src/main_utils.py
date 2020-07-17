@@ -4,13 +4,15 @@ import requests, json, wget
 import pandas as pd
 from datetime import datetime
 
-def get_catalogue():
+def get_catalogue(queryInclude=""):
     listOfFile = os.listdir('data/uncleaned/')
     date_map = {}
     res = []
     res_time = []
     time = None
     for f in listOfFile:
+        if queryInclude is not None and len(queryInclude)>0 and queryInclude not in f:
+            continue
         path_to_file='data/uncleaned/'+f
         if platform.system() == 'Windows':
             time = os.path.getctime(path_to_file)
