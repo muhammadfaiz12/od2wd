@@ -1,0 +1,2880 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500");
+@import url("https://fonts.googleapis.com/css2?family=Roboto");
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+.light, body[page=index] section.demo .descriptive[layer=video] .video .text p, body[page=index] section.catalogue .descriptive[layer=catalogue] table tbody tr td, body[page=about] section.about .descriptive[layer=about] .text h1, body[page=about] section.about .descriptive[layer=about] .text p, body[page=about] section.article .descriptive[layer=title] h2 {
+  font-weight: 300; }
+
+.bold {
+  font-weight: 500; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+button,
+label,
+span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.500em;
+  margin: 0;
+  padding: 0; }
+
+table th,
+table td {
+  font-family: 'Montserrat', sans-serif; }
+
+h1 {
+  font-size: 2.000em; }
+
+h2 {
+  font-size: 1.800em; }
+
+h3 {
+  font-size: 1.600em; }
+
+h4 {
+  font-size: 1.400em; }
+
+h5 {
+  font-size: 1.100em; }
+
+h6 {
+  font-size: 1.000em; }
+
+p {
+  font-size: .975em;
+  font-weight: 400; }
+
+p,
+small {
+  letter-spacing: .015em; }
+
+a,
+abbr {
+  text-decoration: none; }
+
+a:hover {
+  cursor: pointer; }
+
+strong {
+  font-weight: 700; }
+
+ul li {
+  list-style: none; }
+
+small {
+  font-size: 85%; }
+
+button {
+  color: rgba(47, 53, 66, 0.8);
+  background-color: #FFFFFF;
+  border-radius: .350em;
+  border: none;
+  outline: none;
+  padding: .800em 1.800em;
+  transition: all .5s ease; }
+  button:hover {
+    cursor: pointer;
+    transform: scale(1.02); }
+  button:active {
+    transform: scale(0.98); }
+  button.icon i {
+    margin-right: .500em; }
+
+.checkbox {
+  display: flex;
+  align-items: center; }
+  .checkbox input[type=checkbox] {
+    display: none; }
+    .checkbox input[type=checkbox] + label {
+      font-size: .900em;
+      cursor: pointer;
+      display: inline-flex; }
+      .checkbox input[type=checkbox] + label:active::before {
+        transform: scale(0); }
+      .checkbox input[type=checkbox] + label::before {
+        content: "\2714";
+        border: 0.15em solid rgba(47, 53, 66, 0.8);
+        border-radius: .200em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: transparent;
+        transition: .2s;
+        width: 1.600em;
+        height: 1.600em;
+        margin-right: .600em; }
+    .checkbox input[type=checkbox]:checked + label::before {
+      background: linear-gradient(to right top, #70a1ff, #18C8FF);
+      border: 0.1em solid rgba(24, 200, 255, 0.4);
+      color: #fff; }
+
+form .group {
+  position: relative; }
+  form .group label {
+    color: rgba(47, 53, 66, 0.6);
+    background-color: #FFFFFF;
+    position: absolute;
+    top: -.780em;
+    left: .780em;
+    padding: 0 .500em; }
+  form .group input,
+  form .group textarea, form .group select {
+    border: 0.1em solid rgba(47, 53, 66, 0.1);
+    outline: none;
+    border-radius: .450em;
+    width: 100%;
+    transition: all 1.5s ease;
+    padding: 1.600em 1.400em 1.200em 1.400em; }
+    form .group input:focus,
+    form .group textarea:focus, form .group select:focus {
+      border: 0.1em solid rgba(47, 53, 66, 0.4); }
+      form .group input:focus::placeholder,
+      form .group textarea:focus::placeholder, form .group select:focus::placeholder {
+        opacity: 0;
+        transform: translateX(1em); }
+    form .group input::placeholder,
+    form .group textarea::placeholder, form .group select::placeholder {
+      color: rgba(47, 53, 66, 0.25);
+      transition: all .5s ease; }
+    form .group input::-webkit-file-upload-button,
+    form .group textarea::-webkit-file-upload-button, form .group select::-webkit-file-upload-button {
+      color: rgba(47, 53, 66, 0.6);
+      border: none;
+      border-radius: .350em; }
+    form .group input:read-only,
+    form .group textarea:read-only, form .group select:read-only {
+      color: rgba(47, 53, 66, 0.3);
+      background-color: rgba(2, 70, 255, 0.05); }
+      form .group input:read-only::placeholder,
+      form .group textarea:read-only::placeholder, form .group select:read-only::placeholder {
+        transform: unset;
+        opacity: 1 !important; }
+      form .group input:read-only:focus,
+      form .group textarea:read-only:focus, form .group select:read-only:focus {
+        border: 0.1em solid rgba(2, 70, 255, 0.1) !important; }
+  form .group select:read-only {
+    background-color: white !important; }
+
+form .action button {
+  background: linear-gradient(to right top, #70a1ff, #18C8FF);
+  color: #FFFFFF;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: .600em 1.500em; }
+
+.title h2, body[page=index] section.form .descriptive[layer=title] h2, body[page=index] section.stages .descriptive[layer=title] h2, body[page=index] section.demo .descriptive[layer=title] h2, body[page=index] section.catalogue .descriptive[layer=title] h2, body[page=about] section.team .descriptive[layer=title] h2 {
+  color: rgba(47, 53, 66, 0.7);
+  font-size: 2.200em;
+  margin-bottom: .050em; }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    .title h2, body[page=index] section.form .descriptive[layer=title] h2, body[page=index] section.stages .descriptive[layer=title] h2, body[page=index] section.demo .descriptive[layer=title] h2, body[page=index] section.catalogue .descriptive[layer=title] h2, body[page=about] section.team .descriptive[layer=title] h2 {
+      font-size: 1.400em; } }
+
+.title p, body[page=index] section.form .descriptive[layer=title] p, body[page=index] section.stages .descriptive[layer=title] p, body[page=index] section.demo .descriptive[layer=title] p, body[page=index] section.catalogue .descriptive[layer=title] p, body[page=about] section.team .descriptive[layer=title] p {
+  color: rgba(47, 53, 66, 0.5);
+  font-size: 1.100em; }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    .title p, body[page=index] section.form .descriptive[layer=title] p, body[page=index] section.stages .descriptive[layer=title] p, body[page=index] section.demo .descriptive[layer=title] p, body[page=index] section.catalogue .descriptive[layer=title] p, body[page=about] section.team .descriptive[layer=title] p {
+      font-size: .700em; } }
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.500em 8%;
+  transition: all .5s ease; }
+  @media (max-width: 90em) and (orientation: landscape) {
+    nav {
+      padding: 1.500em 5%; } }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    nav {
+      padding: 1.800em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    nav {
+      padding: 1.200em 5%; } }
+  @media (max-width: 63.999em) and (orientation: landscape) {
+    nav {
+      padding: 1.200em 5%; } }
+  @media (max-width: 35.5em) and (orientation: landscape) {
+    nav {
+      padding: 1.000em 5%; } }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    nav .descriptive[layer=logo] {
+      flex-basis: 50%;
+      z-index: 3; } }
+  @media (max-width: 64em) and (orientation: landscape) {
+    nav .descriptive[layer=logo] {
+      flex-basis: 50%;
+      z-index: 3; } }
+  nav .descriptive[layer=logo] .media h2 {
+    color: #FFFFFF;
+    text-transform: uppercase; }
+    @media (max-width: 63.999em) and (orientation: portrait) {
+      nav .descriptive[layer=logo] .media h2 {
+        font-size: 1.600em; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      nav .descriptive[layer=logo] .media h2 {
+        font-size: 1.400em; } }
+    @media (max-width: 35.5em) and (orientation: landscape) {
+      nav .descriptive[layer=logo] .media h2 {
+        font-size: 1.200em; } }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      nav .descriptive[layer=logo] .media h2 {
+        font-size: 1.200em; } }
+  nav .descriptive[layer=toggle] {
+    display: none; }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      nav .descriptive[layer=toggle] {
+        z-index: 7;
+        flex-basis: 50%;
+        text-align: right;
+        display: inline; }
+        nav .descriptive[layer=toggle] button {
+          background: transparent;
+          outline: none;
+          font-size: 2.000em;
+          padding: 0 0 0 2.000em; } }
+    @media (max-width: 74.999em) and (orientation: portrait) and (max-width: 35.499em) and (orientation: portrait) {
+      nav .descriptive[layer=toggle] button {
+        font-size: 1.700em; } }
+    @media (max-width: 74.999em) and (orientation: portrait) and (max-width: 63.999em) and (orientation: portrait) {
+      nav .descriptive[layer=toggle] button {
+        font-size: 1.500em; } }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+          nav .descriptive[layer=toggle] button i {
+            background: linear-gradient(to right bottom, #FFFFFF, #FFFFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all .5s ease-out; }
+            nav .descriptive[layer=toggle] button i.toggle {
+              transform: rotate(-360deg); } }
+    @media (max-width: 64em) and (orientation: landscape) {
+      nav .descriptive[layer=toggle] {
+        z-index: 7;
+        flex-basis: 50%;
+        text-align: right;
+        display: inline; }
+        nav .descriptive[layer=toggle] button {
+          background: transparent;
+          outline: none;
+          font-size: 2.000em;
+          padding: 0 0 0 2.000em; } }
+    @media (max-width: 64em) and (orientation: landscape) and (max-width: 35.499em) and (orientation: portrait) {
+      nav .descriptive[layer=toggle] button {
+        font-size: 1.700em; } }
+    @media (max-width: 64em) and (orientation: landscape) and (max-width: 63.999em) and (orientation: portrait) {
+      nav .descriptive[layer=toggle] button {
+        font-size: 1.500em; } }
+    @media (max-width: 64em) and (orientation: landscape) {
+          nav .descriptive[layer=toggle] button i {
+            background: linear-gradient(to right bottom, #FFFFFF, #FFFFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all .5s ease-out; }
+            nav .descriptive[layer=toggle] button i.toggle {
+              transform: rotate(-360deg); } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      nav .descriptive[layer=toggle] button {
+        font-size: 1.700em; } }
+    @media (max-width: 35.5em) and (orientation: landscape) {
+      nav .descriptive[layer=toggle] button {
+        font-size: 1.500em; } }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      nav .descriptive[layer=toggle] button {
+        font-size: 1.200em; } }
+  nav .descriptive[layer=menu] ul {
+    display: flex;
+    align-items: center; }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      nav .descriptive[layer=menu] ul {
+        background: linear-gradient(to right, rgba(2, 70, 255, 0.92), #1FAFF9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        position: fixed;
+        top: 0;
+        left: -101%;
+        width: 100%;
+        height: 100%;
+        transition: all .8s ease; }
+        nav .descriptive[layer=menu] ul.show {
+          left: 0; } }
+    @media (max-width: 64em) and (orientation: landscape) {
+      nav .descriptive[layer=menu] ul {
+        background: linear-gradient(to right, rgba(2, 70, 255, 0.92), #1FAFF9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        position: fixed;
+        top: 0;
+        left: -101%;
+        width: 100%;
+        height: 100%;
+        transition: all .8s ease; }
+        nav .descriptive[layer=menu] ul.show {
+          left: 0; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      nav .descriptive[layer=menu] ul {
+        height: 100vh;
+        overflow: scroll; } }
+    nav .descriptive[layer=menu] ul li {
+      position: relative; }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        nav .descriptive[layer=menu] ul li:first-child {
+          margin-top: 20em; } }
+      nav .descriptive[layer=menu] ul li::after {
+        background: linear-gradient(to right bottom, #FFFFFF, #FFFFFF);
+        content: '';
+        border-radius: .650em;
+        position: absolute;
+        bottom: -.200em;
+        left: 0;
+        width: 0;
+        height: .180em;
+        transition: all .5s ease; }
+      nav .descriptive[layer=menu] ul li:nth-child(3)::after, nav .descriptive[layer=menu] ul li:last-child::after {
+        display: none; }
+      nav .descriptive[layer=menu] ul li:hover::after {
+        width: 100%; }
+      nav .descriptive[layer=menu] ul li:not(:last-child) {
+        margin-right: 2.200em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li:not(:last-child) {
+            margin-right: 0;
+            margin-bottom: 1.800em; } }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li:not(:last-child) {
+            margin-bottom: 2.200em; } }
+        @media (max-width: 64em) and (orientation: landscape) {
+          nav .descriptive[layer=menu] ul li:not(:last-child) {
+            margin-right: 0;
+            margin-bottom: 2.200em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li:not(:last-child) {
+            margin-bottom: 1.900em; } }
+      nav .descriptive[layer=menu] ul li a {
+        color: #FFFFFF;
+        font-size: 1.050em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li a {
+            font-size: 1.700em; } }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li a {
+            font-size: 1.400em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li a {
+            font-size: 1.000em; } }
+        @media (max-width: 64em) and (orientation: landscape) {
+          nav .descriptive[layer=menu] ul li a {
+            font-size: 1.300em; } }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        nav .descriptive[layer=menu] ul li button {
+          font-size: 1.200em; } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        nav .descriptive[layer=menu] ul li button {
+          font-size: .950em; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        nav .descriptive[layer=menu] ul li button {
+          font-size: .800em; } }
+      nav .descriptive[layer=menu] ul li #submenu {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #FFFFFF;
+        box-shadow: 0px 0px 14px 0px rgba(2, 70, 255, 0.09);
+        border-radius: .350em;
+        position: absolute;
+        top: 125%;
+        width: 150%;
+        overflow: hidden;
+        opacity: 0;
+        transition: all .5s ease; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li #submenu {
+            background: linear-gradient(to right, #FFFFFF, #FFFFFF);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 30vw;
+            height: auto;
+            z-index: 10;
+            transform: translate(-50%, -50%);
+            padding: .800em 0;
+            display: none; }
+            nav .descriptive[layer=menu] ul li #submenu li {
+              margin-bottom: 0; }
+              nav .descriptive[layer=menu] ul li #submenu li a {
+                background: linear-gradient(to right, #70a1ff, #18C8FF);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent; }
+            nav .descriptive[layer=menu] ul li #submenu.show {
+              opacity: 1; } }
+        nav .descriptive[layer=menu] ul li #submenu.show {
+          opacity: 1; }
+        nav .descriptive[layer=menu] ul li #submenu li {
+          display: flex;
+          margin-right: 0 !important;
+          width: 100%;
+          transition: all .5s ease;
+          padding: .400em 1.200em; }
+          nav .descriptive[layer=menu] ul li #submenu li:hover {
+            cursor: pointer;
+            background-color: #E5F0FF; }
+            nav .descriptive[layer=menu] ul li #submenu li:hover a {
+              color: rgba(47, 53, 66, 0.8); }
+          nav .descriptive[layer=menu] ul li #submenu li a {
+            flex-basis: 100%;
+            color: #70a1ff;
+            transition: all .5s ease; }
+            nav .descriptive[layer=menu] ul li #submenu li a::after {
+              display: none; }
+  nav.static, nav.scrolled {
+    box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.15);
+    background: #FFFFFF; }
+    nav.static .descriptive[layer=logo] h2, nav.scrolled .descriptive[layer=logo] h2 {
+      color: #70a1ff; }
+      nav.static .descriptive[layer=logo] h2.toggle, nav.scrolled .descriptive[layer=logo] h2.toggle {
+        color: #70a1ff; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          nav.static .descriptive[layer=logo] h2.toggle, nav.scrolled .descriptive[layer=logo] h2.toggle {
+            color: #FFFFFF; } }
+        @media (max-width: 64em) and (orientation: landscape) {
+          nav.static .descriptive[layer=logo] h2.toggle, nav.scrolled .descriptive[layer=logo] h2.toggle {
+            color: #FFFFFF; } }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      nav.static .descriptive[layer=toggle] button i, nav.scrolled .descriptive[layer=toggle] button i {
+        background: linear-gradient(to right bottom, #0246FF, #1FAFF9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; }
+        nav.static .descriptive[layer=toggle] button i.toggle, nav.scrolled .descriptive[layer=toggle] button i.toggle {
+          background: linear-gradient(to right bottom, #FFFFFF, #FFFFFF);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent; } }
+    @media (max-width: 64em) and (orientation: landscape) {
+      nav.static .descriptive[layer=toggle] button i, nav.scrolled .descriptive[layer=toggle] button i {
+        background: linear-gradient(to right bottom, #0246FF, #1FAFF9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; }
+        nav.static .descriptive[layer=toggle] button i.toggle, nav.scrolled .descriptive[layer=toggle] button i.toggle {
+          background: linear-gradient(to right bottom, #FFFFFF, #FFFFFF);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent; } }
+    nav.static .descriptive[layer=menu] ul li::after, nav.scrolled .descriptive[layer=menu] ul li::after {
+      background: linear-gradient(to right, rgba(2, 70, 255, 0.6), #1FAFF9); }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        nav.static .descriptive[layer=menu] ul li::after, nav.scrolled .descriptive[layer=menu] ul li::after {
+          background: linear-gradient(to right, #FFFFFF, #FFFFFF); } }
+    nav.static .descriptive[layer=menu] ul li a, nav.scrolled .descriptive[layer=menu] ul li a {
+      background: linear-gradient(to right, rgba(2, 70, 255, 0.6), #1FAFF9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        nav.static .descriptive[layer=menu] ul li a, nav.scrolled .descriptive[layer=menu] ul li a {
+          background: linear-gradient(to right, #FFFFFF, #FFFFFF);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent; } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        nav.static .descriptive[layer=menu] ul li a, nav.scrolled .descriptive[layer=menu] ul li a {
+          background: linear-gradient(to right, #FFFFFF, #FFFFFF);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent; } }
+      nav.static .descriptive[layer=menu] ul li a::after, nav.scrolled .descriptive[layer=menu] ul li a::after {
+        background-color: #70a1ff; }
+    nav.static .descriptive[layer=menu] ul li button, nav.scrolled .descriptive[layer=menu] ul li button {
+      background: linear-gradient(to right top, #70a1ff, #18C8FF);
+      color: #FFFFFF; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        nav.static .descriptive[layer=menu] ul li button, nav.scrolled .descriptive[layer=menu] ul li button {
+          background: linear-gradient(to right top, #FFFFFF, #FFFFFF);
+          color: rgba(47, 53, 66, 0.8); } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        nav.static .descriptive[layer=menu] ul li button, nav.scrolled .descriptive[layer=menu] ul li button {
+          background: linear-gradient(to right top, #FFFFFF, #FFFFFF);
+          color: rgba(47, 53, 66, 0.8); } }
+
+footer {
+  position: relative;
+  text-align: center;
+  padding: 1.500em 0; }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    footer {
+      padding: 1.200em 0; } }
+  footer .divider {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(47, 53, 66, 0.1);
+    border-radius: .350em;
+    top: 0;
+    width: 90%;
+    height: .100em; }
+  footer p {
+    color: rgba(47, 53, 66, 0.5);
+    font-size: .900em; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      footer p {
+        font-size: .600em; } }
+
+body[page=index] section.hero {
+  z-index: 2;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%); }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=index] section.hero {
+      height: 90vh; } }
+  @media (max-width: 64em) and (orientation: landscape) {
+    body[page=index] section.hero {
+      height: 140vh; } }
+  @media (max-width: 63.999em) and (orientation: landscape) {
+    body[page=index] section.hero {
+      height: 250vh; } }
+  @media (max-width: 35.5em) and (orientation: landscape) {
+    body[page=index] section.hero {
+      height: 225vh; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=index] section.hero {
+      height: 95vh; } }
+  @media (max-width: 22.5em) and (orientation: portrait) {
+    body[page=index] section.hero {
+      height: 110vh; } }
+  body[page=index] section.hero .descriptive[layer=background] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+    body[page=index] section.hero .descriptive[layer=background] img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(3px); }
+      body[page=index] section.hero .descriptive[layer=background] img#slider {
+        opacity: 1;
+        transition: opacity 1s; }
+      body[page=index] section.hero .descriptive[layer=background] img#slider.fadeOut {
+        opacity: 0; }
+    body[page=index] section.hero .descriptive[layer=background] .overlay {
+      background: linear-gradient(to right bottom, #0246FF, #1FAFF9);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .8; }
+  body[page=index] section.hero .descriptive[layer=banner] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vw - 16%); }
+    @media (max-width: 89.999em) and (orientation: landscape) {
+      body[page=index] section.hero .descriptive[layer=banner] {
+        width: calc(100vw - 10%); } }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=index] section.hero .descriptive[layer=banner] {
+        width: calc(100vw - 10%);
+        flex-wrap: wrap; } }
+    @media (max-width: 64em) and (orientation: landscape) {
+      body[page=index] section.hero .descriptive[layer=banner] {
+        flex-wrap: wrap; } }
+    body[page=index] section.hero .descriptive[layer=banner] .text {
+      flex-basis: 48%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.hero .descriptive[layer=banner] .text {
+          flex-basis: 100%;
+          text-align: center; } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        body[page=index] section.hero .descriptive[layer=banner] .text {
+          flex-basis: 100%;
+          text-align: center; } }
+      body[page=index] section.hero .descriptive[layer=banner] .text h1,
+      body[page=index] section.hero .descriptive[layer=banner] .text p {
+        color: #FFFFFF; }
+      body[page=index] section.hero .descriptive[layer=banner] .text h1 {
+        font-size: 2.400em;
+        margin-bottom: .500em; }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=index] section.hero .descriptive[layer=banner] .text h1 {
+            font-size: 2.200em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.hero .descriptive[layer=banner] .text h1 {
+            font-size: 1.400em; } }
+        @media (max-width: 63.999em) and (orientation: landscape) {
+          body[page=index] section.hero .descriptive[layer=banner] .text h1 {
+            font-size: 2.000em; } }
+        @media (max-width: 35.5em) and (orientation: landscape) {
+          body[page=index] section.hero .descriptive[layer=banner] .text h1 {
+            font-size: 1.400em; } }
+      body[page=index] section.hero .descriptive[layer=banner] .text p {
+        font-size: 1.180em;
+        line-height: 1.700em;
+        margin-bottom: 1.500em; }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=index] section.hero .descriptive[layer=banner] .text p {
+            font-size: 1.000em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.hero .descriptive[layer=banner] .text p {
+            font-size: .800em; } }
+        @media (max-width: 35.5em) and (orientation: landscape) {
+          body[page=index] section.hero .descriptive[layer=banner] .text p {
+            font-size: .900em; } }
+      body[page=index] section.hero .descriptive[layer=banner] .text .action a button {
+        font-size: .970em; }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=index] section.hero .descriptive[layer=banner] .text .action a button {
+            font-size: .850em; } }
+        @media (max-width: 35.5em) and (orientation: landscape) {
+          body[page=index] section.hero .descriptive[layer=banner] .text .action a button {
+            font-size: .800em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.hero .descriptive[layer=banner] .text .action a button {
+            font-size: .700em; } }
+      body[page=index] section.hero .descriptive[layer=banner] .text .action a:first-child {
+        margin-right: 1.200em; }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.hero .descriptive[layer=banner] .text .action a:first-child {
+            margin-right: .700em; } }
+      body[page=index] section.hero .descriptive[layer=banner] .text .action a:last-child button {
+        color: #FFFFFF;
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(0.35em); }
+    body[page=index] section.hero .descriptive[layer=banner] .embed {
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      flex-basis: 49%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.hero .descriptive[layer=banner] .embed {
+          flex-basis: 100%;
+          margin-top: 8.000em; } }
+      @media (max-width: 63.999em) and (orientation: portrait) {
+        body[page=index] section.hero .descriptive[layer=banner] .embed {
+          margin-top: 6.000em; } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        body[page=index] section.hero .descriptive[layer=banner] .embed {
+          flex-basis: 100%;
+          margin-top: 7.000em; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=index] section.hero .descriptive[layer=banner] .embed {
+          margin-top: 5.000em; } }
+      body[page=index] section.hero .descriptive[layer=banner] .embed .video {
+        position: relative; }
+        body[page=index] section.hero .descriptive[layer=banner] .embed .video:first-child {
+          z-index: 2;
+          position: absolute;
+          top: -3.000em;
+          left: 0; }
+        body[page=index] section.hero .descriptive[layer=banner] .embed .video img {
+          border: 0.35em solid rgba(24, 200, 255, 0.2);
+          border-radius: .650em;
+          width: 35.000em;
+          height: 23.000em;
+          object-fit: cover; }
+          @media (max-width: 93.999em) and (orientation: landscape) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video img {
+              height: 20.000em; } }
+          @media (max-width: 90.999em) and (orientation: landscape) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video img {
+              width: 33.000em; } }
+          @media (max-width: 89.999em) and (orientation: landscape) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video img {
+              width: 31.000em; } }
+          @media (max-width: 63.999em) and (orientation: portrait) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video img {
+              width: 25.000em;
+              height: 17.000em; } }
+          @media (max-width: 35.499em) and (orientation: portrait) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video img {
+              width: 15.000em;
+              height: 10.000em; } }
+          @media (max-width: 35.5em) and (orientation: landscape) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video img {
+              width: 20.000em;
+              height: 13.000em; } }
+          @media (max-width: 35.499em) and (orientation: portrait) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video img {
+              width: 15.000em;
+              height: 10.000em; } }
+        body[page=index] section.hero .descriptive[layer=banner] .embed .video .play {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: nowrap;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #FFFFFF;
+          border: 0.32em solid rgba(2, 70, 255, 0.3);
+          border-radius: 50%;
+          width: 5.000em;
+          height: 5.000em;
+          transition: all .3s ease; }
+          @media (max-width: 63.999em) and (orientation: portrait) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video .play {
+              width: 4.000em;
+              height: 4.000em; } }
+          @media (max-width: 35.499em) and (orientation: portrait) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video .play {
+              width: 3.000em;
+              height: 3.000em; } }
+          @media (max-width: 35.5em) and (orientation: landscape) {
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video .play {
+              width: 3.700em;
+              height: 3.700em; } }
+          body[page=index] section.hero .descriptive[layer=banner] .embed .video .play:hover {
+            cursor: pointer;
+            width: 5.300em;
+            height: 5.300em; }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=index] section.hero .descriptive[layer=banner] .embed .video .play:hover {
+                width: 4.300em;
+                height: 4.300em; } }
+            @media (max-width: 35.499em) and (orientation: portrait) {
+              body[page=index] section.hero .descriptive[layer=banner] .embed .video .play:hover {
+                width: 3.300em;
+                height: 3.300em; } }
+            @media (max-width: 35.5em) and (orientation: landscape) {
+              body[page=index] section.hero .descriptive[layer=banner] .embed .video .play:hover {
+                width: 4.000em;
+                height: 4.000em; } }
+            body[page=index] section.hero .descriptive[layer=banner] .embed .video .play:hover i {
+              animation: pulse 5s ease infinite; }
+          body[page=index] section.hero .descriptive[layer=banner] .embed .video .play i {
+            background: linear-gradient(to right bottom, #0246FF, #1FAFF9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.700em; }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=index] section.hero .descriptive[layer=banner] .embed .video .play i {
+                font-size: 1.350em; } }
+            @media (max-width: 35.499em) and (orientation: portrait) {
+              body[page=index] section.hero .descriptive[layer=banner] .embed .video .play i {
+                font-size: .900em; } }
+            @media (max-width: 35.5em) and (orientation: landscape) {
+              body[page=index] section.hero .descriptive[layer=banner] .embed .video .play i {
+                font-size: 1.100em; } }
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.98); }
+  25% {
+    transform: scale(1.1); }
+  50% {
+    transform: scale(0.98); }
+  75% {
+    transform: scale(1.1); }
+  100% {
+    transform: scale(1); } }
+
+body[page=index] section.form {
+  z-index: 1;
+  clip-path: polygon(0 0, 100% 0, 99% 100%, 0 93%);
+  background-color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  margin-top: -5.000em;
+  padding: 15.000em 8%; }
+  @media (max-width: 89.999em) and (orientation: landscape) {
+    body[page=index] section.form {
+      padding: 15.000em 5%; } }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=index] section.form {
+      padding: 12.000em 5%; } }
+  @media (max-width: 64em) and (orientation: landscape) {
+    body[page=index] section.form {
+      padding: 11.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=index] section.form {
+      padding: 9.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=index] section.form .descriptive[layer=background] {
+      display: none; } }
+  @media (max-width: 63.999em) and (orientation: landscape) {
+    body[page=index] section.form .descriptive[layer=background] {
+      display: none; } }
+  body[page=index] section.form .descriptive[layer=background] .box {
+    background: transparent;
+    border: 0.45em solid #18C8FF;
+    border-radius: .450em;
+    position: absolute;
+    width: 30.000em;
+    height: 30.000em;
+    transform: rotate(-30deg); }
+    body[page=index] section.form .descriptive[layer=background] .box:first-child, body[page=index] section.form .descriptive[layer=background] .box:nth-child(2) {
+      bottom: -10%;
+      left: -15%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.form .descriptive[layer=background] .box:first-child, body[page=index] section.form .descriptive[layer=background] .box:nth-child(2) {
+          left: -30%; } }
+      @media (max-width: 63.999em) and (orientation: portrait) {
+        body[page=index] section.form .descriptive[layer=background] .box:first-child, body[page=index] section.form .descriptive[layer=background] .box:nth-child(2) {
+          left: -40%; } }
+    body[page=index] section.form .descriptive[layer=background] .box:first-child {
+      animation: rotateLeft 15s ease infinite; }
+    body[page=index] section.form .descriptive[layer=background] .box:nth-child(2) {
+      transform: scale(0.8) rotate(-30deg);
+      animation: rotateLeft2 15s ease 2s infinite; }
+    body[page=index] section.form .descriptive[layer=background] .box:nth-child(3), body[page=index] section.form .descriptive[layer=background] .box:nth-child(4) {
+      top: -15%;
+      right: -15%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.form .descriptive[layer=background] .box:nth-child(3), body[page=index] section.form .descriptive[layer=background] .box:nth-child(4) {
+          right: -30%; } }
+      @media (max-width: 63.999em) and (orientation: portrait) {
+        body[page=index] section.form .descriptive[layer=background] .box:nth-child(3), body[page=index] section.form .descriptive[layer=background] .box:nth-child(4) {
+          right: -55%; } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        body[page=index] section.form .descriptive[layer=background] .box:nth-child(3), body[page=index] section.form .descriptive[layer=background] .box:nth-child(4) {
+          right: -30%; } }
+    body[page=index] section.form .descriptive[layer=background] .box:nth-child(3) {
+      transform: scale(0.8) rotate(-35deg);
+      animation: rotateLeft3 15s ease infinite; }
+    body[page=index] section.form .descriptive[layer=background] .box:nth-child(4) {
+      transform: scale(0.6) rotate(-35deg);
+      animation: rotateLeft4 15s ease 2s infinite; }
+  body[page=index] section.form .descriptive[layer=title] {
+    text-align: center;
+    margin-bottom: 4.000em; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=index] section.form .descriptive[layer=title] {
+        margin-bottom: 2.500em; } }
+  body[page=index] section.form .descriptive[layer=convert] {
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    position: relative; }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=index] section.form .descriptive[layer=convert] {
+        flex-wrap: wrap; } }
+    @media (max-width: 64em) and (orientation: landscape) {
+      body[page=index] section.form .descriptive[layer=convert] {
+        flex-wrap: wrap; } }
+    body[page=index] section.form .descriptive[layer=convert] .convert {
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.35);
+      flex-basis: 47%;
+      background-color: #FFFFFF;
+      border-radius: .350em;
+      padding: 1.800em; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.form .descriptive[layer=convert] .convert {
+          flex-basis: 100%; }
+          body[page=index] section.form .descriptive[layer=convert] .convert:first-child {
+            margin-bottom: 3.000em; } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        body[page=index] section.form .descriptive[layer=convert] .convert {
+          flex-basis: 100%; }
+          body[page=index] section.form .descriptive[layer=convert] .convert:first-child {
+            margin-bottom: 3.000em; } }
+      body[page=index] section.form .descriptive[layer=convert] .convert h4 {
+        color: rgba(47, 53, 66, 0.8);
+        font-size: 1.400em; }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.form .descriptive[layer=convert] .convert h4 {
+            font-size: 1.200em; } }
+      body[page=index] section.form .descriptive[layer=convert] .convert p {
+        color: rgba(47, 53, 66, 0.6);
+        font-size: .900em; }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.form .descriptive[layer=convert] .convert p {
+            font-size: .800em; } }
+      body[page=index] section.form .descriptive[layer=convert] .convert form {
+        margin-top: 2.000em; }
+        body[page=index] section.form .descriptive[layer=convert] .convert form .action {
+          text-align: right;
+          margin-top: 1.500em; }
+          @media (max-width: 35.499em) and (orientation: portrait) {
+            body[page=index] section.form .descriptive[layer=convert] .convert form .action button {
+              font-size: .700em; } }
+    body[page=index] section.form .descriptive[layer=convert] .divider {
+      background-color: rgba(47, 53, 66, 0.2);
+      border-radius: .350em;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: .100em;
+      height: 100%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.form .descriptive[layer=convert] .divider {
+          display: none; } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        body[page=index] section.form .descriptive[layer=convert] .divider {
+          display: none; } }
+
+@keyframes rotateLeft {
+  0% {
+    transform: rotate(-30deg); }
+  50% {
+    transform: rotate(-35deg); }
+  100% {
+    transform: rotate(-30deg); } }
+
+@keyframes rotateLeft2 {
+  0% {
+    transform: scale(0.8) rotate(-30deg); }
+  50% {
+    transform: scale(0.8) rotate(-25deg); }
+  100% {
+    transform: scale(0.8) rotate(-30deg); } }
+
+@keyframes rotateLeft3 {
+  0% {
+    transform: scale(0.8) rotate(-35deg); }
+  50% {
+    transform: scale(0.8) rotate(-40deg); }
+  100% {
+    transform: scale(0.8) rotate(-35deg); } }
+
+@keyframes rotateLeft4 {
+  0% {
+    transform: scale(0.6) rotate(-35deg); }
+  50% {
+    transform: scale(0.6) rotate(-30deg); }
+  100% {
+    transform: scale(0.6) rotate(-35deg); } }
+
+body[page=index] section.stages {
+  position: relative;
+  background-color: rgba(229, 240, 255, 0.3);
+  margin-top: -5.000em;
+  padding: 12.000em 5% 19.000em 5%; }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=index] section.stages {
+      padding: 12.000em 5%; } }
+  @media (max-width: 64em) and (orientation: landscape) {
+    body[page=index] section.stages {
+      padding: 12.000em 5% 11.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=index] section.stages {
+      padding: 9.000em 5% 11.000em 5%; } }
+  body[page=index] section.stages .descriptive[layer=title] {
+    text-align: right;
+    margin-bottom: 4.000em; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=index] section.stages .descriptive[layer=title] {
+        margin-bottom: 2.500em; } }
+  body[page=index] section.stages .descriptive[layer=step] .container ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=index] section.stages .descriptive[layer=step] .container ul {
+        align-items: flex-start; } }
+    @media (max-width: 64em) and (orientation: landscape) {
+      body[page=index] section.stages .descriptive[layer=step] .container ul {
+        align-items: flex-start; } }
+    body[page=index] section.stages .descriptive[layer=step] .container ul li {
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.35);
+      flex-basis: 18%;
+      background-color: #FFFFFF;
+      border-radius: 2.500em .350em 2.500em .350em;
+      text-align: center;
+      position: relative;
+      padding: 1.800em 1.000em 2.600em 1.000em; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.stages .descriptive[layer=step] .container ul li {
+          flex-basis: 48%; }
+          body[page=index] section.stages .descriptive[layer=step] .container ul li:not(:last-child) {
+            margin-bottom: 4.000em; } }
+      @media (max-width: 64em) and (orientation: landscape) {
+        body[page=index] section.stages .descriptive[layer=step] .container ul li {
+          flex-basis: 48%;
+          padding: 1.800em 1.400em 2.600em 1.400em; }
+          body[page=index] section.stages .descriptive[layer=step] .container ul li:not(:last-child) {
+            margin-bottom: 4.000em; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=index] section.stages .descriptive[layer=step] .container ul li {
+          flex-basis: 100%; } }
+      body[page=index] section.stages .descriptive[layer=step] .container ul li:nth-child(even) {
+        transform: translateY(25%); }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li:nth-child(even) {
+            transform: translateY(50%); } }
+        @media (max-width: 64em) and (orientation: landscape) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li:nth-child(even) {
+            transform: translateY(50%); } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li:nth-child(even) {
+            transform: translateY(0); } }
+      body[page=index] section.stages .descriptive[layer=step] .container ul li img {
+        width: 100%;
+        height: 7.000em;
+        object-fit: contain;
+        margin-bottom: 1.200em; }
+      body[page=index] section.stages .descriptive[layer=step] .container ul li h3 {
+        color: rgba(47, 53, 66, 0.8);
+        font-size: 1.300em;
+        margin-bottom: .700em; }
+        @media (max-width: 93.999em) and (orientation: landscape) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li h3 {
+            font-size: 1.200em; } }
+        @media (max-width: 89.999em) and (orientation: landscape) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li h3 {
+            font-size: 1.000em; } }
+        @media (max-width: 64em) and (orientation: landscape) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li h3 {
+            font-size: 1.300em; } }
+      body[page=index] section.stages .descriptive[layer=step] .container ul li p {
+        color: rgba(47, 53, 66, 0.6);
+        font-size: .900em; }
+        @media (max-width: 93.999em) and (orientation: landscape) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li p {
+            font-size: .800em; } }
+        @media (max-width: 89.999em) and (orientation: landscape) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li p {
+            font-size: .700em; } }
+        @media (max-width: 64em) and (orientation: landscape) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li p {
+            font-size: 1.000em;
+            text-align: justify; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.stages .descriptive[layer=step] .container ul li p {
+            font-size: .800em; } }
+      body[page=index] section.stages .descriptive[layer=step] .container ul li span {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(to right top, #0246FF, #1FAFF9);
+        box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.35);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #FFFFFF;
+        border: 0.18em solid rgba(24, 200, 255, 0.9);
+        border-radius: 50%;
+        bottom: -5%;
+        width: 2.500em;
+        height: 2.500em; }
+
+body[page=index] section.demo {
+  clip-path: polygon(0 0, 100% 5%, 100% 93%, 0 100%);
+  background-color: #E5F0FF;
+  margin-top: -5.000em;
+  padding: 9.000em 8% 14.000em 8%; }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=index] section.demo {
+      padding: 7.000em 5% 12.000em 5%; } }
+  @media (max-width: 63.999em) and (orientation: portrait) {
+    body[page=index] section.demo {
+      padding: 7.000em 5% 10.000em 5%; } }
+  @media (max-width: 64em) and (orientation: landscape) {
+    body[page=index] section.demo {
+      padding: 6.000em 5% 10.000em 5%; } }
+  body[page=index] section.demo .descriptive[layer=title] {
+    margin-bottom: 2.500em; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=index] section.demo .descriptive[layer=title] {
+        margin-bottom: 2.000em; } }
+  body[page=index] section.demo .descriptive[layer=video] {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; }
+    body[page=index] section.demo .descriptive[layer=video] .video {
+      flex-basis: 48.5%; }
+      @media (max-width: 63.999em) and (orientation: portrait) {
+        body[page=index] section.demo .descriptive[layer=video] .video {
+          flex-basis: 48%; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=index] section.demo .descriptive[layer=video] .video {
+          flex-basis: 100%; }
+          body[page=index] section.demo .descriptive[layer=video] .video:not(:last-child) {
+            margin-bottom: 2.000em; } }
+      body[page=index] section.demo .descriptive[layer=video] .video .media {
+        position: relative;
+        border-radius: .350em;
+        margin-bottom: 1.300em;
+        overflow: hidden; }
+        body[page=index] section.demo .descriptive[layer=video] .video .media:hover picture::after {
+          clip-path: polygon(0 0, 100% 0, 100% 13%, 0 89%); }
+        body[page=index] section.demo .descriptive[layer=video] .video .media picture::after {
+          background-color: #FFFFFF;
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 102%;
+          height: 100%;
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          -webkit-filter: blur(1px);
+          filter: blur(1px);
+          opacity: .2;
+          transition: all .5s ease; }
+        body[page=index] section.demo .descriptive[layer=video] .video .media picture img {
+          border-radius: .350em;
+          width: 100%;
+          height: 24.000em;
+          object-fit: cover; }
+          @media (max-width: 63.999em) and (orientation: portrait) {
+            body[page=index] section.demo .descriptive[layer=video] .video .media picture img {
+              height: 12.000em; } }
+          @media (max-width: 64em) and (orientation: landscape) {
+            body[page=index] section.demo .descriptive[layer=video] .video .media picture img {
+              height: 17.000em; } }
+        body[page=index] section.demo .descriptive[layer=video] .video .media button {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          width: 5.000em;
+          height: 5.000em;
+          transition: all .3s ease; }
+          @media (max-width: 63.999em) and (orientation: portrait) {
+            body[page=index] section.demo .descriptive[layer=video] .video .media button {
+              width: 4.000em;
+              height: 4.000em; } }
+          body[page=index] section.demo .descriptive[layer=video] .video .media button:hover {
+            width: 5.200em;
+            height: 5.200em; }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=index] section.demo .descriptive[layer=video] .video .media button:hover {
+                width: 4.200em;
+                height: 4.200em; } }
+            body[page=index] section.demo .descriptive[layer=video] .video .media button:hover i {
+              animation: pulse 2.5s ease infinite; }
+          body[page=index] section.demo .descriptive[layer=video] .video .media button:active {
+            width: 4.980em;
+            height: 4.980em; }
+          body[page=index] section.demo .descriptive[layer=video] .video .media button i {
+            background: linear-gradient(to right bottom, #0246FF, #1FAFF9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.700em; }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=index] section.demo .descriptive[layer=video] .video .media button i {
+                font-size: 1.400em; } }
+      body[page=index] section.demo .descriptive[layer=video] .video .text h4 {
+        color: rgba(47, 53, 66, 0.7);
+        font-size: 1.300em; }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.demo .descriptive[layer=video] .video .text h4 {
+            font-size: 1.100em; } }
+      body[page=index] section.demo .descriptive[layer=video] .video .text p {
+        color: rgba(47, 53, 66, 0.5);
+        text-align: justify;
+        margin-top: .400em; }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.demo .descriptive[layer=video] .video .text p {
+            font-size: .800em; } }
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.98); }
+  25% {
+    transform: scale(1.1); }
+  50% {
+    transform: scale(0.98); }
+  75% {
+    transform: scale(1.1); }
+  100% {
+    transform: scale(1); } }
+
+body[page=index] section.catalogue {
+  position: relative;
+  padding: 12.000em 8% 8.000em 8%;
+  margin-top: -2.500em; }
+  @media (max-width: 89.999em) and (orientation: landscape) {
+    body[page=index] section.catalogue {
+      padding: 15.000em 5%; } }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=index] section.catalogue {
+      padding: 10.000em 5%; } }
+  @media (max-width: 63.999em) and (orientation: portrait) {
+    body[page=index] section.catalogue {
+      padding: 9.000em 5%; } }
+  @media (max-width: 64em) and (orientation: landscape) {
+    body[page=index] section.catalogue {
+      padding: 8.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=index] section.catalogue {
+      padding: 6.000em 5%; } }
+  body[page=index] section.catalogue .descriptive[layer=counter] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.25);
+    background-color: #FFFFFF;
+    border-radius: .650em;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: auto;
+    transform: translate(-50%, -50%);
+    padding: 2.000em 2.800em; }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=counter] {
+        width: 60%; } }
+    @media (max-width: 63.999em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=counter] {
+        padding: 1.800em; } }
+    @media (max-width: 64em) and (orientation: landscape) {
+      body[page=index] section.catalogue .descriptive[layer=counter] {
+        width: 60%; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      body[page=index] section.catalogue .descriptive[layer=counter] {
+        width: 70%; } }
+    @media (max-width: 35.5em) and (orientation: landscape) {
+      body[page=index] section.catalogue .descriptive[layer=counter] {
+        width: 90%;
+        padding: 1.000em 1.500em; } }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=counter] {
+        padding: 1.000em; } }
+    @media (max-width: 22.5em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=counter] {
+        width: 80%; } }
+    body[page=index] section.catalogue .descriptive[layer=counter] .count {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      font-size: 1.250em; }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=counter] .count {
+          flex-direction: column;
+          text-align: center; } }
+      body[page=index] section.catalogue .descriptive[layer=counter] .count p {
+        color: rgba(47, 53, 66, 0.8); }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=counter] .count p {
+            font-size: .800em; } }
+        @media (max-width: 64em) and (orientation: landscape) {
+          body[page=index] section.catalogue .descriptive[layer=counter] .count p {
+            font-size: .900em; } }
+        @media (max-width: 63.999em) and (orientation: landscape) {
+          body[page=index] section.catalogue .descriptive[layer=counter] .count p {
+            font-size: .800em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=counter] .count p {
+            font-size: .500em;
+            margin-top: .800em; } }
+      body[page=index] section.catalogue .descriptive[layer=counter] .count i {
+        background: linear-gradient(to right top, #70a1ff, #18C8FF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 1.400em;
+        margin-right: .800em; }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=counter] .count i {
+            font-size: 1.200em;
+            margin-right: .500em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=counter] .count i {
+            font-size: 1.000em;
+            margin-right: 0; } }
+    body[page=index] section.catalogue .descriptive[layer=counter] .divider {
+      background-color: rgba(47, 53, 66, 0.1);
+      border-radius: .350em;
+      width: .100em;
+      height: 3.000em;
+      margin: 0 2.200em; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=counter] .divider {
+          margin: 0 1.500em; } }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        body[page=index] section.catalogue .descriptive[layer=counter] .divider {
+          margin: 0 1.200em; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=counter] .divider {
+          margin: 0 .800em; } }
+  body[page=index] section.catalogue .descriptive[layer=title] {
+    text-align: center;
+    margin-bottom: 3.500em; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=title] {
+        margin-bottom: 1.800em; } }
+  body[page=index] section.catalogue .descriptive[layer=filter] form {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.800em; }
+    @media (max-width: 63.999em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=filter] form {
+        flex-wrap: wrap; } }
+    @media (max-width: 89.999em) and (orientation: landscape) {
+      body[page=index] section.catalogue .descriptive[layer=filter] form {
+        flex-wrap: wrap; } }
+    body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
+      color: rgba(47, 53, 66, 0.8);
+      font-family: 'Roboto', sans-serif;
+      text-transform: capitalize;
+      flex-basis: 40%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
+          flex-basis: 40%; } }
+      @media (max-width: 63.999em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
+          flex-basis: 100%;
+          order: 2;
+          margin-bottom: -1.000em;
+          margin-top: .800em; } }
+      @media (max-width: 89.999em) and (orientation: landscape) {
+        body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
+          flex-basis: 100%;
+          order: 2;
+          margin-bottom: -1.000em;
+          margin-top: .800em; } }
+    body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
+      flex-basis: 50%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
+          flex-basis: 60%; } }
+      @media (max-width: 63.999em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
+          flex-basis: 100%; } }
+      @media (max-width: 89.999em) and (orientation: landscape) {
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
+          flex-basis: 100%; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
+          flex-wrap: wrap; } }
+      body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group {
+        flex-basis: 58%;
+        display: flex;
+        align-items: center; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group {
+            flex-basis: 50%; } }
+        @media (max-width: 89.999em) and (orientation: landscape) {
+          body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group {
+            flex-basis: 50%; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group {
+            flex-basis: 100%; } }
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group:first-child {
+          margin-right: 2.000em; }
+          @media (max-width: 35.499em) and (orientation: portrait) {
+            body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group:first-child {
+              margin-right: 0;
+              margin-bottom: 1.500em; } }
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group label {
+          font-size: .900em;
+          z-index: 2;
+          top: -28%; }
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group .input {
+          position: relative;
+          flex-basis: 70%; }
+          body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group .input i {
+            color: rgba(47, 53, 66, 0.8);
+            font-size: .800em;
+            position: absolute;
+            right: .800em;
+            top: 50%;
+            transform: translateY(-50%); }
+          body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group .input input, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group .input select {
+            padding: .800em 1.200em; }
+          body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group .input select {
+            -webkit-appearance: none; }
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group button {
+          background: linear-gradient(to right bottom, #70a1ff, #18C8FF);
+          flex-basis: 30%;
+          color: #FFFFFF;
+          text-transform: uppercase;
+          font-weight: 600;
+          font-size: .700em;
+          padding: .800em 0;
+          margin-left: 1.200em; }
+          @media (max-width: 22.5em) and (orientation: portrait) {
+            body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group button {
+              font-size: .700em; } }
+  body[page=index] section.catalogue .descriptive[layer=catalogue] {
+    position: relative; }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=catalogue] {
+        box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.33);
+        border-radius: .350em;
+        height: 50vh;
+        overflow: scroll; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar {
+          height: .300em; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar-track {
+          border-radius: .650em;
+          box-shadow: inset 0px 0px 9px 0px rgba(0, 0, 0, 0.05); }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar-thumb {
+          background: linear-gradient(to right bottom, rgba(2, 70, 255, 0.7), #18C8FF);
+          border-radius: .350em; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar-thumb:vertical {
+          background: linear-gradient(to right bottom, rgba(2, 70, 255, 0.7), #18C8FF);
+          border-radius: .350em;
+          height: .400em; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar:vertical {
+          width: .300em; } }
+    @media (max-width: 64em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=catalogue] {
+        margin-top: 3.000em; } }
+    @media (max-width: 64em) and (orientation: landscape) {
+      body[page=index] section.catalogue .descriptive[layer=catalogue] {
+        box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.33);
+        border-radius: .350em;
+        height: 80vh;
+        overflow: scroll; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar {
+          height: .300em; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar-track {
+          border-radius: .650em;
+          box-shadow: inset 0px 0px 9px 0px rgba(0, 0, 0, 0.05); }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar-thumb {
+          background: linear-gradient(to right bottom, rgba(2, 70, 255, 0.7), #18C8FF);
+          border-radius: .350em; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar-thumb:vertical {
+          background: linear-gradient(to right bottom, rgba(2, 70, 255, 0.7), #18C8FF);
+          border-radius: .350em;
+          height: .400em; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue]::-webkit-scrollbar:vertical {
+          width: .300em; } }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=catalogue] {
+        height: 80vh; } }
+    body[page=index] section.catalogue .descriptive[layer=catalogue] table {
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.33);
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: .350em;
+      overflow: hidden; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=catalogue] table {
+          position: absolute;
+          top: 0;
+          left: 0; } }
+      body[page=index] section.catalogue .descriptive[layer=catalogue] table thead {
+        border-bottom: 0.15em solid rgba(24, 200, 255, 0.4); }
+        body[page=index] section.catalogue .descriptive[layer=catalogue] table thead th {
+          padding: 1.500em; }
+          body[page=index] section.catalogue .descriptive[layer=catalogue] table thead th:first-child {
+            text-align: left; }
+      body[page=index] section.catalogue .descriptive[layer=catalogue] table tbody tr:nth-child(even) {
+        background-color: rgba(229, 240, 255, 0.5); }
+      body[page=index] section.catalogue .descriptive[layer=catalogue] table tbody tr td {
+        padding: 1.000em 1.500em;
+        white-space: nowrap; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue] table tbody tr td:nth-child(2), body[page=index] section.catalogue .descriptive[layer=catalogue] table tbody tr td:last-child {
+          text-align: center; }
+        body[page=index] section.catalogue .descriptive[layer=catalogue] table tbody tr td button {
+          color: #FFFFFF;
+          background-color: #18C8FF;
+          border-radius: .350em;
+          padding: .800em 1.200em; }
+  body[page=index] section.catalogue .descriptive[layer=pagination] ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin-top: 3.500em; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=index] section.catalogue .descriptive[layer=pagination] ul {
+        margin-top: 2.000em; } }
+    body[page=index] section.catalogue .descriptive[layer=pagination] ul li {
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.65);
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-color: #FFFFFF;
+      border-radius: 50%;
+      width: 3.000em;
+      height: 3.000em;
+      transition: all .5s ease; }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=index] section.catalogue .descriptive[layer=pagination] ul li {
+          width: 2.500em;
+          height: 2.500em; } }
+      body[page=index] section.catalogue .descriptive[layer=pagination] ul li:not(:last-child) {
+        margin-right: 2.000em; }
+        @media (max-width: 35.499em) and (orientation: landscape) {
+          body[page=index] section.catalogue .descriptive[layer=pagination] ul li:not(:last-child) {
+            margin-right: .800em; } }
+        @media (max-width: 22.5em) and (orientation: landscape) {
+          body[page=index] section.catalogue .descriptive[layer=pagination] ul li:not(:last-child) {
+            margin-right: .500em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=pagination] ul li:not(:last-child) {
+            margin-right: .600em; } }
+      body[page=index] section.catalogue .descriptive[layer=pagination] ul li:hover {
+        box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.85);
+        box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.85);
+        background-color: #18C8FF;
+        cursor: pointer; }
+        body[page=index] section.catalogue .descriptive[layer=pagination] ul li:hover a {
+          color: #FFFFFF; }
+      body[page=index] section.catalogue .descriptive[layer=pagination] ul li a, body[page=index] section.catalogue .descriptive[layer=pagination] ul li span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(47, 53, 66, 0.5);
+        font-size: 1.100em; }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=pagination] ul li a, body[page=index] section.catalogue .descriptive[layer=pagination] ul li span {
+            font-size: .700em; } }
+        body[page=index] section.catalogue .descriptive[layer=pagination] ul li a i, body[page=index] section.catalogue .descriptive[layer=pagination] ul li span i {
+          font-size: 1.250em; }
+
+body[page=index] section.modal .descriptive {
+  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  top: -101%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transition: all .5s ease-out; }
+  body[page=index] section.modal .descriptive .video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+    body[page=index] section.modal .descriptive .video iframe {
+      border: none;
+      border-radius: .650em;
+      outline: none;
+      width: calc(100vw - 4.000em);
+      height: calc(100vh - 4.000em); }
+  body[page=index] section.modal .descriptive button {
+    background: linear-gradient(to right bottom, #0246FF, #1FAFF9);
+    box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.35);
+    position: absolute;
+    z-index: 11;
+    bottom: 5%;
+    right: 3%;
+    padding: 0;
+    width: 5.000em;
+    height: 5.000em; }
+    body[page=index] section.modal .descriptive button i {
+      color: #FFFFFF;
+      font-size: 2.000em; }
+  body[page=index] section.modal .descriptive.show {
+    top: 0; }
+
+body[page=about] section.hero {
+  background: linear-gradient(to left bottom, #0246FF, #18C8FF);
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 94%); }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=about] section.hero {
+      height: 70vh; } }
+  @media (max-width: 63.999em) and (orientation: landscape) {
+    body[page=about] section.hero {
+      height: 110vh; } }
+  @media (max-width: 35.5em) and (orientation: landscape) {
+    body[page=about] section.hero {
+      height: 125vh; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=about] section.hero {
+      height: 60vh; } }
+  @media (max-width: 22.5em) and (orientation: portrait) {
+    body[page=about] section.hero {
+      height: 80vh; } }
+  body[page=about] section.hero .descriptive[layer=greeting] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    padding: 0 0 0 8%; }
+    @media (max-width: 90.999em) and (orientation: landscape) {
+      body[page=about] section.hero .descriptive[layer=greeting] {
+        padding: 0 0 0 5%; } }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=about] section.hero .descriptive[layer=greeting] {
+        padding: 0 0 0 5%; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      body[page=about] section.hero .descriptive[layer=greeting] {
+        padding: 0 5%; } }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=about] section.hero .descriptive[layer=greeting] {
+        padding: 0 5%; } }
+    body[page=about] section.hero .descriptive[layer=greeting] .text {
+      flex-basis: 43%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=about] section.hero .descriptive[layer=greeting] .text {
+          flex-basis: 50%; } }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        body[page=about] section.hero .descriptive[layer=greeting] .text {
+          flex-basis: 100%;
+          text-align: center; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=about] section.hero .descriptive[layer=greeting] .text {
+          flex-basis: 100%;
+          text-align: center; } }
+      body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
+        color: #FFFFFF;
+        font-size: 2.000em;
+        position: relative; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
+            font-size: 1.800em; } }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
+            font-size: 1.400em; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
+            font-size: 1.600em; } }
+        @media (max-width: 35.5em) and (orientation: landscape) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
+            font-size: 1.300em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
+            font-size: 1.200em; } }
+      body[page=about] section.hero .descriptive[layer=greeting] .text .counter {
+        box-shadow: 0 0.425em 1.813em -0.813em rgba(47, 53, 66, 0.5);
+        display: inline-flex;
+        justify-content: space-between;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: .650em;
+        padding: 1.500em 1.800em;
+        margin-top: 2.000em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter {
+            padding: 1.500em; } }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter {
+            padding: 1.200em; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter {
+            padding: 1.200em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter {
+            padding: 1.000em; } }
+        body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          flex-wrap: nowrap; }
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count:not(:last-child) {
+            margin-right: 2.500em; }
+            @media (max-width: 74.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count:not(:last-child) {
+                margin-right: 1.800em; } }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count:not(:last-child) {
+                margin-right: 1.000em; } }
+            @media (max-width: 75em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count:not(:last-child) {
+                margin-right: 1.500em; } }
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count i,
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count p {
+            color: #FFFFFF; }
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count p {
+            font-size: 1.000em; }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count p {
+                font-size: .800em; } }
+            @media (max-width: 75em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count p {
+                font-size: .800em; } }
+            @media (max-width: 35.499em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count p {
+                font-size: .700em; } }
+          body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count i {
+            font-size: 1.800em;
+            margin-bottom: .300em; }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count i {
+                font-size: 1.600em; } }
+            @media (max-width: 75em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count i {
+                font-size: 1.500em; } }
+            @media (max-width: 35.499em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .text .counter .count i {
+                font-size: 1.300em;
+                margin-bottom: .600em; } }
+    body[page=about] section.hero .descriptive[layer=greeting] .media {
+      flex-basis: 55%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=about] section.hero .descriptive[layer=greeting] .media {
+          flex-basis: 50%; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=about] section.hero .descriptive[layer=greeting] .media {
+          display: none; } }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        body[page=about] section.hero .descriptive[layer=greeting] .media {
+          display: none; } }
+      body[page=about] section.hero .descriptive[layer=greeting] .media .box {
+        position: relative;
+        width: 100%;
+        height: 100vh; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=about] section.hero .descriptive[layer=greeting] .media .box {
+            height: 70vh; } }
+        body[page=about] section.hero .descriptive[layer=greeting] .media .box img {
+          box-shadow: 0 0.425em 1.813em -0.813em rgba(47, 53, 66, 0.05);
+          border-radius: .650em;
+          position: absolute;
+          object-fit: cover; }
+          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
+            bottom: 6%;
+            right: 8%;
+            width: 18.000em;
+            height: 22.000em;
+            filter: blur(0.8px); }
+            @media (max-width: 93.999em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
+                height: 16.000em;
+                width: 15.000em;
+                bottom: 8%; } }
+            @media (max-width: 74.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
+                height: 14.000em;
+                width: 12.000em;
+                bottom: 10%; } }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
+                height: 12.000em;
+                width: 10.000em; } }
+            @media (max-width: 75em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
+                height: 14.000em;
+                width: 12.000em; } }
+          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
+            top: 50%;
+            left: 2%;
+            width: 15.000em;
+            height: 15.000em;
+            transform: translateY(-50%);
+            filter: blur(0.5px); }
+            @media (max-width: 93.999em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
+                width: 12.000em;
+                height: 12.000em; } }
+            @media (max-width: 74.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
+                height: 10.000em;
+                width: 10.000em;
+                left: 10%; } }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
+                height: 8.000em;
+                width: 8.000em; } }
+            @media (max-width: 75em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
+                height: 9.000em;
+                width: 9.000em;
+                left: 10%; } }
+          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
+            top: 40%;
+            right: 12%;
+            width: 10.000em;
+            height: 10.000em;
+            transform: translateY(-50%);
+            filter: blur(1.4px); }
+            @media (max-width: 93.999em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
+                width: 8.000em;
+                height: 8.000em; } }
+            @media (max-width: 74.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
+                height: 7.000em;
+                width: 7.000em;
+                top: 42%; } }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
+                height: 6.000em;
+                width: 6.000em;
+                top: 45%;
+                right: -2%; } }
+            @media (max-width: 75em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
+                width: 7.000em;
+                height: 7.000em;
+                top: 42%; } }
+          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
+            top: 20%;
+            left: 26%;
+            width: 11.200em;
+            height: 11.200em;
+            transform: translateY(-50%);
+            filter: blur(0.8px); }
+            @media (max-width: 93.999em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
+                width: 9.000em;
+                height: 9.000em;
+                left: 35%;
+                top: 22%; } }
+            @media (max-width: 74.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
+                height: 10.000em;
+                width: 10.000em;
+                left: 22%;
+                top: 23%; } }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
+                height: 7.000em;
+                width: 7.000em;
+                left: 30%; } }
+            @media (max-width: 75em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
+                height: 8.000em;
+                width: 8.000em;
+                left: 28%; } }
+          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
+            top: 18%;
+            left: -12%;
+            width: 7.000em;
+            height: 7.000em;
+            transform: translateY(-50%);
+            filter: blur(1px); }
+            @media (max-width: 93.999em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
+                width: 6.000em;
+                height: 6.000em;
+                left: -8%; } }
+            @media (max-width: 74.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
+                height: 6.000em;
+                width: 6.000em;
+                left: -15%; } }
+            @media (max-width: 63.999em) and (orientation: portrait) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
+                height: 5.000em;
+                width: 5.000em; } }
+            @media (max-width: 75em) and (orientation: landscape) {
+              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
+                height: 5.000em;
+                width: 5.000em; } }
+
+body[page=about] section.about {
+  background-color: #E5F0FF;
+  padding: 20.000em 8% 24.000em 8%;
+  margin-top: -5.000em; }
+  @media (max-width: 93.999em) and (orientation: landscape) {
+    body[page=about] section.about {
+      padding: 15.000em 8% 18.000em 8%; } }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=about] section.about {
+      padding: 15.000em 8% 17.000em 8%; } }
+  @media (max-width: 63.999em) and (orientation: portrait) {
+    body[page=about] section.about {
+      padding: 14.000em 5% 20.000em 5%; } }
+  @media (max-width: 75em) and (orientation: landscape) {
+    body[page=about] section.about {
+      padding: 14.000em 5% 20.000em 5%; } }
+  @media (max-width: 35.5em) and (orientation: landscape) {
+    body[page=about] section.about {
+      padding: 12.000em 5% 18.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=about] section.about {
+      padding: 12.000em 5% 18.000em 5%; } }
+  body[page=about] section.about .descriptive[layer=about] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    z-index: 2;
+    background-color: #FFFFFF;
+    border-radius: .650em;
+    position: relative;
+    padding: 2.000em; }
+    @media (max-width: 63.999em) and (orientation: portrait) {
+      body[page=about] section.about .descriptive[layer=about] {
+        padding: 1.500em; } }
+    body[page=about] section.about .descriptive[layer=about]::after {
+      background: linear-gradient(to left, #0246FF, #18C8FF);
+      border-radius: .500em;
+      content: '';
+      position: absolute;
+      top: -1.500em;
+      right: -2%;
+      z-index: 0;
+      width: 20%;
+      height: .400em; }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=about] section.about .descriptive[layer=about]::after {
+          width: 40%; } }
+    body[page=about] section.about .descriptive[layer=about]::before {
+      background: linear-gradient(to left bottom, #0246FF, #18C8FF);
+      border-radius: .500em;
+      content: '';
+      position: absolute;
+      bottom: -1.800em;
+      right: 5%;
+      z-index: 0;
+      width: 70%;
+      height: .400em; }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        body[page=about] section.about .descriptive[layer=about]::before {
+          right: unset;
+          left: -2%; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=about] section.about .descriptive[layer=about]::before {
+          right: unset;
+          left: -2%; } }
+    body[page=about] section.about .descriptive[layer=about] .text {
+      flex-basis: 70%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=about] section.about .descriptive[layer=about] .text {
+          flex-basis: 60%; } }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        body[page=about] section.about .descriptive[layer=about] .text {
+          flex-basis: 100%; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=about] section.about .descriptive[layer=about] .text {
+          flex-basis: 100%; } }
+      body[page=about] section.about .descriptive[layer=about] .text h1 {
+        color: rgba(47, 53, 66, 0.7);
+        margin-bottom: .400em; }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=about] section.about .descriptive[layer=about] .text h1 {
+            font-size: 1.700em; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=about] section.about .descriptive[layer=about] .text h1 {
+            font-size: 1.700em; } }
+        @media (max-width: 35.5em) and (orientation: landscape) {
+          body[page=about] section.about .descriptive[layer=about] .text h1 {
+            font-size: 1.500em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=about] section.about .descriptive[layer=about] .text h1 {
+            font-size: 1.400em; } }
+        body[page=about] section.about .descriptive[layer=about] .text h1 span {
+          font-weight: 600; }
+      body[page=about] section.about .descriptive[layer=about] .text p {
+        color: rgba(47, 53, 66, 0.6);
+        font-size: 1.100em;
+        line-height: 1.700em; }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=about] section.about .descriptive[layer=about] .text p {
+            font-size: 1.000em;
+            text-align: justify; } }
+        body[page=about] section.about .descriptive[layer=about] .text p span {
+          font-weight: 600; }
+    body[page=about] section.about .descriptive[layer=about] .media {
+      flex-basis: 25%; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=about] section.about .descriptive[layer=about] .media {
+          flex-basis: 35%; } }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        body[page=about] section.about .descriptive[layer=about] .media {
+          display: none; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=about] section.about .descriptive[layer=about] .media {
+          display: none; } }
+      body[page=about] section.about .descriptive[layer=about] .media img {
+        box-shadow: 5px 5px 17px 10px rgba(0, 0, 0, 0.05);
+        border-radius: .650em;
+        position: absolute;
+        top: 55%;
+        right: 2%;
+        width: 25%;
+        height: 25.000em;
+        object-fit: cover;
+        transform: translateY(-50%); }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=about] section.about .descriptive[layer=about] .media img {
+            width: 35%;
+            top: 50%;
+            height: 27.000em; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=about] section.about .descriptive[layer=about] .media img {
+            width: 27%;
+            top: 50%; } }
+
+body[page=about] section.article {
+  background-color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  padding: 15.000em 8% 18.000em 8%;
+  clip-path: polygon(0 0, 100% 12%, 100% 100%, 0 100%);
+  margin-top: -12.000em; }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=about] section.article {
+      clip-path: polygon(0 0, 100% 4%, 100% 100%, 0% 100%); } }
+  @media (max-width: 63.999em) and (orientation: portrait) {
+    body[page=about] section.article {
+      padding: 8.000em 5% 17.000em 5%; } }
+  @media (max-width: 75em) and (orientation: landscape) {
+    body[page=about] section.article {
+      clip-path: polygon(0 0, 100% 4%, 100% 100%, 0% 100%); } }
+  @media (max-width: 75em) and (orientation: landscape) {
+    body[page=about] section.article {
+      padding: 10.000em 5% 17.000em 5%; } }
+  @media (max-width: 63.999em) and (orientation: landscape) {
+    body[page=about] section.article {
+      padding: 8.000em 5% 14.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=about] section.article {
+      clip-path: polygon(0 0, 100% 1%, 100% 100%, 0% 100%);
+      padding: 5.000em 5% 8.000em 5%; } }
+  body[page=about] section.article .descriptive[layer=background] div {
+    background: linear-gradient(to left bottom, #0246FF, #18C8FF);
+    position: absolute;
+    top: 0;
+    right: -65%;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(11% 0, 100% 0, 100% 100%, 13% 100%, 0 75%, 13% 40%, 0 19%); }
+    @media (max-width: 63.999em) and (orientation: portrait) {
+      body[page=about] section.article .descriptive[layer=background] div {
+        right: -75%; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      body[page=about] section.article .descriptive[layer=background] div {
+        right: -85%; } }
+  body[page=about] section.article .descriptive[layer=background] img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .3;
+    filter: blur(2px); }
+  body[page=about] section.article .descriptive[layer=title] h2 {
+    color: rgba(47, 53, 66, 0.7);
+    font-size: 2.200em;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 1.500em; }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=about] section.article .descriptive[layer=title] h2 {
+        margin-bottom: 2.500em; } }
+    @media (max-width: 63.999em) and (orientation: portrait) {
+      body[page=about] section.article .descriptive[layer=title] h2 {
+        font-size: 1.800em; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      body[page=about] section.article .descriptive[layer=title] h2 {
+        font-size: 1.700em; } }
+    @media (max-width: 75em) and (orientation: landscape) {
+      body[page=about] section.article .descriptive[layer=title] h2 {
+        font-size: 1.700em;
+        margin-bottom: 3.000em; } }
+    @media (max-width: 35.5em) and (orientation: landscape) {
+      body[page=about] section.article .descriptive[layer=title] h2 {
+        font-size: 1.500em; } }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=about] section.article .descriptive[layer=title] h2 {
+        font-size: 1.300em;
+        margin-bottom: 3.00em; } }
+    body[page=about] section.article .descriptive[layer=title] h2::after {
+      background: linear-gradient(to left bottom, #0246FF, #18C8FF);
+      content: '';
+      border-radius: .350em;
+      position: absolute;
+      bottom: -.300em;
+      left: -1%;
+      height: .150em;
+      width: 115%; }
+      @media (max-width: 63.999em) and (orientation: portrait) {
+        body[page=about] section.article .descriptive[layer=title] h2::after {
+          width: 105%; } }
+    body[page=about] section.article .descriptive[layer=title] h2 span {
+      font-weight: 600; }
+  body[page=about] section.article .descriptive[layer=reason] {
+    position: relative;
+    z-index: 2; }
+    body[page=about] section.article .descriptive[layer=reason] .text p {
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.05);
+      color: rgba(47, 53, 66, 0.5);
+      background-color: #FFFFFF;
+      border-radius: .650em;
+      position: relative;
+      line-height: 1.800em;
+      transition: all .5s ease;
+      padding: 2.200em 1.700em; }
+      body[page=about] section.article .descriptive[layer=reason] .text p:not(:last-child) {
+        margin-bottom: 3.500em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=about] section.article .descriptive[layer=reason] .text p:not(:last-child) {
+            margin-bottom: 5.000em; } }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=about] section.article .descriptive[layer=reason] .text p:not(:last-child) {
+            margin-bottom: 6.000em; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=about] section.article .descriptive[layer=reason] .text p:not(:last-child) {
+            margin-bottom: 5.00em; } }
+      body[page=about] section.article .descriptive[layer=reason] .text p:first-child {
+        left: -5%; }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=about] section.article .descriptive[layer=reason] .text p:first-child {
+            left: 0; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=about] section.article .descriptive[layer=reason] .text p:first-child {
+            left: 0; } }
+      body[page=about] section.article .descriptive[layer=reason] .text p:last-child {
+        left: 5%; }
+        @media (max-width: 63.999em) and (orientation: portrait) {
+          body[page=about] section.article .descriptive[layer=reason] .text p:last-child {
+            left: 0; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=about] section.article .descriptive[layer=reason] .text p:last-child {
+            left: 0; } }
+      body[page=about] section.article .descriptive[layer=reason] .text p:hover {
+        transform: scale(1.02); }
+        body[page=about] section.article .descriptive[layer=reason] .text p:hover span {
+          opacity: 1;
+          right: 2%; }
+          @media (max-width: 74.999em) and (orientation: portrait) {
+            body[page=about] section.article .descriptive[layer=reason] .text p:hover span {
+              right: unset; } }
+          @media (max-width: 75em) and (orientation: landscape) {
+            body[page=about] section.article .descriptive[layer=reason] .text p:hover span {
+              right: unset; } }
+      body[page=about] section.article .descriptive[layer=reason] .text p span {
+        background: linear-gradient(to right, #18C8FF, #1FAFF9);
+        color: #FFFFFF;
+        box-shadow: 5px 5px 17px 10px rgba(2, 70, 255, 0.08);
+        border-radius: .350em;
+        font-size: 1.200em;
+        position: absolute;
+        top: -14%;
+        right: -2%;
+        opacity: 0;
+        transition: all .5s ease;
+        padding: .800em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=about] section.article .descriptive[layer=reason] .text p span {
+            opacity: 1;
+            left: -2%;
+            top: -12%;
+            right: unset; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=about] section.article .descriptive[layer=reason] .text p span {
+            opacity: 1;
+            left: -2%;
+            top: -10%;
+            right: unset; } }
+        @media (max-width: 63.999em) and (orientation: landscape) {
+          body[page=about] section.article .descriptive[layer=reason] .text p span {
+            padding: .600em;
+            top: -8%; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          body[page=about] section.article .descriptive[layer=reason] .text p span {
+            top: -4%;
+            font-size: 1.000em; } }
+
+body[page=about] section.team {
+  background-color: #FFFFFF;
+  padding: 14.000em 8%;
+  clip-path: polygon(0 14%, 100% 0, 100% 100%, 0 100%);
+  margin-top: -9.000em; }
+  @media (max-width: 93.999em) and (orientation: landscape) {
+    body[page=about] section.team {
+      padding: 12.000em 8%; } }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=about] section.team {
+      padding: 12.000em 5%;
+      margin-top: -12.000em; } }
+  @media (max-width: 63.999em) and (orientation: portrait) {
+    body[page=about] section.team {
+      clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
+      padding: 8.000em 5%; } }
+  @media (max-width: 75em) and (orientation: landscape) {
+    body[page=about] section.team {
+      clip-path: polygon(0 7%, 100% 0, 100% 100%, 0% 100%);
+      padding: 8.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=about] section.team {
+      clip-path: polygon(0 4%, 100% 1%, 100% 100%, 0% 100%);
+      margin-top: -20%;
+      padding: 6.000em 5%; } }
+  body[page=about] section.team .descriptive[layer=title] {
+    text-align: center;
+    margin-bottom: 3.000em; }
+  body[page=about] section.team .descriptive[layer=card] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    background-color: #FFFFFF;
+    margin-top: 3.000em; }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=about] section.team .descriptive[layer=card] {
+        flex-wrap: wrap; } }
+    @media (max-width: 75em) and (orientation: landscape) {
+      body[page=about] section.team .descriptive[layer=card] {
+        flex-wrap: wrap; } }
+    body[page=about] section.team .descriptive[layer=card] .card {
+      box-shadow: 5px 5px 17px 10px rgba(2, 70, 255, 0.05);
+      border-radius: .350em;
+      flex-basis: 22%;
+      overflow: hidden;
+      transition: all .5s ease; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=about] section.team .descriptive[layer=card] .card {
+          flex-basis: 48%; }
+          body[page=about] section.team .descriptive[layer=card] .card:nth-child(1), body[page=about] section.team .descriptive[layer=card] .card:nth-child(2) {
+            margin-bottom: 2.000em; } }
+      @media (max-width: 75em) and (orientation: landscape) {
+        body[page=about] section.team .descriptive[layer=card] .card {
+          flex-basis: 48%; }
+          body[page=about] section.team .descriptive[layer=card] .card:nth-child(1), body[page=about] section.team .descriptive[layer=card] .card:nth-child(2) {
+            margin-bottom: 2.000em; } }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=about] section.team .descriptive[layer=card] .card {
+          flex-basis: 100%; }
+          body[page=about] section.team .descriptive[layer=card] .card:not(:last-child) {
+            margin-bottom: 2.000em; } }
+      body[page=about] section.team .descriptive[layer=card] .card:hover {
+        box-shadow: 5px 5px 17px 10px rgba(2, 70, 255, 0.02);
+        transform: scale(1.03); }
+      body[page=about] section.team .descriptive[layer=card] .card .media img {
+        width: 100%;
+        height: 18.000em;
+        object-fit: cover;
+        transition: all .5s ease-out; }
+      body[page=about] section.team .descriptive[layer=card] .card .text {
+        position: relative;
+        padding: 1.000em; }
+        body[page=about] section.team .descriptive[layer=card] .card .text h4 {
+          color: rgba(47, 53, 66, 0.8);
+          font-size: 1.200em; }
+        body[page=about] section.team .descriptive[layer=card] .card .text p {
+          color: rgba(47, 53, 66, 0.5);
+          font-size: .800em; }
+        body[page=about] section.team .descriptive[layer=card] .card .text ul {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          flex-wrap: nowrap;
+          margin-top: .800em; }
+          body[page=about] section.team .descriptive[layer=card] .card .text ul li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            border-radius: .350em;
+            background: linear-gradient(to right, #18C8FF, #1FAFF9);
+            width: 1.800em;
+            height: 1.800em;
+            transition: all .5s ease; }
+            body[page=about] section.team .descriptive[layer=card] .card .text ul li:hover {
+              cursor: pointer; }
+              body[page=about] section.team .descriptive[layer=card] .card .text ul li:hover a i {
+                transform: rotate(20deg); }
+            body[page=about] section.team .descriptive[layer=card] .card .text ul li:not(:last-child) {
+              margin-right: .700em; }
+            body[page=about] section.team .descriptive[layer=card] .card .text ul li a i {
+              color: #FFFFFF;
+              transition: all .5s ease; }
+    body[page=about] section.team .descriptive[layer=card] .card:first-child .media img {
+      clip-path: polygon(100% 0, 100% 100%, 64% 92%, 21% 100%, 0 94%, 0 0); }
+    body[page=about] section.team .descriptive[layer=card] .card:first-child:hover .media img {
+      clip-path: polygon(100% 0, 100% 92%, 46% 100%, 21% 93%, 0 100%, 0 0); }
+    body[page=about] section.team .descriptive[layer=card] .card:nth-child(2) .media img {
+      clip-path: polygon(100% 0, 100% 92%, 53% 100%, 22% 93%, 0 100%, 0 0); }
+    body[page=about] section.team .descriptive[layer=card] .card:nth-child(2):hover .media img {
+      clip-path: polygon(100% 0, 100% 100%, 64% 89%, 15% 96%, 0 81%, 0 0); }
+    body[page=about] section.team .descriptive[layer=card] .card:nth-child(3) .media img {
+      clip-path: polygon(100% 0, 100% 100%, 51% 91%, 10% 100%, 0 93%, 0 0); }
+    body[page=about] section.team .descriptive[layer=card] .card:nth-child(3):hover .media img {
+      clip-path: polygon(100% 0, 100% 83%, 76% 100%, 51% 91%, 0 100%, 0 0); }
+    body[page=about] section.team .descriptive[layer=card] .card:last-child .media img {
+      clip-path: polygon(100% 0, 100% 89%, 63% 100%, 36% 92%, 0 96%, 0 0); }
+    body[page=about] section.team .descriptive[layer=card] .card:last-child:hover .media img {
+      clip-path: polygon(100% 0, 100% 100%, 65% 95%, 36% 100%, 0 86%, 0 0); }
+
+body[page=preview] section.hero {
+  background-color: #E5F0FF;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 10.000em 8%; }
+  @media (max-width: 90.999em) and (orientation: landscape) {
+    body[page=preview] section.hero {
+      padding: 10.000em 5%; } }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=preview] section.hero {
+      padding: 10.000em 5%; } }
+  @media (max-width: 63.999em) and (orientation: landscape) {
+    body[page=preview] section.hero {
+      padding: 8.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=preview] section.hero {
+      padding: 8.000em 5%; } }
+  @media (max-width: 75em) and (orientation: landscape) {
+    body[page=preview] section.hero .descriptive[layer=background] {
+      display: none; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=preview] section.hero .descriptive[layer=background] {
+      display: none; } }
+  body[page=preview] section.hero .descriptive[layer=background] .box {
+    position: absolute; }
+  body[page=preview] section.hero .descriptive[layer=background] .box:first-child, body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(2) {
+    right: -13%;
+    bottom: -5%;
+    border: 0.565em solid #70a1ff;
+    border-radius: .350em;
+    width: 25.000em;
+    height: 25.000em;
+    transform: rotate(35deg); }
+    @media (max-width: 93.999em) and (orientation: landscape) {
+      body[page=preview] section.hero .descriptive[layer=background] .box:first-child, body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(2) {
+        right: -17%; } }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=preview] section.hero .descriptive[layer=background] .box:first-child, body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(2) {
+        left: -20%;
+        right: unset;
+        bottom: 25%; } }
+  body[page=preview] section.hero .descriptive[layer=background] .box:first-child {
+    animation: rotateLeft 15s ease infinite; }
+  body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(2) {
+    transform: scale(0.75) rotate(35deg);
+    animation: rotateLeft2 15s ease 2s infinite; }
+  body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(3), body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(4) {
+    left: -14%;
+    top: 10%;
+    border: 0.565em solid #70a1ff;
+    border-radius: .350em;
+    width: 22.000em;
+    height: 22.000em;
+    transform: rotate(65deg); }
+    @media (max-width: 93.999em) and (orientation: landscape) {
+      body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(3), body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(4) {
+        left: -18%; } }
+    @media (max-width: 93.999em) and (orientation: landscape) {
+      body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(3), body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(4) {
+        left: -20%; } }
+    @media (max-width: 74.999em) and (orientation: portrait) {
+      body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(3), body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(4) {
+        right: -20%;
+        left: unset; } }
+  body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(3) {
+    animation: rotateLeft3 15s ease infinite; }
+  body[page=preview] section.hero .descriptive[layer=background] .box:nth-child(4) {
+    transform: scale(0.8) rotate(-35deg);
+    animation: rotateLeft4 15s ease 2s infinite; }
+  body[page=preview] section.hero .descriptive[layer=table] h1 {
+    color: #2f3542; }
+  body[page=preview] section.hero .descriptive[layer=table] p {
+    color: rgba(47, 53, 66, 0.7);
+    font-size: 1.000em; }
+    body[page=preview] section.hero .descriptive[layer=table] p span {
+      font-weight: 600; }
+  body[page=preview] section.hero .descriptive[layer=table] .back {
+    background: linear-gradient(to right top, #70a1ff, #18C8FF);
+    color: #FFFFFF;
+    font-weight: 600;
+    margin: 1.000em 0 1.500em 0; }
+    body[page=preview] section.hero .descriptive[layer=table] .back i {
+      margin-right: .500em; }
+  body[page=preview] section.hero .descriptive[layer=table] form {
+    background-color: #FFFFFF;
+    border-radius: .350em;
+    position: relative;
+    z-index: 2;
+    padding: 2.500em 1.600em;
+    margin-bottom: 2.000em; }
+    body[page=preview] section.hero .descriptive[layer=table] form .group:first-child, body[page=preview] section.hero .descriptive[layer=table] form .group:nth-child(2), body[page=preview] section.hero .descriptive[layer=table] form .group:nth-child(3) {
+      margin-bottom: 2.000em; }
+    body[page=preview] section.hero .descriptive[layer=table] form .group label {
+      border-radius: .250em; }
+      body[page=preview] section.hero .descriptive[layer=table] form .group label.read {
+        background-color: #F2F6FF;
+        border: 0.08em solid rgba(2, 70, 255, 0.1) !important;
+        transition: all .5s ease; }
+    body[page=preview] section.hero .descriptive[layer=table] form .group input,
+    body[page=preview] section.hero .descriptive[layer=table] form .group textarea {
+      font-family: 'Montserrat', sans-serif; }
+    body[page=preview] section.hero .descriptive[layer=table] form .action {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: nowrap;
+      text-align: right;
+      margin-top: 1.400em;
+      box-shadow: unset; }
+      body[page=preview] section.hero .descriptive[layer=table] form .action .checkbox input[type=checkbox] + label {
+        font-size: .800em; }
+      body[page=preview] section.hero .descriptive[layer=table] form .action button {
+        margin-left: 1.500em; }
+        body[page=preview] section.hero .descriptive[layer=table] form .action button:disabled {
+          background: linear-gradient(to right top, rgba(47, 53, 66, 0.3), rgba(47, 53, 66, 0.2)); }
+  body[page=preview] section.hero .descriptive[layer=table] .table {
+    min-height: auto;
+    max-height: 60vh;
+    overflow: scroll; }
+    body[page=preview] section.hero .descriptive[layer=table] .table::-webkit-scrollbar {
+      height: .500em; }
+    body[page=preview] section.hero .descriptive[layer=table] .table::-webkit-scrollbar-track {
+      border-radius: .650em;
+      box-shadow: inset 0px 0px 9px 0px rgba(0, 0, 0, 0.05); }
+    body[page=preview] section.hero .descriptive[layer=table] .table::-webkit-scrollbar-thumb {
+      background: linear-gradient(to right bottom, rgba(2, 70, 255, 0.7), #18C8FF);
+      border-radius: .350em;
+      height: .400em; }
+    body[page=preview] section.hero .descriptive[layer=table] .table::-webkit-scrollbar-thumb:vertical {
+      background: linear-gradient(to right bottom, rgba(2, 70, 255, 0.7), #18C8FF);
+      border-radius: .350em;
+      height: .400em; }
+    body[page=preview] section.hero .descriptive[layer=table] .table::-webkit-scrollbar:vertical {
+      width: .500em; }
+    body[page=preview] section.hero .descriptive[layer=table] .table table {
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.33);
+      background-color: #FFFFFF;
+      border-radius: .350em;
+      border-color: unset !important;
+      border: none !important;
+      border-collapse: collapse !important;
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      table-layout: auto; }
+      body[page=preview] section.hero .descriptive[layer=table] .table table th,
+      body[page=preview] section.hero .descriptive[layer=table] .table table td {
+        white-space: nowrap; }
+      body[page=preview] section.hero .descriptive[layer=table] .table table thead {
+        border-bottom: 0.15em solid rgba(24, 200, 255, 0.4); }
+        body[page=preview] section.hero .descriptive[layer=table] .table table thead th {
+          color: #2f3542;
+          text-align: left;
+          padding: 1.500em 1.000em; }
+      body[page=preview] section.hero .descriptive[layer=table] .table table tbody tr:nth-child(even) {
+        background-color: rgba(229, 240, 255, 0.5); }
+      body[page=preview] section.hero .descriptive[layer=table] .table table tbody tr td {
+        color: rgba(47, 53, 66, 0.8);
+        padding: 1.200em 1.000em; }
+  body[page=preview] section.hero .descriptive[layer=table] .action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 20px -10px rgba(147, 194, 245, 0.49);
+    border-radius: .350em;
+    margin-top: 1.500em;
+    padding: 1.300em; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=preview] section.hero .descriptive[layer=table] .action {
+        flex-wrap: wrap; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      body[page=preview] section.hero .descriptive[layer=table] .action {
+        flex-wrap: wrap; } }
+    body[page=preview] section.hero .descriptive[layer=table] .action p {
+      color: rgba(47, 53, 66, 0.6);
+      text-align: justify;
+      margin: 0;
+      padding: 0;
+      margin-right: 1.200em; }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=preview] section.hero .descriptive[layer=table] .action p {
+          flex-basis: 100%;
+          margin-right: 0;
+          margin-bottom: 1.200em; } }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        body[page=preview] section.hero .descriptive[layer=table] .action p {
+          flex-basis: 100%;
+          margin-right: 0;
+          margin-bottom: 1.200em; } }
+      body[page=preview] section.hero .descriptive[layer=table] .action p span {
+        font-weight: 600; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=preview] section.hero .descriptive[layer=table] .action a {
+        flex-basis: 100%; }
+        body[page=preview] section.hero .descriptive[layer=table] .action a button {
+          width: 100%; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      body[page=preview] section.hero .descriptive[layer=table] .action a {
+        flex-basis: 100%; }
+        body[page=preview] section.hero .descriptive[layer=table] .action a button {
+          width: 100%; } }
+    body[page=preview] section.hero .descriptive[layer=table] .action a button {
+      background: linear-gradient(to right top, #70a1ff, #18C8FF);
+      color: #FFFFFF;
+      font-weight: 600;
+      white-space: nowrap; }
+
+@keyframes rotateLeft {
+  0% {
+    transform: rotate(35deg); }
+  50% {
+    transform: rotate(40deg); }
+  100% {
+    transform: rotate(35deg); } }
+
+@keyframes rotateLeft2 {
+  0% {
+    transform: scale(0.8) rotate(35deg); }
+  50% {
+    transform: scale(0.8) rotate(30deg); }
+  80% {
+    transform: scale(0.8) rotate(45deg); }
+  100% {
+    transform: scale(0.8) rotate(35deg); } }
+
+@keyframes rotateLeft3 {
+  0% {
+    transform: rotate(-35deg); }
+  50% {
+    transform: rotate(-40deg); }
+  100% {
+    transform: rotate(-35deg); } }
+
+@keyframes rotateLeft4 {
+  0% {
+    transform: scale(0.8) rotate(-35deg); }
+  50% {
+    transform: scale(0.8) rotate(-30deg); }
+  100% {
+    transform: scale(0.8) rotate(-35deg); } }
+
+body[page=detail] section.hero {
+  background-color: #E5F0FF;
+  min-height: 100vh;
+  padding: 10.000em 8%;
+  position: relative; }
+  @media (max-width: 90.999em) and (orientation: landscape) {
+    body[page=detail] section.hero {
+      padding: 10.000em 5%; } }
+  @media (max-width: 74.999em) and (orientation: portrait) {
+    body[page=detail] section.hero {
+      padding: 10.000em 5%; } }
+  @media (max-width: 35.499em) and (orientation: portrait) {
+    body[page=detail] section.hero {
+      padding: 6.000em 5%; } }
+  @media (max-width: 63.999em) and (orientation: landscape) {
+    body[page=detail] section.hero {
+      padding: 7.000em 5%; } }
+  body[page=detail] section.hero .descriptive[layer=detail] h2, body[page=detail] section.hero .descriptive[layer=mapping] h2, body[page=detail] section.hero .descriptive[layer=raw] h2 {
+    color: #2f3542; }
+  body[page=detail] section.hero .descriptive[layer=detail] .table, body[page=detail] section.hero .descriptive[layer=mapping] .table, body[page=detail] section.hero .descriptive[layer=raw] .table {
+    min-height: auto;
+    max-height: 60vh;
+    overflow: scroll; }
+    body[page=detail] section.hero .descriptive[layer=detail] .table::-webkit-scrollbar, body[page=detail] section.hero .descriptive[layer=mapping] .table::-webkit-scrollbar, body[page=detail] section.hero .descriptive[layer=raw] .table::-webkit-scrollbar {
+      height: .500em; }
+    body[page=detail] section.hero .descriptive[layer=detail] .table::-webkit-scrollbar-track, body[page=detail] section.hero .descriptive[layer=mapping] .table::-webkit-scrollbar-track, body[page=detail] section.hero .descriptive[layer=raw] .table::-webkit-scrollbar-track {
+      border-radius: .650em;
+      box-shadow: inset 0px 0px 9px 0px rgba(0, 0, 0, 0.05); }
+    body[page=detail] section.hero .descriptive[layer=detail] .table::-webkit-scrollbar-thumb, body[page=detail] section.hero .descriptive[layer=mapping] .table::-webkit-scrollbar-thumb, body[page=detail] section.hero .descriptive[layer=raw] .table::-webkit-scrollbar-thumb {
+      background: linear-gradient(to right bottom, rgba(2, 70, 255, 0.7), #18C8FF);
+      border-radius: .350em;
+      height: .400em; }
+    body[page=detail] section.hero .descriptive[layer=detail] .table::-webkit-scrollbar:vertical, body[page=detail] section.hero .descriptive[layer=mapping] .table::-webkit-scrollbar:vertical, body[page=detail] section.hero .descriptive[layer=raw] .table::-webkit-scrollbar:vertical {
+      display: none; }
+    body[page=detail] section.hero .descriptive[layer=detail] .table table, body[page=detail] section.hero .descriptive[layer=mapping] .table table, body[page=detail] section.hero .descriptive[layer=raw] .table table {
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.33);
+      background-color: #FFFFFF;
+      border-radius: .350em;
+      border-collapse: collapse;
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      table-layout: fixed; }
+      body[page=detail] section.hero .descriptive[layer=detail] .table table th,
+      body[page=detail] section.hero .descriptive[layer=detail] .table table td, body[page=detail] section.hero .descriptive[layer=mapping] .table table th,
+      body[page=detail] section.hero .descriptive[layer=mapping] .table table td, body[page=detail] section.hero .descriptive[layer=raw] .table table th,
+      body[page=detail] section.hero .descriptive[layer=raw] .table table td {
+        white-space: nowrap;
+        width: 14.000em; }
+      body[page=detail] section.hero .descriptive[layer=detail] .table table thead, body[page=detail] section.hero .descriptive[layer=mapping] .table table thead, body[page=detail] section.hero .descriptive[layer=raw] .table table thead {
+        border-bottom: 0.15em solid rgba(24, 200, 255, 0.4); }
+        body[page=detail] section.hero .descriptive[layer=detail] .table table thead th, body[page=detail] section.hero .descriptive[layer=mapping] .table table thead th, body[page=detail] section.hero .descriptive[layer=raw] .table table thead th {
+          color: #2f3542;
+          font-size: .900em;
+          text-align: left;
+          padding: 1.500em 1.000em; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table thead th:not(:first-child), body[page=detail] section.hero .descriptive[layer=mapping] .table table thead th:not(:first-child), body[page=detail] section.hero .descriptive[layer=raw] .table table thead th:not(:first-child) {
+            text-align: center; }
+      body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr:nth-child(odd), body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr:nth-child(odd), body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr:nth-child(odd) {
+        background-color: rgba(229, 240, 255, 0.5); }
+      body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td {
+        color: rgba(47, 53, 66, 0.8);
+        position: relative;
+        padding: 1.200em 1.000em; }
+        body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td:not(:first-child), body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td:not(:first-child), body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td:not(:first-child) {
+          text-align: center; }
+        body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td button, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td button, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td button {
+          background: linear-gradient(to right top, #70a1ff, #18C8FF);
+          color: #FFFFFF;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          margin: 0 auto;
+          padding: .500em 1.200em; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td button i, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td button i, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td button i {
+            margin-right: .800em; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td button.preview, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td button.preview, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td button.preview {
+            background: linear-gradient(to right top, rgba(2, 70, 255, 0.2), rgba(2, 70, 255, 0.3)); }
+        body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td span, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td span, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td span {
+          background: linear-gradient(to right, #2ed573, #2ecc71);
+          color: #FFFFFF;
+          border-radius: .350em;
+          font-size: .800em;
+          font-weight: 600;
+          display: inline-block;
+          padding: .300em .800em; }
+        body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta .loader,
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta .loader:before,
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta .loader:after, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta .loader,
+          body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta .loader:before,
+          body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta .loader:after, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta .loader,
+          body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta .loader:before,
+          body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta .loader:after {
+            background: #54a2de;
+            -webkit-animation: load1 1s infinite ease-in-out;
+            animation: load1 1s infinite ease-in-out;
+            width: 1em;
+            height: 4em; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta .loader, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta .loader, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta .loader {
+            color: #54a2de;
+            text-indent: -9999em;
+            margin: 0 auto;
+            position: relative;
+            font-size: 11px;
+            -webkit-transform: translateZ(0) scale(0.35);
+            -ms-transform: translateZ(0) scale(0.35);
+            transform: translateZ(0) scale(0.35);
+            -webkit-animation-delay: -0.16s;
+            animation-delay: -0.16s; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta .loader:before,
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta .loader:after, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta .loader:before,
+          body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta .loader:after, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta .loader:before,
+          body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta .loader:after {
+            position: absolute;
+            top: 0;
+            content: ''; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta .loader:before, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta .loader:before, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta .loader:before {
+            left: -1.5em;
+            -webkit-animation-delay: -0.32s;
+            animation-delay: -0.32s; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td .meta .loader:after, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td .meta .loader:after, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td .meta .loader:after {
+            left: 1.5em; }
+
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em; }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em; } }
+
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em; }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em; } }
+      body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr .progress, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr .progress, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr .progress {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        transform: translateY(20%); }
+        body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr .progress .bar, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr .progress .bar, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr .progress .bar {
+          background: linear-gradient(to right top, #70a1ff, #18C8FF);
+          border-radius: .350em;
+          height: .400em;
+          width: 75%; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr .progress .bar::after, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr .progress .bar::after, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr .progress .bar::after {
+            content: '';
+            background-color: rgba(47, 53, 66, 0.15);
+            border-radius: .350em;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: .400em;
+            width: 100%; }
+        body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr .progress h5, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr .progress h5, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr .progress h5 {
+          color: rgba(47, 53, 66, 0.8);
+          font-size: .900em;
+          margin-top: .300em; }
+  body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 20px -10px rgba(147, 194, 245, 0.49);
+    border-radius: .350em;
+    margin-top: 1.500em;
+    padding: 1.300em; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action {
+        flex-wrap: wrap; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action {
+        flex-wrap: wrap; } }
+    body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p {
+      color: rgba(47, 53, 66, 0.6);
+      text-align: justify;
+      margin: 0;
+      padding: 0;
+      margin-right: 1.200em; }
+      @media (max-width: 35.499em) and (orientation: portrait) {
+        body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p {
+          flex-basis: 100%;
+          margin-right: 0;
+          margin-bottom: 1.200em; } }
+      @media (max-width: 63.999em) and (orientation: landscape) {
+        body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p {
+          flex-basis: 100%;
+          margin-right: 0;
+          margin-bottom: 1.200em; } }
+      body[page=detail] section.hero .descriptive[layer=detail] .action p span, body[page=detail] section.hero .descriptive[layer=mapping] .action p span {
+        font-weight: 600; }
+    @media (max-width: 35.499em) and (orientation: portrait) {
+      body[page=detail] section.hero .descriptive[layer=detail] .action a, body[page=detail] section.hero .descriptive[layer=mapping] .action a {
+        flex-basis: 100%; }
+        body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button {
+          width: 100%; } }
+    @media (max-width: 63.999em) and (orientation: landscape) {
+      body[page=detail] section.hero .descriptive[layer=detail] .action a, body[page=detail] section.hero .descriptive[layer=mapping] .action a {
+        flex-basis: 100%; }
+        body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button {
+          width: 100%; } }
+    body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button {
+      background: linear-gradient(to right top, #70a1ff, #18C8FF);
+      color: #FFFFFF;
+      font-weight: 600;
+      white-space: nowrap; }
+  body[page=detail] section.hero .descriptive[layer=detail] {
+    margin-bottom: 2.500em; }
+    body[page=detail] section.hero .descriptive[layer=detail] .back {
+      background: linear-gradient(to right top, #70a1ff, #18C8FF);
+      color: #FFFFFF;
+      font-weight: 600;
+      margin: 1.000em 0 1.500em 0; }
+      body[page=detail] section.hero .descriptive[layer=detail] .back i {
+        margin-right: .500em; }
+    body[page=detail] section.hero .descriptive[layer=detail] p {
+      color: rgba(47, 53, 66, 0.7);
+      font-size: 1.000em; }
+      body[page=detail] section.hero .descriptive[layer=detail] p span {
+        font-weight: 600; }
+  body[page=detail] section.hero .descriptive[layer=mapping] h2 {
+    margin-bottom: .600em; }
+  body[page=detail] section.hero .descriptive[layer=mapping] .table table {
+    table-layout: auto; }
+    body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr:last-child td {
+      padding: 0 1.000em; }
+    body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td {
+      text-align: left !important;
+      min-width: 12.000em;
+      white-space: pre-line; }
+      body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td:first-child {
+        font-weight: 600;
+        white-space: nowrap; }
+  body[page=detail] section.hero .descriptive[layer=raw] {
+    position: fixed;
+    top: 0;
+    left: -101%;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all .8s ease-out; }
+    body[page=detail] section.hero .descriptive[layer=raw].show {
+      left: 0;
+      opacity: 1; }
+    body[page=detail] section.hero .descriptive[layer=raw] .background {
+      background: linear-gradient(to right top, rgba(2, 70, 255, 0.5), #18C8FF);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; }
+    body[page=detail] section.hero .descriptive[layer=raw] .modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0.425em 1.813em -0.813em rgba(47, 53, 66, 0.4);
+      background-color: #FFFFFF;
+      border-radius: .350em;
+      width: calc(100vw - 24%);
+      padding: 2.000em; }
+      body[page=detail] section.hero .descriptive[layer=raw] .modal h2 {
+        margin-bottom: .500em; }
+      body[page=detail] section.hero .descriptive[layer=raw] .modal .table {
+        box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.3);
+        border-radius: .350em; }
+        body[page=detail] section.hero .descriptive[layer=raw] .modal .table table {
+          table-layout: auto; }
+          body[page=detail] section.hero .descriptive[layer=raw] .modal .table table tbody tr td.hover {
+            position: relative; }
+            body[page=detail] section.hero .descriptive[layer=raw] .modal .table table tbody tr td.hover:hover {
+              cursor: pointer; }
+              body[page=detail] section.hero .descriptive[layer=raw] .modal .table table tbody tr td.hover:hover a {
+                opacity: 1;
+                left: 80%; }
+            body[page=detail] section.hero .descriptive[layer=raw] .modal .table table tbody tr td.hover a {
+              background: linear-gradient(to right top, #70a1ff, #18C8FF);
+              color: #FFFFFF;
+              border-radius: .350em;
+              position: absolute;
+              top: 50%;
+              left: 0;
+              width: 100%;
+              transform: translateY(-50%);
+              padding: .500em;
+              z-index: 5;
+              opacity: 0;
+              transition: all .5s ease; }
+      body[page=detail] section.hero .descriptive[layer=raw] .modal .close {
+        text-align: right;
+        margin-top: 2.000em; }
+        body[page=detail] section.hero .descriptive[layer=raw] .modal .close button {
+          background: linear-gradient(to right top, #70a1ff, #18C8FF);
+          color: #FFFFFF;
+          font-weight: 600; }

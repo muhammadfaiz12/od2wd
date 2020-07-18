@@ -1,16 +1,93 @@
-<link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
 {% extends "layout.html" %}
 {% block body %}
-<body style="background:#F6F8FA">
-	<div class="container" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); margin-top:20px; margin-bottom: 15px">
-	    <h1>Data Preview</h1>
-	    <div class="container" style="padding-bottom: 20px">
-	    	{{data | safe }}
-			<a class='btn btn-warning' href="{{parent_link}}/background-run/{{procId}}">Map and Link this document (run in background)</a>
+<body page="preview">
+	<section class="hero">
+		<div class="descriptive" layer="background">
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
 		</div>
-	</div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<div class="descriptive" layer="table">
+			<h1>Data Preview</h1>
+			<p>Job Name : <span>{{ procId }}</span></p>
+			<a href="/#table">
+				<button class="back">
+					<i class="fas fa-chevron-left"></i>
+					Back
+				</button>
+			</a>
+			<form action="/form-metadata" method="POST">
+				<div class="group">
+					<label class="read" id="label_title">Title</label>
+					<input 
+						type        = "text" 
+						placeholder = "title" 
+						name        = "title"
+						id          = "input_title"
+						readonly
+					/>
+					<input 
+						type        = "hidden" 
+						placeholder = "jobid" 
+						name        = "job_id"
+						value       = "{{procId}}" 
+					/>
+				</div>
+				<div class="group">
+					<label class="read" id="label_url">URL</label>
+					<input
+						type        = "text" 
+						placeholder = "url" 
+						name        = "url"
+						id          = "input_url"
+						readonly
+					/>
+				</div>
+				<div class="group">
+					<label class="read" id="label_tag">Tags</label>
+					<input 
+						type        = "text" 
+						placeholder = "tags" 
+						name        = "tags" 
+						id          = "input_tag"
+						readonly
+					/>
+				</div>
+				<div class="group">
+					<label class="read" id="label_desc">Short Description</label>
+					<textarea 
+						placeholder = "short description" 
+						rows        = "5" 
+						name        = "description" 
+						id          = "input_desc"
+						readonly
+					></textarea>
+				</div>
+				<div class="action">
+					<div class="checkbox">
+						<input type="checkbox" id="update" onclick="toggleUpdateData()">
+						<label for="update">Update file data</label>
+					</div>
+					<button id="submit" type="submit" disabled>submit</button>
+				</div>
+			</form>
+			<div class="table">
+				{{data | safe }}
+			</div>
+			<div class="action">
+				<p>
+					The conversion process will extract RDF 
+					triples from the document and then map the header and link the cells value to Wikidata.
+				</p>
+				<a href="{{parent_link}}/job-detail/{{procId}}">
+					<button>
+						Start Conversion Process
+					</button>
+				</a>
+			</div>
+		</div>
+	</section>
+	<script src="/static/script/script.js"></script>
 </body>
 {% endblock %}

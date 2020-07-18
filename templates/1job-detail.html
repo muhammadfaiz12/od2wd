@@ -2,21 +2,15 @@
 {% block body %}
 <body page="detail">
 	<section class="hero">
-
+		<form action = "{{parent_link}}/choose-column/{{procId}}" method = "POST">
 		<div class="descriptive" layer="detail">
 			<h2>Job Detail</h2>
 			<p>Job Name : <span>{{procId}}</span></p>
-			<a href="/#table">
-				<button class="back">
-					<i class="fas fa-chevron-left"></i>
-					Back
-				</button>
-			</a>
 			<div class="table">
 				<table>
 					<thead>
-						<th></th>
-
+						<th>Job's Phase</th>
+						
 						<th>Raw Data</th>
 						<th>Cleaned Data</th>
 						<th>Metadata Extraction</th>
@@ -57,7 +51,6 @@
 									</div>
 								{% endif %}
 							</td>
-
 							<td>
 								{% if job_status[1] %}
 									<a href="{{parent_link}}/download-detail/{{procId}}/processed">
@@ -72,7 +65,6 @@
 									</div>
 								{% endif %}
 							</td>
-
 							<td>
 								{% if job_status[2] %}
 									<a href="{{parent_link}}/download-detail/{{procId}}/processed">
@@ -87,7 +79,6 @@
 									</div>
 								{% endif %}
 							</td>
-
 							<td>
 								{% if job_status[3] %}
 									<a href="{{parent_link}}/download-detail/{{procId}}/mapped">
@@ -102,7 +93,6 @@
 									</div>
 								{% endif %}
 							</td>
-
 							<td>
 								{% if job_status[4] %}
 									<a href="{{parent_link}}/download-detail/{{procId}}/linked">
@@ -117,7 +107,6 @@
 									</div>
 								{% endif %}
 							</td>
-
 							<td>
 								{% if job_status[5] %}
 									<a href="{{parent_link}}/download-detail/{{procId}}/results">
@@ -132,28 +121,26 @@
 									</div>
 								{% endif %}
 							</td>
-
-							
 						</tr>
 						<tr>
 							<td>Data Preview</td>
 							<td>
-								<button type="button" class="preview" onclick="toggleModal('raw')">
+								<button class="preview" type="button" onclick="toggleModal('raw')">
 									<i class="fas fa-search"></i>
 									Preview
 								</button>
 							</td>
 							<td>
-								<button type="button" class="preview" onclick="toggleModal('raw')">
+								<button class="preview" type="button" onclick="toggleModal('raw')">
 									<i class="fas fa-search"></i>
 									Preview
 								</button>
 							</td>
 							<td>
-								
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
+								<button class="preview" type="button" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
 							</td>
 							<td>
 								<div class="meta">
@@ -169,21 +156,36 @@
 								<div class="meta">
 									<div class="loader">Loading...</div>
 								</div>
-								<!-- <div class="progress">
-									<div class="bar"></div>
-									<h5>100%</h5>
-								</div> -->
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			{% if job_status[5] %}
+			<div class="action">
+				<a href="{{publish_url}}">
+					<button type="button">Execute QS</button>
+				</a>
+				
+				<p>
+				   By clicking the <span>Execute QS</span> button, the converted file will be published into Wikidata 
+				   using Quickstatement tool. The conversion result will be in triple format of 
+				   protagonist-property-value. This Execute process makes use of the mapping and linking
+				   results and generate a Quickstatements serialization
+				</p>
+			</div>
+			<!-- <div class="action">
+				<a href="{{publish_url}}">
+					<button>Execute QS</button>
+				</a>
+				<p>By clicking this button you will be....</p>
+			</div> -->
+			{% endif %}
 		</div>
 
 		{% if job_status[3] %}
-		<form action = "{{parent_link}}/choose-column/{{procId}}" method = "POST">
 		<div class="descriptive" layer="mapping">
-			<h2>Property Mapping Result</h2>
+			<h2>Mapping Preview</h2>
 			<div class="table mapping">
 				<table>
 					<tbody>
@@ -203,8 +205,9 @@
              				    {% endif %}
             				{% endfor %}
 						</tr>
+						{% if job_status[3] %}
 						<tr>
-							<td>Drop Column</td>
+							<td>Drop a column</td>
 							{% for key, value in mapping.items() %}
 								{% if "[Protagonist]" in value %}
 									<td id="check">
@@ -224,34 +227,22 @@
         						{% endif %}
         					{% endfor %}
 						</tr>
+						{% endif %}
 					</tbody>
 				</table>
 			</div>
 			<div class="action">
+				<button type="submit">Drop Column(s)</button>
 				<p>
 				   By clicking the <span>Drop Columns</span> button, the selected column 
 				   will be dropped from the conversion process.
 				</p>
-				<a>
-					<button type="submit">Drop Column(s)</button>
-				</a>
 			</div>
-			{% if job_status[5] %}
-			<div class="action">
-				<p>
-				   By clicking the <span>Execute QS</span> button, the converted file will be published into Wikidata 
-				   using Quickstatement tool. This Execute process makes use of the mapping and linking
-				   results and generate a Quickstatements serialization.
-				</p>
-				<a href="{{publish_url}}">
-					<button type="button">Execute QS</button>
-				</a>
-			</div>
-			{% endif %}
-		</div>
 		</form>
+		</div>
 		{% endif %}
 
+	
 		<div class="descriptive" layer="raw" id="raw">
 			<div class="background" onclick="toggleModal('raw')"></div>
 			<div class="modal">
@@ -277,10 +268,7 @@
 							<tr>
 								<td>1</td>
 								<td>9832 Justo. Road</td>
-								<td class="hover">
-									#ID98991
-									<a href="https://flatuicolors.com/palette/cn" target="blank">Lagos</a>
-								</td>
+								<td>Lagos</td>
 								<td>748503</td>
 								<td>Paraguay</td>
 								<td>Vivamus rhoncus. Donec est. Nunc</td>
@@ -295,10 +283,7 @@
 							<tr>
 								<td>2</td>
 								<td>261 Lorem Ave</td>
-								<td class="hover">
-									#ID21311
-									<a href="https://flatuicolors.com/palette/cn" target="blank">Istanbul</a>
-								</td>
+								<td>Istanbul</td>
 								<td>755012</td>
 								<td>Guatemala</td>
 								<td>egestas, urna justo faucibus lectus, a sollicitudin</td>
@@ -311,32 +296,28 @@
 								<td>-90.64199</td>
 							</tr>
 							<tr>
-								<td>6</td>
-								<td>Ap #842-691 Amet, Street</td>
-								<td class="hover">
-									#ID19201
-									<a href="https://flatuicolors.com/palette/cn" target="blank">Santorini</a>
-								</td>
-								<td>6275</td>
-								<td>Nepal</td>
-								<td>lobortis risus. In mi</td>
-								<td>Accumsan Neque Et LLC</td>
-								<td>nascetur@pedeCras.com</td>
-								<td>H0W 8FQ</td>
-								<td>16180516 9883</td>
-								<td>South Island</td>
-								<td>63.79536</td>
-								<td>-133.54277</td>
+								<td>3</td>
+								<td>P.O. Box 867, 4214 Blandit Avenue</td>
+								<td>Berlin</td>
+								<td>183305</td>
+								<td>Iran</td>
+								<td>et ultrices posuere cubilia Curae;</td>
+								<td>Eu Tellus Phasellus Associates</td>
+								<td>Nullam.enim@liberoduinec.edu</td>
+								<td>91580</td>
+								<td>16700104 8888</td>
+								<td>BE</td>
+								<td>-43.67485</td>
+								<td>-104.09663</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="close">
+				<div class="action">
 					<button onclick="toggleModal('raw')">Close Preview</button>
 				</div>
 			</div>
 		</div>
-
 	</section>
 	<script src="/static/script/script.js"></script>
 </body>

@@ -76,13 +76,13 @@ def save_linking_result(df, procId):
 
 def get_job_status(procId):
     result = []
-    states = ['uncleaned', 'processed', 'mapped', 'linked', 'results']
+    states = ['uncleaned', 'processed', 'metadataExtraction', 'mapped', 'linked', 'results']
     for state in states:
+        #For metadata extraction, we will refer to processed status because it was done in the same function
+        if state == 'metadataExtraction':
+            state = "processed"
         state_is_finished = os.path.isfile('data/{}/{}'.format(state, procId))
         result.append(state_is_finished)
-        #If processed is finished, we will add additional true for metadata extraction that was done in the same function
-        if state_is_finished and states == 'processed':
-            result.append(True)
 
     return result
 

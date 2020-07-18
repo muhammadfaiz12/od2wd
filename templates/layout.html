@@ -1,52 +1,87 @@
-<!doctype html>
-<title>OD2WD</title>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <!-- <link rel="shortcut icon" type="image/png" href="/static/image/od2wd-logo.png"/> -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="/static/assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/static/assets/css/custom.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+	<title>OD2WD</title>
 </head>
-<nav class="navbar navbar-expand-lg navbar-light" style="background: #076585;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #ffff, #80D0C7);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #ffff, #80D0C7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */">
-  <a class="navbar-brand" href="http://od2wd.id">
-  OD2WD </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="http://od2wd.id" style="color: black">Home<span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="http://od2wd.id/api/" style="color: black">API<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="http://od2wd.id/download-paper" style="color: black">Paper<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Repository
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="https://github.com/muhammadfaiz12/od2wd">Web</a>
-          <a class="dropdown-item" href="https://github.com/gibranmfw/od2wd_api">API</a>
-        </div>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="http://od2wd.id/about" style="color: black">About<span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-  </div>
+<nav>
+	<div class="descriptive" layer="logo">
+		<div class="media">
+			<h2 id="logo">Od2wd</h2>
+		</div>
+	</div>
+	<div class="descriptive" layer="toggle">
+		<button onclick="toggleNav()">
+			<i id="button" class="fas fa-ellipsis-v"></i>
+		</button>
+	</div>
+	<div class="descriptive" layer="menu">
+		<ul id="nav" class="">
+			<li>
+				<a href="/">Home</a>
+			</li>
+			<li>
+				<a href="https://od2wd.id/api/" target="_blank">
+					API
+				</a>
+			</li>
+			<li onmouseover="toggleSubmenu()" onmouseout="toggleSubmenu()">
+				<a>Repository</a>
+				<ul id="submenu">
+					<li>
+						<a href="https://github.com/muhammadfaiz12/od2wd" target="_blank">
+							Web
+						</a>
+					</li>
+					<li>
+						<a href="https://github.com/gibranmfw/od2wd_api" target="_blank">
+							API
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a onclick="toSection('table')">Data Catalogue</a>
+			</li>
+			<li>
+				<a href="/about">About</a>
+			</li>
+			<li>
+				<a href="/publication/od2wd_paper.pdf" download>
+					<i class="fas fa-download"></i>
+					Paper
+				</a>
+			</li>
+			<li>
+				<button class="icon" onclick="toSection('form')">
+					<i class="fas fa-file"></i>
+					Convert Data
+				</button>
+			</li>
+		</ul>
+	</div>
 </nav>
+
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <strong>Error Messages</strong>
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+{% if messages %}
+<div id="notif" class="notification" onclick="notification()">
+	<div class="alert">
+		<h2>Error Messages</h2>
+		<ul class=flashes>
+			{% for message in messages %}
+				<li>{{ message }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+{% endif %}
 {% endwith %}
 {% block body %}{% endblock %}
+</html>
