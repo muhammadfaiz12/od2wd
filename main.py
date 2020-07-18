@@ -37,9 +37,10 @@ def submit_form_metadata():
     req = request.form
     if 'job_id' not in req.keys():
         print("job id not found")
-        return
-    job_metadata_dict[req['job_id']]=req
-    return
+        return jsonify(error_message="job id not found")
+    var_settings.job_metadata_dict[req['job_id']]=req
+    print(str(var_settings.job_metadata_dict))
+    return jsonify(message="ok")
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
