@@ -9,9 +9,11 @@
 		</div>
 		<div class="descriptive" layer="banner">
 			<div class="text">
-				<h1>Tools you need for easy and <br /> fast quickstatements</h1>
-				<p>OD2WD is a tool to convert csv file from open data portals into quickstatements file that would be
-					used to republish data to Wikidata. See how it works</p>
+				<h1>Tools you need for easy and <br/> fast quickstatements</h1>
+				<p>
+					OD2WD is a tool to convert csv file from open data portals into quickstatements file that would be
+					used to republish data to Wikidata. <a onclick="scrollSection('stages')">See how it works</a>
+				</p>
 				<div class="action">
 					<a onclick="scrollSection('form')">
 						<button class="icon">
@@ -19,24 +21,18 @@
 							Convert Data
 						</button>
 					</a>
-					<a onclick="scrollSection('stages')">
+					<a onclick="scrollSection('table')">
 						<button class="icon">
-							<i class="fas fa-cogs"></i>
-							Browse Converted Data
+							<i class="fas fa-database"></i>
+							Data Catalogue
 						</button>
 					</a>
 				</div>
 			</div>
 			<div class="embed">
-				<div class="video up">
-					<img src="/static/img/page/index/hero1.jpeg" />
-					<div class="play" onclick="toggleModal('videoAbout')">
-						<i class="fas fa-play"></i>
-					</div>
-				</div>
-				<div class="video down">
+				<div class="video">
 					<img src="/static/img/page/index/hero2.png" />
-					<div class="play">
+					<div class="play" onclick="toggleModal('videoAbout')">
 						<i class="fas fa-play"></i>
 					</div>
 				</div>
@@ -163,14 +159,13 @@
 	<section id="table" class="catalogue">
 		<div class="descriptive" layer="counter">
 			<div class="count">
-				<i class="fas fa-users"></i>
-				<p>10.000 Users</p>
-			</div>
-			<div class="divider"></div>
-			<div class="count">
 				<i class="fas fa-file"></i>
-				<p>{{pagination.total}} File(s) Converted</p>
+				<p>110 File(s) Converted</p>
 			</div>
+			<p class="desc">
+				We convert the CSV file quickly using our specialized tool for wikidata. The process is easy
+				and won't buy you much time.
+			</p>
 		</div>
 		<div class="descriptive" layer="title">
 			<h2>Data Catalogue</h2>
@@ -178,14 +173,15 @@
 		</div>
 		<div class="descriptive" layer="filter">
 			<form onsubmit="dataframe(event)">
-				<div class="pagination-page-info">{{ pagination.info }}</div>
+				<div class="pagination-page-info">
+					displaying 21 - 30 records in total 78
+				</div>
 				<div class="filter">
 					<div class="group">
 						<label>Search</label>
 						<div class="input">
 							<input placeholder="python.py" id="search"/>
 						</div>
-						<button type="submit">submit</button>
 					</div>
 					<div class="group">
 						<label>Sort</label>
@@ -196,7 +192,10 @@
 							</select>
 							<i class="fas fa-chevron-down"></i>
 						</div>
-						<button type="button" onclick="dataframeBack(event)">reset</button>
+					</div>
+					<div class="action">
+						<button type="submit">Submit</button>
+						<button type="button" onclick="dataframeBack(event)">Reset</button>
 					</div>
 				</div>
 			</form>

@@ -1,18 +1,31 @@
-
-
 window.onscroll = () => {
 	let navbar = document.querySelector('nav')
+	let white  = document.getElementById('white')
+	let blue   = document.getElementById('blue')
 	if (window.pageYOffset > 0) {
 		navbar.classList.add('scrolled')
+		white.classList.add('hide')
+		blue.classList.add('show')
 	} else {
 		navbar.classList.remove('scrolled')
+		if (window.location.pathname.includes('uploader') || window.location.pathname.includes('job-detail')) {
+			white.classList.add('hide')
+			blue.classList.add('show')
+		} else {
+			white.classList.remove('hide')
+			blue.classList.remove('show')
+		}
 	}
 }
 
 window.onload = () => {
 	let navbar = document.querySelector('nav')
-	if (window.location.pathname.includes('preview') || window.location.pathname.includes('job-detail') || window.location.pathname.includes('uploader')) {
+	let white  = document.getElementById('white')
+	let blue   = document.getElementById('blue')
+	if (window.location.pathname.includes('uploader') || window.location.pathname.includes('job-detail')) {
 		navbar.classList.add('static')
+		white.classList.add('hide')
+		blue.classList.add('show')
 	}
 }
 
@@ -21,8 +34,11 @@ toggleNav = () => {
 	navbar.classList.toggle('show')
 	let buttonicon = document.getElementById("button")
 	buttonicon.classList.toggle('toggle')
-	let logo = document.getElementById("logo")
-	logo.classList.toggle('toggle')
+
+	let white  = document.getElementById('white')
+	let blue   = document.getElementById('blue')
+	blue.classList.toggle('toggle')
+	white.classList.toggle('toggle')
 }
 
 toggleSubmenu = () => {
@@ -33,31 +49,6 @@ toggleSubmenu = () => {
 toggleModal = (id) => {
 	let modal = document.getElementById(id)
 	modal.classList.toggle('show')
-}
-
-toggleUpdateData = () => {
-	let label_title  = document.getElementById('label_title')
-	let label_url    = document.getElementById('label_url')
-	let label_tag    = document.getElementById('label_tag')
-	let label_desc   = document.getElementById('label_desc')
-	
-	label_title.classList.toggle('read')
-	label_url.classList.toggle('read')
-	label_tag.classList.toggle('read')
-	label_desc.classList.toggle('read')
-
-	let input_title = document.getElementById('input_title')
-	let input_url   = document.getElementById('input_url')
-	let input_tag   = document.getElementById('input_tag')
-	let input_desc  = document.getElementById('input_desc')
-
-	input_title.toggleAttribute('readonly')
-	input_url.toggleAttribute('readonly')
-	input_tag.toggleAttribute('readonly')
-	input_desc.toggleAttribute('readonly')
-
-	let submit_btn   = document.getElementById('submit')
-	submit_btn.toggleAttribute('disabled')
 }
 
 notification = () => {
@@ -114,19 +105,3 @@ deleteBorder = () => {
 	table.removeAttribute('border')
 }
 deleteBorder()
-
-$(function () {
-	$('.page-item').click(function(){
-	  console.log('Changing Page')
-	  $.ajax({
-		url: $(this).attr('href'),
-		success: function(response) {
-			$('.catalogue-div').replaceWith($(response).find('.catalogue-div'));
-		 },
-		error: function(response){
-			alert('Connection Error')
-		}
-	});
-	return false;
-  });
-});
