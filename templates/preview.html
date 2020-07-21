@@ -11,13 +11,13 @@
 		<div class="descriptive" layer="table">
 			<h1>Data Preview</h1>
 			<p>Job Name : <span>{{ procId }}</span></p>
-			<a href="/#table">
+			<a href="staging/#table">
 				<button class="back">
 					<i class="fas fa-chevron-left"></i>
 					Back
 				</button>
 			</a>
-			<form action="/form-metadata" method="POST">
+			<form action="staging/form-metadata" method="POST">
 				<h4>Metadata Form</h4>
 				<div class="group">
 					<label id="label_title">Title</label>
@@ -81,6 +81,6 @@
 			</div>
 		</div>
 	</section>
-	<script src="/staging/static/script/script.js"></script>
+	<script src="/static/staging/script/script.js"></script>
 </body>
 {% endblock %}

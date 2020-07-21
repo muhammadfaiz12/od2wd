@@ -58,7 +58,7 @@ notification = () => {
 
 toSection = (id) => {
 	if (window.location.pathname.includes('about') || window.location.pathname.includes('job-detail') || window.location.pathname.includes('preview')) {
-		window.location.href = `/#${id}`
+		window.location.href = `staging/#${id}`
 	} else {
 		if (window.innerWidth <= 1024) {
 			toggleNav()
@@ -80,14 +80,14 @@ scrollSection = (id) => {
 
 dataframe = (event) => {
 	event.preventDefault()
-	let nendoron = document.getElementById('search').value
-	let kiva = document.getElementById('select').value
-	window.location.href=`/?query=${nendoron}&order=${kiva}#table`
+	let searchValue = document.getElementById('search').value
+	let sortValue   = document.getElementById('select').value
+	window.location.href=`staging/?query=${searchValue}&order=${sortValue}#table`
 }
 
 dataframeBack = (event) => {
 	event.preventDefault()
-	window.location.href='/#table'
+	window.location.href='staging/#table'
 }
 
 convertDate = () => {
