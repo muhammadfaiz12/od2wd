@@ -26,11 +26,11 @@ def index():
     catalogue_time = split_paginate(catalogue_time, offset=offset, per_page=per_page)
     pagination = Pagination(page=page, per_page=per_page, total=ori_catalogue_len,
                             css_framework='bootstrap4')
-    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination)
+    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination, parent_link=var_settings.parent_link)
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', parent_link=var_settings.parent_link)
 
 @app.route('/form-metadata', methods=['POST'])
 def submit_form_metadata():
