@@ -58,7 +58,7 @@ notification = () => {
 
 toSection = (id) => {
 	if (window.location.pathname.includes('about') || window.location.pathname.includes('job-detail') || window.location.pathname.includes('preview')) {
-		window.location.href = `staging/#${id}`
+		window.location.href = `/#${id}`
 	} else {
 		if (window.innerWidth <= 1024) {
 			toggleNav()
@@ -82,12 +82,12 @@ dataframe = (event) => {
 	event.preventDefault()
 	let searchValue = document.getElementById('search').value
 	let sortValue   = document.getElementById('select').value
-	window.location.href=`staging/?query=${searchValue}&order=${sortValue}#table`
+	window.location.href=`/?query=${searchValue}&order=${sortValue}#table`
 }
 
 dataframeBack = (event) => {
 	event.preventDefault()
-	window.location.href='staging/#table'
+	window.location.href='/#table'
 }
 
 convertDate = () => {
