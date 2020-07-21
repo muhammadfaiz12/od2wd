@@ -1,7 +1,7 @@
 // var imgArray = [
-// 	'/static/img/page/index/slide1.jpg',
-// 	'/static/img/page/index/slide2.png',
-// 	'/static/img/page/index/slide3.jpg',
+// 	'/staging/static/img/page/index/slide1.jpg',
+// 	'/staging/static/img/page/index/slide2.png',
+// 	'/staging/static/img/page/index/slide3.jpg',
 // ],
 // 	curIndex = 0
 // imgDuration = 5000
