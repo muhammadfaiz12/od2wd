@@ -2584,7 +2584,9 @@ body[page=detail] section.hero {
         box-shadow: 0 0.425em 1.813em -0.813em rgba(2, 70, 255, 0.3);
         border-radius: .350em; }
         body[page=detail] section.hero .descriptive[layer=raw] .modal .table table {
-          table-layout: auto; }
+          table-layout: auto !important; }
+          body[page=detail] section.hero .descriptive[layer=raw] .modal .table table tbody tr th {
+            padding: 0 1.500em; }
           body[page=detail] section.hero .descriptive[layer=raw] .modal .table table tbody tr td.hover {
             position: relative; }
             body[page=detail] section.hero .descriptive[layer=raw] .modal .table table tbody tr td.hover:hover {
