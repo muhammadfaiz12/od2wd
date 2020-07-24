@@ -168,7 +168,7 @@ def job_detail(procId):
             res = "protagonist: nama sd"
             continue
         res= load_data(procId,states[idx])
-        res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
+        res = res.to_html(max_rows=15, justify='left').replace("border=\"1\"","'border=\"0\"'").replace("\"","")
         idx+=1
         previews.append(res)
 

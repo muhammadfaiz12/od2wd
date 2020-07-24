@@ -131,41 +131,76 @@
 						</tr>
 						<tr>
 							<td>
+								{% if job_status[0] %}
 								<button type="button" class="preview" onclick="toggleModal('raw')">
 									<i class="fas fa-search"></i>
 									Preview
 								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
+								{% if job_status[1] %}
 								<button type="button" class="preview" onclick="toggleModal('raw')">
 									<i class="fas fa-search"></i>
 									Preview
 								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
-								
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
+								{% if job_status[2] %}
+								<button type="button" class="preview" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
+								{% if job_status[3] %}
+								<button type="button" class="preview" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
+								{% if job_status[4] %}
+								<button type="button" class="preview" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
-								<!-- <div class="progress">
-									<div class="bar"></div>
-									<h5>100%</h5>
-								</div> -->
+								{% if job_status[5] %}
+								<button type="button" class="preview" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 						</tr>
 					</tbody>
@@ -328,7 +363,7 @@
 			<div class="modal">
 				<h2>Raw Data</h2>
 				<div class="table">
-					{{dataPreviews[0]}}
+					{{dataPreviews[0]|safe}}
 				</div>
 				<div class="close">
 					<button onclick="toggleModal('raw')">Close Preview</button>
