@@ -26,11 +26,11 @@ def index():
     catalogue_time = split_paginate(catalogue_time, offset=offset, per_page=per_page)
     pagination = Pagination(page=page, per_page=per_page, total=ori_catalogue_len,
                             css_framework='bootstrap4')
-    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination)
+    return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination, parent_link=var_settings.parent_link)
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', parent_link=var_settings.parent_link)
 
 @app.route('/form-metadata', methods=['POST'])
 def submit_form_metadata():
@@ -155,11 +155,24 @@ def job_detail(procId):
     mapping = {}
     #if procId in var_settings.mappingbeautified_dict:
     #    mapping = var_settings.mappingbeautified_dict[procId]
-    if job_status[2] :
+    if job_status[3] :
         mapping = get_label_from_map_file(procId)
-    if job_status[4]:
+    if job_status[5]:
         publish_url = get_publish_qs_url(procId)
-    return render_template('job-detail.html', procId=procId, job_status=job_status, publish_url=publish_url, mapping=mapping)
+    #preview are html string, unless phase 2(zero based), it will be just string
+    previews = []
+    idx = 0
+    states = ['uncleaned', 'processed', 'metadataExtraction', 'mapped', 'linked', 'results']
+    for status in job_status:
+        if states[idx] == 'metadataExtraction':
+            res = "protagonist: nama sd"
+            continue
+        res= load_data(procId,states[idx])
+        res = res.to_html(max_rows=15, justify='left').replace("border=\"1\"","'border=\"0\"'").replace("\"","")
+        idx+=1
+        previews.append(res)
+
+    return render_template('job-detail.html', procId=procId, job_status=job_status, publish_url=publish_url, mapping=mapping, dataPreviews=previews)
 
 @app.route('/download-detail/<procId>/<phase>', methods=['GET', 'POST'])
 def download_detail(procId, phase):

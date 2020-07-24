@@ -130,40 +130,76 @@
 						</tr>
 						<tr>
 							<td>
+								{% if job_status[0] %}
 								<button type="button" class="preview" onclick="toggleModal('raw')">
 									<i class="fas fa-search"></i>
 									Preview
 								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
+								{% if job_status[1] %}
+								<button type="button" class="preview" onclick="toggleModal('cleaned')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[2] %}
 								<button type="button" class="preview" onclick="toggleModal('raw')">
 									<i class="fas fa-search"></i>
 									Preview
 								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
+								{% if job_status[3] %}
+								<button type="button" class="preview" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
+								{% if job_status[4] %}
+								<button type="button" class="preview" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 							<td>
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
-							</td>
-							<td>
-								<div class="meta">
-									<div class="loader">Loading...</div>
-								</div>
-								<!-- <div class="progress">
-									<div class="bar"></div>
-									<h5>100%</h5>
-								</div> -->
+								{% if job_status[5] %}
+								<button type="button" class="preview" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
 							</td>
 						</tr>
 					</tbody>
@@ -326,82 +362,22 @@
 			<div class="modal">
 				<h2>Raw Data</h2>
 				<div class="table">
-					<table>
-						<thead>
-							<th>id</th>
-							<th>street</th>
-							<th>city</th>
-							<th>zip</th>
-							<th>state</th>
-							<th>beds</th>
-							<th>baths</th>
-							<th>sq__ft</th>
-							<th>type</th>
-							<th>sale_date</th>
-							<th>price</th>
-							<th>latitude</th>
-							<th>longitude</th>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>9832 Justo. Road</td>
-								<td class="hover">
-									#ID98991
-									<a href="/" target="blank">Lagos</a>
-								</td>
-								<td>748503</td>
-								<td>Paraguay</td>
-								<td>Vivamus rhoncus. Donec est. Nunc</td>
-								<td>Donec Corp.</td>
-								<td>Pellentesque.habitant@eratvitae.ca</td>
-								<td>95-115</td>
-								<td>16941103 5059</td>
-								<td>LA</td>
-								<td>-58.94372</td>
-								<td>50.83961</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>261 Lorem Ave</td>
-								<td class="hover">
-									#ID21311
-									<a href="/" target="blank">Istanbul</a>
-								</td>
-								<td>755012</td>
-								<td>Guatemala</td>
-								<td>egestas, urna justo faucibus lectus, a sollicitudin</td>
-								<td>Lorem Lorem LLC</td>
-								<td>ac.mattis.ornare@acsem.net</td>
-								<td>11319</td>
-								<td>16971022 7894</td>
-								<td>Ist</td>
-								<td>64.72132</td>
-								<td>-90.64199</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>Ap #842-691 Amet, Street</td>
-								<td class="hover">
-									#ID19201
-									<a href="/" target="blank">Santorini</a>
-								</td>
-								<td>6275</td>
-								<td>Nepal</td>
-								<td>lobortis risus. In mi</td>
-								<td>Accumsan Neque Et LLC</td>
-								<td>nascetur@pedeCras.com</td>
-								<td>H0W 8FQ</td>
-								<td>16180516 9883</td>
-								<td>South Island</td>
-								<td>63.79536</td>
-								<td>-133.54277</td>
-							</tr>
-						</tbody>
-					</table>
+					{{dataPreviews[0]|safe}}
 				</div>
 				<div class="close">
 					<button onclick="toggleModal('raw')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="raw" id="cleaned">
+			<div class="background" onclick="toggleModal('cleaned')"></div>
+			<div class="modal">
+				<h2>Cleaned Data</h2>
+				<div class="table">
+					{{dataPreviews[1]|safe}}
+				</div>
+				<div class="close">
+					<button onclick="toggleModal('cleaned')">Close Preview</button>
 				</div>
 			</div>
 		</div>
