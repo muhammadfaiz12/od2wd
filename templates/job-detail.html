@@ -144,7 +144,7 @@
 							</td>
 							<td>
 								{% if job_status[1] %}
-								<button type="button" class="preview" onclick="toggleModal('raw')">
+								<button type="button" class="preview" onclick="toggleModal('cleaned')">
 									<i class="fas fa-search"></i>
 									Preview
 								</button>
@@ -367,6 +367,18 @@
 				</div>
 				<div class="close">
 					<button onclick="toggleModal('raw')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="raw" id="cleaned">
+			<div class="background" onclick="toggleModal('cleaned')"></div>
+			<div class="modal">
+				<h2>Cleaned Data</h2>
+				<div class="table">
+					{{dataPreviews[1]|safe}}
+				</div>
+				<div class="close">
+					<button onclick="toggleModal('cleaned')">Close Preview</button>
 				</div>
 			</div>
 		</div>
