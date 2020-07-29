@@ -73,7 +73,7 @@ def link_data(df, protagonist,entity_column,mapping):
                     counter = counter + 1 
                 else: 
                     finalMap[mapping[header]] = columnList
-        time.sleep(2) 
+        time.sleep(10) 
     return finalMap
     
 def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId, sourceURL:str):
