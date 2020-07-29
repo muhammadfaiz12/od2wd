@@ -7,6 +7,8 @@ from src.main_utils import *
 from var_settings import *
 from migrate import migrate
 from threading import Thread
+import time
+
 
 
 app = Flask(__name__)
@@ -59,7 +61,8 @@ def upload_file():
         res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
         return render_template('preview.html', data=res, procId=file_name,parent_link=var_settings.parent_link)
     else:
-        return redirect(url_for('index'))
+        url_redirect="{}/".format(var_settings.parent_link)
+        return redirect(url_redirect, code=302)
 
 @app.route('/url-upload', methods = ['GET', 'POST'])
 def integrated_file():
@@ -210,14 +213,16 @@ def background_run_thread(procId, sourceURL):
 def background_run(procId, sourceURL=""):
     Thread(target=background_run_thread,args=(procId,sourceURL,)).start()
     print("[PROC-{}--[Phase 3]]--Thread Creation Success".format(procId))
-    return redirect(url_for('job_detail',procId = procId))
+    time.sleep(1)
+    url_redirect="{}/job-detail/{}".format(var_settings.parent_link, procId)
+    return redirect(url_redirect, code=302)
 
 @app.route('/choose-column/<procId>', methods = ['POST'])
 def choose_column_handler(procId):
     dropCol = request.form.getlist('dropCol')
     drop_export_column(procId, dropCol)
-    return redirect(url_for('job_detail',procId = procId))
-
+    url_redirect="{}/job-detail/{}".format(var_settings.parent_link, procId)
+    return redirect(url_redirect, code=302)
 
 
 if __name__ == '__main__':
