@@ -160,7 +160,7 @@
 		<div class="descriptive" layer="counter">
 			<div class="count">
 				<i class="fas fa-file"></i>
-				<p>110 File(s) Converted</p>
+				<p>{{pagination.total}}File(s) Converted</p>
 			</div>
 			<p class="desc">
 				We convert the CSV file quickly using our specialized tool for wikidata. The process is easy
@@ -174,7 +174,7 @@
 		<div class="descriptive" layer="filter">
 			<form onsubmit="dataframe(event)">
 				<div class="pagination-page-info">
-					displaying 21 - 30 records in total 78
+					displaying 21 - 30 records in total {{pagination.total}}
 				</div>
 				<div class="filter">
 					<div class="group">
