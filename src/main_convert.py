@@ -1,6 +1,7 @@
 from src.utils import *
 import pandas as pd
 import var_settings
+import time
 
 def main_convert():
     pass
@@ -71,7 +72,8 @@ def link_data(df, protagonist,entity_column,mapping):
                     finalMap['{}({})'.format(mapping[header], counter)] = columnList 
                     counter = counter + 1 
                 else: 
-                    finalMap[mapping[header]] = columnList 
+                    finalMap[mapping[header]] = columnList
+        time.sleep(10) 
     return finalMap
     
 def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId, sourceURL:str):
