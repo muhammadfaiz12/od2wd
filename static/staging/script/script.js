@@ -53,13 +53,15 @@ toggleModal = (id) => {
 
 collapse = (id, indicator = null) => {
 	let collapsible  = document.getElementById(id)
-	let button       = document.getElementById(indicator)
-	let value        = button.innerHTML
 	collapsible.classList.toggle('show')
-	if (value === 'Open') {
-		button.innerHTML = 'Close'
-	} else {
-		button.innerHTML = 'Open'
+	if (indicator !== null) {
+		let button       = document.getElementById(indicator)
+		let value        = button.innerHTML
+		if (value === 'Open') {
+			button.innerHTML = 'Close'
+		} else {
+			button.innerHTML = 'Open'
+		}
 	}
 }
 
