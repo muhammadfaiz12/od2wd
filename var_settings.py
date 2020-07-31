@@ -13,8 +13,8 @@ def init_global_var():
     # Job_metdata_dict [jobId:str -> {key:str -> value:str}]
     job_metadata_dict={}
     #Production
-    parent_link="http://od2wd.id"
-    parent_api_link="http://localhost:8080/"
+    # parent_link="http://od2wd.id"
+    # parent_api_link="http://localhost:8080/"
     #Local
-    # parent_link="http://localhost:5000"
-    # parent_api_link="https://od2wd.id/api/"
+    parent_link="http://localhost:5000"
+    parent_api_link="https://od2wd.id/api/"

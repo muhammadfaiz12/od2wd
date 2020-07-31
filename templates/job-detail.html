@@ -3,15 +3,111 @@
 <body page="detail">
 	<section class="hero">
 		<div class="descriptive" layer="detail">
-			<h2>Job Detail</h2>
+			<h2>
+				Job Detail
+				<a href="/#table">
+					<button type="button" class="back">
+						<i class="fas fa-chevron-left"></i>
+						Back
+					</button>
+				</a>
+			</h2>
 			<p>Job Name : <span>{{procId}}</span></p>
-			<a href="/#table">
-				<button class="back">
-					<i class="fas fa-chevron-left"></i>
-					Back
-				</button>
-			</a>
 			<div class="table">
+				<div class="process">
+					<ul>
+						<li>
+							{% if job_status[0] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Raw Data Process</p>
+						</li>
+						<li>
+							{% if job_status[1] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Cleaning Data Process</p>
+						</li>
+						<li>
+							{% if job_status[2] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Extraction Data Process</p>
+						</li>
+						<li>
+							{% if job_status[3] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Mapping preview column will be displayed</p>
+						</li>
+						<li>
+							{% if job_status[4] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Linking Data Process</p>
+						</li>
+						<li>
+							{% if job_status[5] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>When the process finished, The Execute Quickstatement button will appear.</p>
+						</li>
+					</ul>
+				</div>
 				<table>
 					<thead>
 						<th>Raw Data</th>
@@ -36,6 +132,80 @@
 									</td>
 								{% endif %}
 						  	{% endfor %}
+						</tr>
+						<tr>
+							<td>
+								{% if job_status[0] %}
+								<button type="button" class="view" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[1] %}
+								<button type="button" class="view" onclick="toggleModal('cleaned')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[2] %}
+								<button type="button" class="view" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[3] %}
+								<button type="button" class="view" onclick="collapse('mapping')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[4] %}
+								<button type="button" class="view" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[5] %}
+								<button type="button" class="view" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
 						</tr>
 						<tr>
 							<td>
@@ -112,7 +282,6 @@
 									</div>
 								{% endif %}
 							</td>
-
 							<td>
 								{% if job_status[5] %}
 									<a href="{{parent_link}}/download-detail/{{procId}}/results">
@@ -128,166 +297,16 @@
 								{% endif %}
 							</td>
 						</tr>
-						<tr>
-							<td>
-								{% if job_status[0] %}
-								<button type="button" class="preview" onclick="toggleModal('raw')">
-									<i class="fas fa-search"></i>
-									Preview
-								</button>
-								{% else %}
-									<div class="meta">
-										<div class="loader">Loading...</div>
-									</div>
-								{% endif %}
-							</td>
-							<td>
-								{% if job_status[1] %}
-								<button type="button" class="preview" onclick="toggleModal('cleaned')">
-									<i class="fas fa-search"></i>
-									Preview
-								</button>
-								{% else %}
-									<div class="meta">
-										<div class="loader">Loading...</div>
-									</div>
-								{% endif %}
-							</td>
-							<td>
-								{% if job_status[2] %}
-								<button type="button" class="preview" onclick="toggleModal('raw')">
-									<i class="fas fa-search"></i>
-									Preview
-								</button>
-								{% else %}
-									<div class="meta">
-										<div class="loader">Loading...</div>
-									</div>
-								{% endif %}
-							</td>
-							<td>
-								{% if job_status[3] %}
-								<button type="button" class="preview" onclick="toggleModal('raw')">
-									<i class="fas fa-search"></i>
-									Preview
-								</button>
-								{% else %}
-									<div class="meta">
-										<div class="loader">Loading...</div>
-									</div>
-								{% endif %}
-							</td>
-							<td>
-								{% if job_status[4] %}
-								<button type="button" class="preview" onclick="toggleModal('raw')">
-									<i class="fas fa-search"></i>
-									Preview
-								</button>
-								{% else %}
-									<div class="meta">
-										<div class="loader">Loading...</div>
-									</div>
-								{% endif %}
-							</td>
-							<td>
-								{% if job_status[5] %}
-								<button type="button" class="preview" onclick="toggleModal('raw')">
-									<i class="fas fa-search"></i>
-									Preview
-								</button>
-								{% else %}
-									<div class="meta">
-										<div class="loader">Loading...</div>
-									</div>
-								{% endif %}
-							</td>
-						</tr>
+						
 					</tbody>
 				</table>
-			</div>
-			<div class="process">
-				<ul>	
-					<li>
-						{% if job_status[0] %}
-							<div class="step"></div>
-							<div class="point">
-								<i class="fas fa-check"></i>
-							</div>
-						{% else %}
-							<div class="unstep"></div>
-							<div class="point"></div>
-						{% endif %}
-					</li>
-					<li>
-						{% if job_status[1] %}
-							<div class="step"></div>
-							<div class="point">
-								<i class="fas fa-check"></i>
-							</div>
-						{% else %}
-							<div class="unstep"></div>
-							<div class="point"></div>
-						{% endif %}
-					</li>
-					<li>
-						{% if job_status[2] %}
-							<div class="step"></div>
-							<div class="point">
-								<i class="fas fa-check"></i>
-							</div>
-						{% else %}
-							<div class="unstep"></div>
-							<div class="point"></div>
-						{% endif %}
-					</li>
-					<li>
-						{% if job_status[3] %}
-							<div class="step"></div>
-							<div class="point">
-								<i class="fas fa-check"></i>
-							</div>
-							<p>Mapping preview column will be displayed</p>
-						{% else %}
-							<div class="unstep"></div>
-							<div class="point"></div>
-							<p>Mapping preview column will be displayed</p>
-						{% endif %}
-					</li>
-					<li>
-						{% if job_status[4] %}
-							<div class="step"></div>
-							<div class="point">
-								<i class="fas fa-check"></i>
-							</div>
-						{% else %}
-							<div class="unstep"></div>
-							<div class="point"></div>
-						{% endif %}
-					</li>
-					<li>
-						{% if job_status[5] %}
-							<div class="step"></div>
-							<div class="point">
-								<i class="fas fa-check"></i>
-							</div>
-							<p>
-								When the process finished, The Execute Quickstatement button will appear.
-							</p>
-						{% else %}
-							<div class="unstep"></div>
-							<div class="point"></div>
-							<p>
-								When the process finished, The Execute Quickstatement button will appear.
-							</p>
-						{% endif %}
-					</li>
-				</ul>
 			</div>
 		</div>
 
 		{% if job_status[3] %}
 		<form action = "{{parent_link}}/choose-column/{{procId}}" method = "POST">
 		<div class="descriptive" layer="mapping">
+			<div class="collapse" id="mapping">
 			<h2>Property Mapping Result</h2>
 			<div class="table mapping">
 				<table>
@@ -341,20 +360,27 @@
 					<button type="submit">Drop Column(s)</button>
 				</a>
 			</div>
-			{% if job_status[5] %}
+		</div>
+		</div>
+		</form>
+		{% endif %}
+
+		{% if job_status[5] %}
+		<div class="descriptive" layer="quickstatements">
 			<div class="action">
 				<p>
 				   By clicking the <span>Execute QS</span> button, the converted file will be published into Wikidata 
 				   using Quickstatement tool. This Execute process makes use of the mapping and linking
 				   results and generate a Quickstatements serialization.
 				</p>
-				<a href="{{publish_url}}">
-					<button type="button">Execute QS</button>
+				<a>
+					<button type="button">
+						<i class="fas fa-file-export"></i>
+						EXECUTE QS
+					</button>
 				</a>
 			</div>
-			{% endif %}
 		</div>
-		</form>
 		{% endif %}
 
 		<div class="descriptive" layer="raw" id="raw">

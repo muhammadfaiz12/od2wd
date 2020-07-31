@@ -11,20 +11,20 @@
 			<div class="text">
 				<h1>Tools you need for easy and <br/> fast quickstatements</h1>
 				<p>
-					OD2WD is a tool to convert csv file from open data portals into quickstatements file that would be
-					used to republish data to Wikidata. <a onclick="scrollSection('stages')">See how it works</a>
+					OD2WD is a tool to convert CSV files from open data portals into Quickstatements files which can be
+					used to republish data into Wikidata. <a onclick="scrollSection('stages')">See how it works...</a>
 				</p>
 				<div class="action">
 					<a onclick="scrollSection('form')">
 						<button class="icon">
-							<i class="fas fa-file"></i>
+							<i class="fas fa-exchange-alt"></i>
 							Convert Data
 						</button>
 					</a>
 					<a onclick="scrollSection('table')">
 						<button class="icon">
-							<i class="fas fa-database"></i>
-							Data Catalogue
+							<i class="fas fa-project-diagram"></i>
+							Data Catalog
 						</button>
 					</a>
 				</div>
@@ -47,8 +47,8 @@
 			<div class="box"></div>
 		</div>
 		<div class="descriptive" layer="title">
-			<h2>Convert your Data Now</h2>
-			<p>Upload a csv file to be converted or Input the dataset link on open data sites</p>
+			<h2>Convert Your Data Now</h2>
+			<p>Upload a CSV file to be converted or input a dataset link from an open data portal</p>
 		</div>
 		<div class="descriptive" layer="convert">
 			<div class="convert">
@@ -65,6 +65,7 @@
 							type = "file"
 							name = "file" 
 						/>
+						<small>ex : data-puskesmas.csv, wilayah.csv</small>
 					</div>
 					<div class="action">
 						<button type="submit">submit</button>
@@ -76,9 +77,10 @@
 				<h4>Dataset Link</h4>
 				<p>Input dataset link from open data sites</p>
 				<form 
-					action  = "{{parent_link}}/url-upload"
-					enctype = "multipart/form-data"
-					method  = "POST"
+					action       = "{{parent_link}}/url-upload"
+					enctype      = "multipart/form-data"
+					method       = "POST"
+					autocomplete = "off"
 				>
 					<div class="group">
 						<label>Link</label>
@@ -87,6 +89,7 @@
 							placeholder = "link here" 
 							name        = "url"
 						/>
+						<small>ex : https://data.go.id/puskesmas-jakarta.csv</small>
 					</div>
 					<div class="action">
 						<button type="submit">submit</button>
@@ -113,7 +116,7 @@
 						<span>1</span>
 					</li>
 					<li>
-						<img src="/static/staging/img/illustrations/clean.svg"></img>
+						<img src="/static/staging/img/illustrations/cleaning.svg"></img>
 						<h3>Data Cleaning</h3>
 						<p>
 							This process happens to evaluate the raw data which has been uploaded, the redundant value
@@ -122,7 +125,7 @@
 						<span>2</span>
 					</li>
 					<li>
-						<img src="/static/staging/img/illustrations/map.svg"></img>
+						<img src="/static/staging/img/illustrations/mapping.svg"></img>
 						<h3>Property Mapping</h3>
 						<p>
 							Mapping phase utilize two tools: an index of Wikidata properties and a trained word
@@ -144,8 +147,8 @@
 						<span>4</span>
 					</li>
 					<li>
-						<img src="/static/staging/img/illustrations/publish.svg"></img>
-						<h3>Quickstatement File</h3>
+						<img src="/static/staging/img/illustrations/quickstatements.svg"></img>
+						<h3>Quickstatements File</h3>
 						<p>
 							The publishing phase aims to publish the conversion into Wikidata, which resulting in triple
 							format of protagonist-property-value
@@ -168,14 +171,12 @@
 			</p>
 		</div>
 		<div class="descriptive" layer="title">
-			<h2>Data Catalogue</h2>
+			<h2>Data Catalog</h2>
 			<p>Files that have been uploaded to OD2WD System</p>
 		</div>
 		<div class="descriptive" layer="filter">
 			<form onsubmit="dataframe(event)">
-				<div class="pagination-page-info">
-					displaying 21 - 30 records in total 78
-				</div>
+				{{ pagination.info }}
 				<div class="filter">
 					<div class="group">
 						<label>Search</label>
@@ -189,6 +190,8 @@
 							<select id="select">
 								<option value="DESC">Upload Date (oldest)</option>
 								<option value="ASC">Upload Date (newest)</option>
+								<option value="ASC">Job Name (A-Z)</option>
+								<option value="ASC">Job Name (Z-A)</option>
 							</select>
 							<i class="fas fa-chevron-down"></i>
 						</div>
@@ -272,7 +275,7 @@
 	</section>
 	<footer>
 		<div class="divider"></div>
-		<p>© 2020 OD2WD – Featured as Converter App | Made by OD2WD</p>
+		<p>© 2020 OD2WD – Universitas Indonesia | With support from Wikimedia Indonesia and Wikidata</p>
 	</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="/static/staging/script/script.js"></script>

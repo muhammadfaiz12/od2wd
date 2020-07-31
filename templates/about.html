@@ -1,22 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
 <body page="about">
-	<section class="hero">
-		<div class="descriptive" layer="greeting">
-			<div class="text">
-				<h1>Enriching Wikidata through Open Data <br/> Data Transformation and Republishing</h1>
-			</div>
-			<div class="media">
-				<div class="box">
-					<img src="/static/staging/img/page/about/abouthero1.jpg" alt="img" />
-					<img src="/static/staging/img/page/about/abouthero2.jpg" alt="img" />
-					<img src="/static/staging/img/page/about/abouthero3.png" alt="img" />
-					<img src="/static/staging/img/page/about/abouthero4.jpg" alt="img" />
-					<img src="/static/staging/img/page/about/abouthero5.jpg" alt="img" />
-				</div>
-			</div>
-		</div>
-	</section>
 	<section class="about">
 		<div class="descriptive" layer="about">
 			<div class="text">
@@ -24,10 +8,8 @@
 				<p>
 					OD2WD is a project supported by Wikimedia foundation. OD2WD is made for the Wikimedia
 					Foundation-funded project <span>"Enhancing the Indonesian content of Wikidata"</span>, supported by
-					<span>Wikimedia
-						Indonesia</span>. The project is co-administered by Adila Krisnadhi Ph.D., Fariz Darari Ph.D,
-					Muhammad Faiz
-					BCS, and Gibran Wisesa BCS from Faculty of Computer Science, Universitas Indonesia
+					<span>Wikimedia Indonesia</span>. The project is co-administered by Adila Krisnadhi, Fariz Darari,
+					Muhammad Faiz, and Gibran Wisesa from Faculty of Computer Science, Universitas Indonesia
 				</p>
 			</div>
 			<div class="media">
@@ -41,32 +23,10 @@
 			<img src="/static/staging/img/page/about/reason.jpeg"></img>
 		</div>
 		<div class="descriptive" layer="title">
-			<h2>The <span>Reason</span> Behind OD2WD</h2>
+			<h2>Why <span>OD2WD</span> ?</h2>
 		</div>
 		<div class="descriptive" layer="reason">
 			<div class="text">
-				<p>
-					Recently, there have been initiatives to publish more and more structured data on the Web. Wikidata
-					is a community-driven effort to provide data, that is part of Wikimedia family. On the other hand,
-					Open Data portals in Indonesia (e.g., data.go.id, data.jakarta.go.id, and data.bandung.go.id) are
-					publishing valuable data related to Indonesia. Statistically, Wikidata describes over 54 million
-					entities, while data.go.id, for instance, has nearly 80000 datasets. Even though Wikidata and Open
-					Data portals in Indonesia share a common goal of publishing data, there is still a wide gap in how
-					data provided by those parties can be linked to each other. This interoperability issue hinders not
-					only data consuming but also data publishing itself.
-					<span>The Initiation</span>
-				</p>
-				<p>
-					The main challenge of the project is how to provide a semantic bridge between Wikidata and Open Data
-					portals in Indonesia, providing linking between those data publishers. Concretely, the project task
-					is two-fold: (1) Data Import: Identify what data in Open Data portals of Indonesia can potentially
-					be imported to Wikidata, create a framework for such imports, and implement imports as showcases;
-					and (2) Semantic Enrichment: Analyze what data in Open Data portals of Indonesia can potentially be
-					enriched by linking with Wikidata entities, create a framework for such semantic enrichment, and as
-					showcases, implement the proposed semantic enrichment over the Open Data portal's datasets and
-					demonstrate its added value (e.g., through the use of API or SPARQL queries).
-					<span>Our Challenge</span>
-				</p>
 				<p>
 					The beneficiaries of the project outputs are mainly Wikidata and Indonesian Open Data portal's users
 					themselves (ranging from application developers to government employees), as well as researchers and
@@ -78,7 +38,7 @@
 					Wikidata; and (ii) Data consuming: Indonesian Open Data portals of Indonesia may benefit from the
 					interlinkedness of Wikidata for more fine-grained data search and discovery. So, this project
 					provides values for both Wikidata and Indonesian Open Data portals.
-					<span>The Benefits</span>
+					<span>OD2WD</span>
 				</p>
 			</div>
 		</div>
@@ -91,18 +51,10 @@
 		<div class="descriptive" layer="card">
 			<div class="card">
 				<div class="media">
-					<img src="/static/staging/img/page/about/teamadila.jpeg" />
+					<img src="/static/staging/img/page/about/teamadila2.jpeg" />
 				</div>
 				<div class="text">
 					<h4>Adila Krisnadhi Ph.D.</h4>
-					<ul>
-						<li>
-							<a>
-								<i class="fas fa-envelope"></i>
-							</a>
-						</li>
-						<p>adila@cs.ui.ac.id</p>
-					</ul>
 				</div>
 			</div>
 			<div class="card">
@@ -111,14 +63,6 @@
 				</div>
 				<div class="text">
 					<h4>Fariz Darari Ph.D</h4>
-					<ul>
-						<li>
-							<a>
-								<i class="fas fa-envelope"></i>
-							</a>
-						</li>
-						<p>fariz@ui.ac.id</p>
-					</ul>
 				</div>
 			</div>
 			<div class="card">
@@ -127,14 +71,6 @@
 				</div>
 				<div class="text">
 					<h4>Muhammad Faiz BCS</h4>
-					<ul>
-						<li>
-							<a>
-								<i class="fas fa-envelope"></i>
-							</a>
-						</li>
-						<p>faiz00.muhammad@gmail.com</p>
-					</ul>
 				</div>
 			</div>
 			<div class="card">
@@ -143,21 +79,36 @@
 				</div>
 				<div class="text">
 					<h4>Gibran Wisesa BCS</h4>
-					<ul>
-						<li>
-							<a>
-								<i class="fas fa-envelope"></i>
-							</a>
-						</li>
-						<p>gibranmfw@gmail.com</p>
-					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="info">
+			<div class="infos">
+				<div class="info">
+					<h5>For More Information and Support Regarding OD2WD</h5>
+					<a href="mailto:support@od2wd.com">
+						<div class="icon">
+							<i class="fas fa-envelope"></i>
+							<p>support@OD2WD.com</p>
+						</div>
+					</a>
+				</div>
+				<p>OR</p>
+				<div class="info">
+					<h5>Post any Issues regarding OD2WD on our github page</h5>
+					<a href="https://github.com/muhammadfaiz12/od2wd/issues" target="_blank">
+					<div class="icon">
+						<i class="fab fa-github"></i>
+						<p>support@OD2WD.com</p>
+					</div>
+					</a>
 				</div>
 			</div>
 		</div>
 	</section>
 	<footer>
 		<div class="divider"></div>
-		<p>© 2020 OD2WD – Featured as Converter App | Made by OD2WD</p>
+		<p>© 2020 OD2WD – Universitas Indonesia | With support from Wikimedia Indonesia and Wikidata</p>
 	</footer>
 	<script src="/static/staging/script/script.js"></script>
 </body>

@@ -14,10 +14,10 @@
 	<div class="descriptive" layer="logo">
 		<div class="media">
 			<a href="{{parent_link}}/">
-				<img src="/static/staging/img/brand/white.png" alt="od2wd" id="white"/>
+				<img src="/static/staging/img/brand/od2wd-neutral.png" alt="od2wd" id="white"/>
 			</a>
 			<a href="{{parent_link}}/">
-				<img src="/static/staging/img/brand/blue.png" alt="od2wd" id="blue"/>
+				<img src="/static/staging/img/brand/od2wd.png" alt="od2wd" id="blue"/>
 			</a>
 		</div>
 	</div>
@@ -32,12 +32,15 @@
 				<a href="{{parent_link}}/">Home</a>
 			</li>
 			<li>
+				<a onclick="toSection('table')">Data Catalog</a>
+			</li>
+			<li>
 				<a href="https://od2wd.id/api/" target="_blank">
 					API
 				</a>
 			</li>
 			<li onmouseover="toggleSubmenu()" onmouseout="toggleSubmenu()">
-				<a>Repository</a>
+				<a>Code</a>
 				<ul id="submenu">
 					<li>
 						<a href="https://github.com/muhammadfaiz12/od2wd" target="_blank">
@@ -52,20 +55,16 @@
 				</ul>
 			</li>
 			<li>
-				<a onclick="toSection('table')">Data Catalogue</a>
+				<a href="{{parent_link}}/publication/od2wd_paper.pdf" download>
+					Paper
+				</a>
 			</li>
 			<li>
 				<a href="{{parent_link}}/about">About</a>
 			</li>
 			<li>
-				<a href="{{parent_link}}/publication/od2wd_paper.pdf" download>
-					<i class="fas fa-download"></i>
-					Paper
-				</a>
-			</li>
-			<li>
 				<button class="icon" onclick="toSection('form')">
-					<i class="fas fa-file"></i>
+					<i class="fas fa-exchange-alt"></i>
 					Convert Data
 				</button>
 			</li>

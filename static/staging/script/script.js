@@ -8,7 +8,7 @@ window.onscroll = () => {
 		blue.classList.add('show')
 	} else {
 		navbar.classList.remove('scrolled')
-		if (window.location.pathname.includes('uploader') || window.location.pathname.includes('job-detail')) {
+		if (window.location.pathname.includes('uploader') || window.location.pathname.includes('job-detail') || window.location.pathname.includes('about')) {
 			white.classList.add('hide')
 			blue.classList.add('show')
 		} else {
@@ -22,7 +22,7 @@ window.onload = () => {
 	let navbar = document.querySelector('nav')
 	let white  = document.getElementById('white')
 	let blue   = document.getElementById('blue')
-	if (window.location.pathname.includes('uploader') || window.location.pathname.includes('job-detail')) {
+	if (window.location.pathname.includes('uploader') || window.location.pathname.includes('job-detail') || window.location.pathname.includes('about')) {
 		navbar.classList.add('static')
 		white.classList.add('hide')
 		blue.classList.add('show')
@@ -49,6 +49,18 @@ toggleSubmenu = () => {
 toggleModal = (id) => {
 	let modal = document.getElementById(id)
 	modal.classList.toggle('show')
+}
+
+collapse = (id, indicator = null) => {
+	let collapsible  = document.getElementById(id)
+	let button       = document.getElementById(indicator)
+	let value        = button.innerHTML
+	collapsible.classList.toggle('show')
+	if (value === 'Open') {
+		button.innerHTML = 'Close'
+	} else {
+		button.innerHTML = 'Open'
+	}
 }
 
 notification = () => {

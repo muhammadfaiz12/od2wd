@@ -23,7 +23,8 @@ p,
 a,
 button,
 label,
-span {
+span,
+small {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   line-height: 1.500em;
@@ -144,6 +145,9 @@ form .group {
       form .group textarea:focus::placeholder, form .group select:focus::placeholder {
         opacity: 0;
         transform: translateX(1em); }
+      form .group input:focus + small,
+      form .group textarea:focus + small, form .group select:focus + small {
+        color: rgba(47, 53, 66, 0.7); }
     form .group input::placeholder,
     form .group textarea::placeholder, form .group select::placeholder {
       color: rgba(47, 53, 66, 0.25);
@@ -166,6 +170,12 @@ form .group {
         border: 0.1em solid rgba(2, 70, 255, 0.1) !important; }
   form .group select:read-only {
     background-color: white !important; }
+  form .group small {
+    color: rgba(47, 53, 66, 0.3);
+    font-size: .700em;
+    display: inline-block;
+    margin-top: .500em;
+    transition: all .5s ease; }
 
 form .action button {
   background: linear-gradient(to right top, #70a1ff, #18C8FF);
@@ -358,7 +368,7 @@ nav {
         width: 0;
         height: .180em;
         transition: all .5s ease; }
-      nav .descriptive[layer=menu] ul li:nth-child(3)::after, nav .descriptive[layer=menu] ul li:last-child::after {
+      nav .descriptive[layer=menu] ul li:nth-child(4)::after, nav .descriptive[layer=menu] ul li:last-child::after {
         display: none; }
       nav .descriptive[layer=menu] ul li:hover::after {
         width: 100%; }
@@ -393,15 +403,22 @@ nav {
         @media (max-width: 64em) and (orientation: landscape) {
           nav .descriptive[layer=menu] ul li a {
             font-size: 1.300em; } }
-      @media (max-width: 74.999em) and (orientation: portrait) {
-        nav .descriptive[layer=menu] ul li button {
-          font-size: 1.200em; } }
-      @media (max-width: 64em) and (orientation: landscape) {
-        nav .descriptive[layer=menu] ul li button {
-          font-size: .950em; } }
-      @media (max-width: 35.499em) and (orientation: portrait) {
-        nav .descriptive[layer=menu] ul li button {
-          font-size: .800em; } }
+      nav .descriptive[layer=menu] ul li button {
+        display: flex;
+        align-items: center;
+        padding-left: 1.200em;
+        padding-right: 1.200em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li button {
+            font-size: 1.200em; } }
+        @media (max-width: 64em) and (orientation: landscape) {
+          nav .descriptive[layer=menu] ul li button {
+            font-size: .950em; } }
+        @media (max-width: 35.499em) and (orientation: portrait) {
+          nav .descriptive[layer=menu] ul li button {
+            font-size: .800em; } }
+        nav .descriptive[layer=menu] ul li button i {
+          font-size: 1.200em; }
       nav .descriptive[layer=menu] ul li #submenu {
         display: flex;
         flex-direction: column;
@@ -411,7 +428,7 @@ nav {
         border-radius: .350em;
         position: absolute;
         top: 125%;
-        width: 150%;
+        width: 300%;
         overflow: hidden;
         opacity: 0;
         transition: all .5s ease; }
@@ -612,7 +629,7 @@ body[page=index] section.hero {
       body[page=index] section.hero .descriptive[layer=banner] .text p {
         color: #FFFFFF; }
       body[page=index] section.hero .descriptive[layer=banner] .text h1 {
-        font-size: 2.400em;
+        font-size: 2.200em;
         margin-bottom: .500em; }
         @media (max-width: 63.999em) and (orientation: portrait) {
           body[page=index] section.hero .descriptive[layer=banner] .text h1 {
@@ -627,8 +644,8 @@ body[page=index] section.hero {
           body[page=index] section.hero .descriptive[layer=banner] .text h1 {
             font-size: 1.400em; } }
       body[page=index] section.hero .descriptive[layer=banner] .text p {
-        font-size: 1.180em;
-        line-height: 1.700em;
+        font-size: 1.170em;
+        line-height: 1.800em;
         margin-bottom: 1.500em; }
         @media (max-width: 63.999em) and (orientation: portrait) {
           body[page=index] section.hero .descriptive[layer=banner] .text p {
@@ -640,10 +657,17 @@ body[page=index] section.hero {
           body[page=index] section.hero .descriptive[layer=banner] .text p {
             font-size: .900em; } }
         body[page=index] section.hero .descriptive[layer=banner] .text p a {
+          color: #70a1ff;
+          background-color: #FFFFFF;
+          border-radius: .300em;
+          font-size: .650em;
           font-weight: 600;
-          transition: all .5s ease; }
+          display: inline-block;
+          transition: all .5s ease;
+          padding: .200em .500em;
+          transform: translateY(-0.4em); }
           body[page=index] section.hero .descriptive[layer=banner] .text p a:hover {
-            margin-left: .500em; }
+            margin-left: .300em; }
       body[page=index] section.hero .descriptive[layer=banner] .text .action a button {
         font-size: .970em; }
         @media (max-width: 63.999em) and (orientation: portrait) {
@@ -711,6 +735,7 @@ body[page=index] section.hero {
               width: 3.500em;
               height: 3.500em; } }
           body[page=index] section.hero .descriptive[layer=banner] .embed .video .play i {
+            transform: translateX(0.1em);
             background: linear-gradient(to right bottom, #0246FF, #1FAFF9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -725,15 +750,15 @@ body[page=index] section.hero {
 
 @keyframes pulse {
   0% {
-    transform: scale(0.98); }
+    transform: translateX(0.1em) scale(0.98); }
   25% {
-    transform: scale(1.1); }
+    transform: translateX(0.1em) scale(1.1); }
   50% {
-    transform: scale(0.98); }
+    transform: translateX(0.1em) scale(0.98); }
   75% {
-    transform: scale(1.1); }
+    transform: translateX(0.1em) scale(1.1); }
   100% {
-    transform: scale(1); } }
+    transform: translateX(0.1em) scale(1); } }
 
 body[page=index] section.form {
   z-index: 1;
@@ -916,13 +941,14 @@ body[page=index] section.stages {
   @media (max-width: 35.499em) and (orientation: portrait) {
     body[page=index] section.stages {
       clip-path: polygon(0 0, 100% 0, 100% 97%, 0% 100%);
-      padding: 9.000em 5% 11.000em 5%; } }
+      padding: 8.000em 5% 9.000em 5%; } }
   body[page=index] section.stages .descriptive[layer=title] {
     text-align: right;
     margin-bottom: 4.000em; }
     @media (max-width: 35.499em) and (orientation: portrait) {
       body[page=index] section.stages .descriptive[layer=title] {
-        margin-bottom: 2.500em; } }
+        text-align: center;
+        margin: 0 2.000em 2.500em 2.000em; } }
   body[page=index] section.stages .descriptive[layer=step] .container ul {
     display: flex;
     justify-content: space-between;
@@ -969,28 +995,25 @@ body[page=index] section.stages {
             transform: translateY(0); } }
       body[page=index] section.stages .descriptive[layer=step] .container ul li img {
         width: 100%;
-        height: 7.000em;
+        height: 6.800em;
         object-fit: contain;
         margin-bottom: 1.200em; }
       body[page=index] section.stages .descriptive[layer=step] .container ul li h3 {
         color: rgba(47, 53, 66, 0.8);
-        font-size: 1.300em;
+        font-size: 1.250em;
         margin-bottom: .700em; }
         @media (max-width: 93.999em) and (orientation: landscape) {
           body[page=index] section.stages .descriptive[layer=step] .container ul li h3 {
-            font-size: 1.200em; } }
+            font-size: 1.150em; } }
         @media (max-width: 89.999em) and (orientation: landscape) {
           body[page=index] section.stages .descriptive[layer=step] .container ul li h3 {
-            font-size: 1.000em; } }
+            font-size: .950em; } }
         @media (max-width: 64em) and (orientation: landscape) {
           body[page=index] section.stages .descriptive[layer=step] .container ul li h3 {
-            font-size: 1.300em; } }
+            font-size: 1.250em; } }
       body[page=index] section.stages .descriptive[layer=step] .container ul li p {
         color: rgba(47, 53, 66, 0.6);
         font-size: .900em; }
-        @media (max-width: 93.999em) and (orientation: landscape) {
-          body[page=index] section.stages .descriptive[layer=step] .container ul li p {
-            font-size: .800em; } }
         @media (max-width: 89.999em) and (orientation: landscape) {
           body[page=index] section.stages .descriptive[layer=step] .container ul li p {
             font-size: .700em; } }
@@ -1019,23 +1042,20 @@ body[page=index] section.stages {
 
 body[page=index] section.catalogue {
   position: relative;
-  padding: 12.000em 8% 8.000em 8%;
+  padding: 10.000em 8% 8.000em 8%;
   margin-top: -2.500em; }
   @media (max-width: 89.999em) and (orientation: landscape) {
     body[page=index] section.catalogue {
-      padding: 12.000em 5%; } }
+      padding: 10.000em 5%; } }
   @media (max-width: 74.999em) and (orientation: portrait) {
     body[page=index] section.catalogue {
-      padding: 10.000em 5%; } }
-  @media (max-width: 63.999em) and (orientation: portrait) {
-    body[page=index] section.catalogue {
-      padding: 9.000em 5%; } }
+      padding: 6.000em 5%; } }
   @media (max-width: 64em) and (orientation: landscape) {
     body[page=index] section.catalogue {
-      padding: 8.000em 5%; } }
+      padding: 5.000em 5%; } }
   @media (max-width: 35.499em) and (orientation: portrait) {
     body[page=index] section.catalogue {
-      padding: 6.000em 5%; } }
+      padding: 5.000em 5%; } }
   body[page=index] section.catalogue .descriptive[layer=counter] {
     position: absolute;
     left: 50%;
@@ -1089,6 +1109,8 @@ body[page=index] section.catalogue {
         white-space: nowrap; }
     body[page=index] section.catalogue .descriptive[layer=counter] .desc {
       color: rgba(47, 53, 66, 0.8); }
+  body[page=index] section.catalogue .descriptive[layer=counter] {
+    display: none; }
   body[page=index] section.catalogue .descriptive[layer=title] {
     text-align: center;
     margin-bottom: 3.500em; }
@@ -1107,14 +1129,16 @@ body[page=index] section.catalogue {
       body[page=index] section.catalogue .descriptive[layer=filter] form {
         flex-wrap: wrap; } }
     body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
-      color: rgba(47, 53, 66, 0.8);
-      font-family: 'Monserrat', sans-serif; }
+      color: rgba(47, 53, 66, 0.5);
+      font-family: 'Montserrat', sans-serif; }
       @media (max-width: 74.999em) and (orientation: portrait) {
         body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
           order: 2; } }
       @media (max-width: 89.999em) and (orientation: landscape) {
         body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
           order: 2; } }
+      body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info::first-letter {
+        text-transform: capitalize; }
     body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
       display: flex;
       justify-content: flex-end;
@@ -1335,259 +1359,28 @@ body[page=index] section.modal .descriptive {
   body[page=index] section.modal .descriptive.show {
     top: 0; }
 
-body[page=about] section.hero {
-  background: linear-gradient(to left bottom, #0246FF, #18C8FF);
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 94%); }
-  @media (max-width: 74.999em) and (orientation: portrait) {
-    body[page=about] section.hero {
-      height: 70vh; } }
-  @media (max-width: 63.999em) and (orientation: landscape) {
-    body[page=about] section.hero {
-      height: 110vh; } }
-  @media (max-width: 35.5em) and (orientation: landscape) {
-    body[page=about] section.hero {
-      height: 125vh; } }
-  @media (max-width: 35.499em) and (orientation: portrait) {
-    body[page=about] section.hero {
-      height: 60vh; } }
-  @media (max-width: 22.5em) and (orientation: portrait) {
-    body[page=about] section.hero {
-      height: 80vh; } }
-  body[page=about] section.hero .descriptive[layer=greeting] {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    padding: 0 0 0 8%; }
-    @media (max-width: 90.999em) and (orientation: landscape) {
-      body[page=about] section.hero .descriptive[layer=greeting] {
-        padding: 0 0 0 5%; } }
-    @media (max-width: 74.999em) and (orientation: portrait) {
-      body[page=about] section.hero .descriptive[layer=greeting] {
-        padding: 0 0 0 5%; } }
-    @media (max-width: 63.999em) and (orientation: landscape) {
-      body[page=about] section.hero .descriptive[layer=greeting] {
-        padding: 0 5%; } }
-    @media (max-width: 35.499em) and (orientation: portrait) {
-      body[page=about] section.hero .descriptive[layer=greeting] {
-        padding: 0 5%; } }
-    body[page=about] section.hero .descriptive[layer=greeting] .text {
-      flex-basis: 43%; }
-      @media (max-width: 74.999em) and (orientation: portrait) {
-        body[page=about] section.hero .descriptive[layer=greeting] .text {
-          flex-basis: 50%; } }
-      @media (max-width: 63.999em) and (orientation: landscape) {
-        body[page=about] section.hero .descriptive[layer=greeting] .text {
-          flex-basis: 100%;
-          text-align: center; } }
-      @media (max-width: 35.499em) and (orientation: portrait) {
-        body[page=about] section.hero .descriptive[layer=greeting] .text {
-          flex-basis: 100%;
-          text-align: center; } }
-      body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
-        color: #FFFFFF;
-        font-size: 2.000em;
-        position: relative; }
-        @media (max-width: 74.999em) and (orientation: portrait) {
-          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
-            font-size: 1.800em; } }
-        @media (max-width: 63.999em) and (orientation: portrait) {
-          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
-            font-size: 1.400em; } }
-        @media (max-width: 75em) and (orientation: landscape) {
-          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
-            font-size: 1.600em; } }
-        @media (max-width: 35.5em) and (orientation: landscape) {
-          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
-            font-size: 1.300em; } }
-        @media (max-width: 35.499em) and (orientation: portrait) {
-          body[page=about] section.hero .descriptive[layer=greeting] .text h1 {
-            font-size: 1.200em; } }
-    body[page=about] section.hero .descriptive[layer=greeting] .media {
-      flex-basis: 55%; }
-      @media (max-width: 74.999em) and (orientation: portrait) {
-        body[page=about] section.hero .descriptive[layer=greeting] .media {
-          flex-basis: 50%; } }
-      @media (max-width: 35.499em) and (orientation: portrait) {
-        body[page=about] section.hero .descriptive[layer=greeting] .media {
-          display: none; } }
-      @media (max-width: 63.999em) and (orientation: landscape) {
-        body[page=about] section.hero .descriptive[layer=greeting] .media {
-          display: none; } }
-      body[page=about] section.hero .descriptive[layer=greeting] .media .box {
-        position: relative;
-        width: 100%;
-        height: 100vh; }
-        @media (max-width: 74.999em) and (orientation: portrait) {
-          body[page=about] section.hero .descriptive[layer=greeting] .media .box {
-            height: 70vh; } }
-        body[page=about] section.hero .descriptive[layer=greeting] .media .box img {
-          box-shadow: 0 0.425em 1.813em -0.813em rgba(47, 53, 66, 0.05);
-          border-radius: .650em;
-          position: absolute;
-          object-fit: cover; }
-          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
-            bottom: 6%;
-            right: 8%;
-            width: 18.000em;
-            height: 22.000em;
-            filter: blur(0.8px); }
-            @media (max-width: 93.999em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
-                height: 16.000em;
-                width: 15.000em;
-                bottom: 8%; } }
-            @media (max-width: 74.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
-                height: 14.000em;
-                width: 12.000em;
-                bottom: 10%; } }
-            @media (max-width: 63.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
-                height: 12.000em;
-                width: 10.000em; } }
-            @media (max-width: 75em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:first-child {
-                height: 14.000em;
-                width: 12.000em; } }
-          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
-            top: 50%;
-            left: 2%;
-            width: 15.000em;
-            height: 15.000em;
-            transform: translateY(-50%);
-            filter: blur(0.5px); }
-            @media (max-width: 93.999em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
-                width: 12.000em;
-                height: 12.000em; } }
-            @media (max-width: 74.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
-                height: 10.000em;
-                width: 10.000em;
-                left: 10%; } }
-            @media (max-width: 63.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
-                height: 8.000em;
-                width: 8.000em; } }
-            @media (max-width: 75em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(2) {
-                height: 9.000em;
-                width: 9.000em;
-                left: 10%; } }
-          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
-            top: 40%;
-            right: 12%;
-            width: 10.000em;
-            height: 10.000em;
-            transform: translateY(-50%);
-            filter: blur(1.4px); }
-            @media (max-width: 93.999em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
-                width: 8.000em;
-                height: 8.000em; } }
-            @media (max-width: 74.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
-                height: 7.000em;
-                width: 7.000em;
-                top: 42%; } }
-            @media (max-width: 63.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
-                height: 6.000em;
-                width: 6.000em;
-                top: 45%;
-                right: -2%; } }
-            @media (max-width: 75em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(3) {
-                width: 7.000em;
-                height: 7.000em;
-                top: 42%; } }
-          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
-            top: 20%;
-            left: 26%;
-            width: 11.200em;
-            height: 11.200em;
-            transform: translateY(-50%);
-            filter: blur(0.8px); }
-            @media (max-width: 93.999em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
-                width: 9.000em;
-                height: 9.000em;
-                left: 35%;
-                top: 22%; } }
-            @media (max-width: 74.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
-                height: 10.000em;
-                width: 10.000em;
-                left: 22%;
-                top: 23%; } }
-            @media (max-width: 63.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
-                height: 7.000em;
-                width: 7.000em;
-                left: 30%; } }
-            @media (max-width: 75em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(4) {
-                height: 8.000em;
-                width: 8.000em;
-                left: 28%; } }
-          body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
-            top: 18%;
-            left: -12%;
-            width: 7.000em;
-            height: 7.000em;
-            transform: translateY(-50%);
-            filter: blur(1px); }
-            @media (max-width: 93.999em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
-                width: 6.000em;
-                height: 6.000em;
-                left: -8%; } }
-            @media (max-width: 74.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
-                height: 6.000em;
-                width: 6.000em;
-                left: -15%; } }
-            @media (max-width: 63.999em) and (orientation: portrait) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
-                height: 5.000em;
-                width: 5.000em; } }
-            @media (max-width: 75em) and (orientation: landscape) {
-              body[page=about] section.hero .descriptive[layer=greeting] .media .box img:nth-child(5) {
-                height: 5.000em;
-                width: 5.000em; } }
-
 body[page=about] section.about {
   background-color: #E5F0FF;
-  padding: 20.000em 8% 24.000em 8%;
+  padding: 23.000em 8% 24.000em 8%;
   margin-top: -5.000em; }
   @media (max-width: 93.999em) and (orientation: landscape) {
     body[page=about] section.about {
-      padding: 15.000em 8% 18.000em 8%; } }
+      padding: 18.000em 8% 18.000em 8%; } }
   @media (max-width: 74.999em) and (orientation: portrait) {
     body[page=about] section.about {
-      padding: 15.000em 8% 17.000em 8%; } }
+      padding: 18.000em 8% 17.000em 8%; } }
   @media (max-width: 63.999em) and (orientation: portrait) {
     body[page=about] section.about {
-      padding: 14.000em 5% 20.000em 5%; } }
+      padding: 17.000em 5% 20.000em 5%; } }
   @media (max-width: 75em) and (orientation: landscape) {
     body[page=about] section.about {
-      padding: 14.000em 5% 20.000em 5%; } }
+      padding: 17.000em 5% 20.000em 5%; } }
   @media (max-width: 35.5em) and (orientation: landscape) {
     body[page=about] section.about {
-      padding: 12.000em 5% 18.000em 5%; } }
+      padding: 15.000em 5% 18.000em 5%; } }
   @media (max-width: 35.499em) and (orientation: portrait) {
     body[page=about] section.about {
-      padding: 12.000em 5% 18.000em 5%; } }
+      padding: 15.000em 5% 18.000em 5%; } }
   body[page=about] section.about .descriptive[layer=about] {
     display: flex;
     flex-direction: row;
@@ -1697,10 +1490,11 @@ body[page=about] section.about {
             width: 35%;
             top: 50%;
             height: 27.000em; } }
-        @media (max-width: 75em) and (orientation: landscape) {
+        @media (max-width: 91em) and (orientation: landscape) {
           body[page=about] section.about .descriptive[layer=about] .media img {
+            top: 50%;
             width: 27%;
-            top: 50%; } }
+            height: 23.000em; } }
 
 body[page=about] section.article {
   background-color: #FFFFFF;
@@ -1803,33 +1597,6 @@ body[page=about] section.article {
       line-height: 1.800em;
       transition: all .5s ease;
       padding: 2.200em 1.700em; }
-      body[page=about] section.article .descriptive[layer=reason] .text p:not(:last-child) {
-        margin-bottom: 3.500em; }
-        @media (max-width: 74.999em) and (orientation: portrait) {
-          body[page=about] section.article .descriptive[layer=reason] .text p:not(:last-child) {
-            margin-bottom: 5.000em; } }
-        @media (max-width: 63.999em) and (orientation: portrait) {
-          body[page=about] section.article .descriptive[layer=reason] .text p:not(:last-child) {
-            margin-bottom: 6.000em; } }
-        @media (max-width: 75em) and (orientation: landscape) {
-          body[page=about] section.article .descriptive[layer=reason] .text p:not(:last-child) {
-            margin-bottom: 5.00em; } }
-      body[page=about] section.article .descriptive[layer=reason] .text p:first-child {
-        left: -5%; }
-        @media (max-width: 63.999em) and (orientation: portrait) {
-          body[page=about] section.article .descriptive[layer=reason] .text p:first-child {
-            left: 0; } }
-        @media (max-width: 75em) and (orientation: landscape) {
-          body[page=about] section.article .descriptive[layer=reason] .text p:first-child {
-            left: 0; } }
-      body[page=about] section.article .descriptive[layer=reason] .text p:last-child {
-        left: 5%; }
-        @media (max-width: 63.999em) and (orientation: portrait) {
-          body[page=about] section.article .descriptive[layer=reason] .text p:last-child {
-            left: 0; } }
-        @media (max-width: 75em) and (orientation: landscape) {
-          body[page=about] section.article .descriptive[layer=reason] .text p:last-child {
-            left: 0; } }
       body[page=about] section.article .descriptive[layer=reason] .text p:hover {
         transform: scale(1.02); }
         body[page=about] section.article .descriptive[layer=reason] .text p:hover span {
@@ -1881,11 +1648,11 @@ body[page=about] section.team {
   margin-top: -9.000em; }
   @media (max-width: 93.999em) and (orientation: landscape) {
     body[page=about] section.team {
-      padding: 12.000em 8%; } }
+      padding: 12.000em 5%; } }
   @media (max-width: 74.999em) and (orientation: portrait) {
     body[page=about] section.team {
       padding: 12.000em 5%;
-      margin-top: -12.000em; } }
+      margin-top: -15.000em; } }
   @media (max-width: 63.999em) and (orientation: portrait) {
     body[page=about] section.team {
       clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
@@ -1942,25 +1709,31 @@ body[page=about] section.team {
         transform: scale(1.03); }
       body[page=about] section.team .descriptive[layer=card] .card .media img {
         width: 100%;
-        height: 18.000em;
+        height: 20.000em;
         object-fit: cover;
         transition: all .5s ease-out; }
+        @media (max-width: 91em) and (orientation: landscape) {
+          body[page=about] section.team .descriptive[layer=card] .card .media img {
+            height: 18.000em; } }
       body[page=about] section.team .descriptive[layer=card] .card .text {
         position: relative;
-        padding: 1.000em; }
+        padding: 1.000em 1.000em 1.500em 1.000em; }
         body[page=about] section.team .descriptive[layer=card] .card .text h4 {
           color: rgba(47, 53, 66, 0.8);
           font-size: 1.200em; }
         body[page=about] section.team .descriptive[layer=card] .card .text p {
           color: rgba(47, 53, 66, 0.5);
           font-size: .800em; }
+          @media (max-width: 91em) and (orientation: landscape) {
+            body[page=about] section.team .descriptive[layer=card] .card .text p {
+              font-size: .700em; } }
         body[page=about] section.team .descriptive[layer=card] .card .text ul {
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: flex-start;
           flex-wrap: nowrap;
-          margin-top: .800em; }
+          margin-top: .500em; }
           body[page=about] section.team .descriptive[layer=card] .card .text ul li {
             display: flex;
             flex-direction: row;
@@ -1971,32 +1744,90 @@ body[page=about] section.team {
             background: linear-gradient(to right, #18C8FF, #1FAFF9);
             width: 1.800em;
             height: 1.800em;
-            transition: all .5s ease; }
+            transition: all .5s ease;
+            margin-right: .500em; }
+            @media (max-width: 91em) and (orientation: landscape) {
+              body[page=about] section.team .descriptive[layer=card] .card .text ul li {
+                width: 1.500em;
+                height: 1.500em; } }
             body[page=about] section.team .descriptive[layer=card] .card .text ul li:hover {
               cursor: pointer; }
               body[page=about] section.team .descriptive[layer=card] .card .text ul li:hover a i {
                 transform: rotate(20deg); }
-            body[page=about] section.team .descriptive[layer=card] .card .text ul li:not(:last-child) {
-              margin-right: .700em; }
             body[page=about] section.team .descriptive[layer=card] .card .text ul li a i {
               color: #FFFFFF;
               transition: all .5s ease; }
+              @media (max-width: 91em) and (orientation: landscape) {
+                body[page=about] section.team .descriptive[layer=card] .card .text ul li a i {
+                  font-size: .800em; } }
     body[page=about] section.team .descriptive[layer=card] .card:first-child .media img {
-      clip-path: polygon(100% 0, 100% 100%, 64% 92%, 21% 100%, 0 94%, 0 0); }
+      clip-path: polygon(0 0, 100% 0, 100% 96%, 70% 100%, 30% 97%, 0 100%); }
     body[page=about] section.team .descriptive[layer=card] .card:first-child:hover .media img {
-      clip-path: polygon(100% 0, 100% 92%, 46% 100%, 21% 93%, 0 100%, 0 0); }
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 74% 97%, 19% 100%, 0 97%); }
     body[page=about] section.team .descriptive[layer=card] .card:nth-child(2) .media img {
-      clip-path: polygon(100% 0, 100% 92%, 53% 100%, 22% 93%, 0 100%, 0 0); }
+      clip-path: polygon(100% 0, 100% 96%, 78% 100%, 51% 97%, 18% 100%, 0 96%, 0 0); }
     body[page=about] section.team .descriptive[layer=card] .card:nth-child(2):hover .media img {
-      clip-path: polygon(100% 0, 100% 100%, 64% 89%, 15% 96%, 0 81%, 0 0); }
+      clip-path: polygon(100% 0, 100% 100%, 78% 96%, 50% 100%, 19% 98%, 0 100%, 0 0); }
     body[page=about] section.team .descriptive[layer=card] .card:nth-child(3) .media img {
-      clip-path: polygon(100% 0, 100% 100%, 51% 91%, 10% 100%, 0 93%, 0 0); }
+      clip-path: polygon(0 0, 100% 0, 100% 95%, 81% 100%, 26% 97%, 0 100%); }
     body[page=about] section.team .descriptive[layer=card] .card:nth-child(3):hover .media img {
-      clip-path: polygon(100% 0, 100% 83%, 76% 100%, 51% 91%, 0 100%, 0 0); }
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 63% 97%, 41% 100%, 0 96%); }
     body[page=about] section.team .descriptive[layer=card] .card:last-child .media img {
-      clip-path: polygon(100% 0, 100% 89%, 63% 100%, 36% 92%, 0 96%, 0 0); }
+      clip-path: polygon(100% 0, 100% 96%, 81% 100%, 53% 95%, 16% 100%, 0 96%, 0 0); }
     body[page=about] section.team .descriptive[layer=card] .card:last-child:hover .media img {
-      clip-path: polygon(100% 0, 100% 100%, 65% 95%, 36% 100%, 0 86%, 0 0); }
+      clip-path: polygon(100% 0, 100% 100%, 81% 96%, 53% 100%, 19% 97%, 0 100%, 0 0); }
+  body[page=about] section.team .descriptive[layer=info] {
+    border-radius: .350em;
+    text-align: center;
+    margin: 4.000em 10% 0 10%; }
+    @media (max-width: 91em) and (orientation: landscape) {
+      body[page=about] section.team .descriptive[layer=info] {
+        margin: 4.000em 0 0 0; } }
+    body[page=about] section.team .descriptive[layer=info] .infos {
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      @media (max-width: 74.999em) and (orientation: portrait) {
+        body[page=about] section.team .descriptive[layer=info] .infos {
+          flex-wrap: wrap; } }
+      body[page=about] section.team .descriptive[layer=info] .infos .info {
+        background: linear-gradient(to right top, rgba(2, 70, 255, 0.7), #18C8FF);
+        border-radius: .350em;
+        padding: 1.800em 1.500em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=about] section.team .descriptive[layer=info] .infos .info {
+            flex-basis: 100%; } }
+        body[page=about] section.team .descriptive[layer=info] .infos .info h5 {
+          color: #FFFFFF; }
+        body[page=about] section.team .descriptive[layer=info] .infos .info .icon {
+          background-color: #FFFFFF;
+          border-radius: .350em;
+          display: inline-flex;
+          align-items: center;
+          margin-top: .800em;
+          padding: .700em .900em;
+          transition: all .5s ease; }
+          body[page=about] section.team .descriptive[layer=info] .infos .info .icon:hover {
+            cursor: pointer;
+            transform: scale(1.04); }
+          body[page=about] section.team .descriptive[layer=info] .infos .info .icon i, body[page=about] section.team .descriptive[layer=info] .infos .info .icon p {
+            background: linear-gradient(to right, #70a1ff, rgba(2, 70, 255, 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; }
+          body[page=about] section.team .descriptive[layer=info] .infos .info .icon i {
+            font-size: 1.300em;
+            margin-right: .500em;
+            transform: translateY(0.1em);
+            padding: .100em; }
+          body[page=about] section.team .descriptive[layer=info] .infos .info .icon p {
+            font-weight: 600;
+            margin: 0; }
+      body[page=about] section.team .descriptive[layer=info] .infos p {
+        color: rgba(47, 53, 66, 0.8);
+        margin: 0 1.300em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=about] section.team .descriptive[layer=info] .infos p {
+            margin: 1.200em 0; } }
 
 body[page=preview] section.hero {
   background-color: #E5F0FF;
@@ -2069,56 +1900,69 @@ body[page=preview] section.hero {
     transform: scale(0.8) rotate(-35deg);
     animation: rotateLeft4 15s ease 2s infinite; }
   body[page=preview] section.hero .descriptive[layer=table] h1 {
-    color: #2f3542; }
+    color: #2f3542;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; }
+    body[page=preview] section.hero .descriptive[layer=table] h1 .back {
+      background: linear-gradient(to right top, #70a1ff, #18C8FF);
+      color: #FFFFFF;
+      font-weight: 600;
+      transform: translateY(-0.3em);
+      transition: all .5s ease;
+      padding: .500em 1.500em; }
+      body[page=preview] section.hero .descriptive[layer=table] h1 .back:hover {
+        margin-right: .300em; }
+      body[page=preview] section.hero .descriptive[layer=table] h1 .back:active {
+        margin-right: -.300em; }
+      body[page=preview] section.hero .descriptive[layer=table] h1 .back i {
+        margin-right: .500em; }
   body[page=preview] section.hero .descriptive[layer=table] p {
     color: rgba(47, 53, 66, 0.7);
-    font-size: 1.000em; }
+    font-size: 1.000em;
+    margin-bottom: 1.800em; }
     body[page=preview] section.hero .descriptive[layer=table] p span {
       font-weight: 600; }
-  body[page=preview] section.hero .descriptive[layer=table] .back {
-    background: linear-gradient(to right top, #70a1ff, #18C8FF);
-    color: #FFFFFF;
-    font-weight: 600;
-    margin: 1.000em 0 1.500em 0; }
-    body[page=preview] section.hero .descriptive[layer=table] .back i {
-      margin-right: .500em; }
-  body[page=preview] section.hero .descriptive[layer=table] form {
+  body[page=preview] section.hero .descriptive[layer=table] .form {
     background-color: #FFFFFF;
     border-radius: .350em;
     position: relative;
     z-index: 2;
     padding: 2.000em 1.600em;
     margin-bottom: 2.000em; }
-    body[page=preview] section.hero .descriptive[layer=table] form h4 {
+    body[page=preview] section.hero .descriptive[layer=table] .form h4 {
       color: rgba(47, 53, 66, 0.6);
-      margin-bottom: 1.500em; }
-    body[page=preview] section.hero .descriptive[layer=table] form .group {
-      margin-bottom: 2.000em; }
-      body[page=preview] section.hero .descriptive[layer=table] form .group label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+      body[page=preview] section.hero .descriptive[layer=table] .form h4 button {
+        background: linear-gradient(to right, #70a1ff, #18C8FF);
+        color: #FFFFFF;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: .800em 1.700em; }
+    body[page=preview] section.hero .descriptive[layer=table] .form .collapse {
+      position: relative;
+      max-height: 0;
+      opacity: 0;
+      z-index: -1;
+      transition: all .8s ease; }
+      body[page=preview] section.hero .descriptive[layer=table] .form .collapse.show {
+        max-height: 100em;
+        opacity: 1;
+        z-index: 1;
+        margin-top: 1.500em; }
+      body[page=preview] section.hero .descriptive[layer=table] .form .collapse .group:not(:last-child) {
+        margin-bottom: 2.000em; }
+      body[page=preview] section.hero .descriptive[layer=table] .form .collapse .group label {
         border-radius: .250em; }
-        body[page=preview] section.hero .descriptive[layer=table] form .group label.read {
+        body[page=preview] section.hero .descriptive[layer=table] .form .collapse .group label.read {
           background-color: #F2F6FF;
           border: 0.08em solid rgba(2, 70, 255, 0.1) !important;
           transition: all .5s ease; }
-      body[page=preview] section.hero .descriptive[layer=table] form .group input,
-      body[page=preview] section.hero .descriptive[layer=table] form .group textarea {
+      body[page=preview] section.hero .descriptive[layer=table] .form .collapse .group input,
+      body[page=preview] section.hero .descriptive[layer=table] .form .collapse .group textarea {
         font-family: 'Montserrat', sans-serif; }
-    body[page=preview] section.hero .descriptive[layer=table] form .action {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: nowrap;
-      text-align: right;
-      margin-top: 1.400em;
-      box-shadow: unset;
-      padding: 0; }
-      body[page=preview] section.hero .descriptive[layer=table] form .action .checkbox input[type=checkbox] + label {
-        font-size: .800em; }
-      body[page=preview] section.hero .descriptive[layer=table] form .action button {
-        margin-left: 1.500em; }
-        body[page=preview] section.hero .descriptive[layer=table] form .action button:disabled {
-          background: linear-gradient(to right top, rgba(47, 53, 66, 0.3), rgba(47, 53, 66, 0.2)); }
   body[page=preview] section.hero .descriptive[layer=table] .table {
     min-height: auto;
     max-height: 60vh;
@@ -2249,9 +2093,21 @@ body[page=preview] section.hero {
   100% {
     transform: scale(0.8) rotate(-35deg); } }
 
+@keyframes arrow {
+  0% {
+    transform: translateX(0.6em); }
+  25% {
+    transform: translateX(-0.3em); }
+  50% {
+    transform: translateX(0.4em); }
+  75% {
+    transform: translateX(-0.1em); }
+  100% {
+    transform: translateX(0.6em); } }
+
 body[page=detail] section.hero {
   background-color: #E5F0FF;
-  min-height: 100vh;
+  min-height: 150vh;
   padding: 10.000em 8%;
   position: relative; }
   @media (max-width: 90.999em) and (orientation: landscape) {
@@ -2259,13 +2115,27 @@ body[page=detail] section.hero {
       padding: 10.000em 5%; } }
   @media (max-width: 74.999em) and (orientation: portrait) {
     body[page=detail] section.hero {
-      padding: 10.000em 5%; } }
+      padding: 10.000em 5%;
+      min-height: 100vh; } }
   @media (max-width: 35.499em) and (orientation: portrait) {
     body[page=detail] section.hero {
-      padding: 6.000em 5%; } }
+      padding: 6.000em 5%;
+      min-height: 150vh; } }
   @media (max-width: 63.999em) and (orientation: landscape) {
     body[page=detail] section.hero {
-      padding: 7.000em 5%; } }
+      padding: 7.000em 5%;
+      min-height: 230vh; } }
+  body[page=detail] section.hero .descriptive .collapse {
+    position: relative;
+    max-height: 0;
+    opacity: 0;
+    z-index: -1;
+    transition: all .8s ease; }
+    body[page=detail] section.hero .descriptive .collapse.show {
+      max-height: 100em;
+      opacity: 1;
+      z-index: 1;
+      margin-bottom: 1.500em; }
   body[page=detail] section.hero .descriptive[layer=detail] h2, body[page=detail] section.hero .descriptive[layer=mapping] h2, body[page=detail] section.hero .descriptive[layer=raw] h2 {
     color: #2f3542; }
   body[page=detail] section.hero .descriptive[layer=detail] .table, body[page=detail] section.hero .descriptive[layer=mapping] .table, body[page=detail] section.hero .descriptive[layer=raw] .table {
@@ -2325,8 +2195,8 @@ body[page=detail] section.hero {
           padding: .500em 1.200em; }
           body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td button i, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td button i, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td button i {
             margin-right: .800em; }
-          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td button.preview, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td button.preview, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td button.preview {
-            background: linear-gradient(to right top, rgba(2, 70, 255, 0.2), rgba(2, 70, 255, 0.3)); }
+          body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td button.view, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td button.view, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td button.view {
+            background: linear-gradient(to right top, #34ace0, rgba(52, 172, 224, 0.5)); }
         body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td span, body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td span, body[page=detail] section.hero .descriptive[layer=raw] .table table tbody tr td span {
           background: linear-gradient(to right, #2ed573, #2ecc71);
           color: #FFFFFF;
@@ -2423,132 +2293,154 @@ body[page=detail] section.hero {
           color: rgba(47, 53, 66, 0.8);
           font-size: .900em;
           margin-top: .300em; }
-  body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action {
+  body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action, body[page=detail] section.hero .descriptive[layer=quickstatements] .action {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #FFFFFF;
     box-shadow: 0px 0px 20px -10px rgba(147, 194, 245, 0.49);
     border-radius: .350em;
-    margin-top: 1.500em;
     padding: 1.300em; }
     @media (max-width: 35.499em) and (orientation: portrait) {
-      body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action {
+      body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action, body[page=detail] section.hero .descriptive[layer=quickstatements] .action {
         flex-wrap: wrap; } }
     @media (max-width: 63.999em) and (orientation: landscape) {
-      body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action {
+      body[page=detail] section.hero .descriptive[layer=detail] .action, body[page=detail] section.hero .descriptive[layer=mapping] .action, body[page=detail] section.hero .descriptive[layer=quickstatements] .action {
         flex-wrap: wrap; } }
-    body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p {
+    body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p, body[page=detail] section.hero .descriptive[layer=quickstatements] .action p {
       color: rgba(47, 53, 66, 0.6);
       text-align: justify;
       margin: 0;
       padding: 0;
       margin-right: 1.200em; }
       @media (max-width: 35.499em) and (orientation: portrait) {
-        body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p {
+        body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p, body[page=detail] section.hero .descriptive[layer=quickstatements] .action p {
           flex-basis: 100%;
           margin-right: 0;
           margin-bottom: 1.200em; } }
       @media (max-width: 63.999em) and (orientation: landscape) {
-        body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p {
+        body[page=detail] section.hero .descriptive[layer=detail] .action p, body[page=detail] section.hero .descriptive[layer=mapping] .action p, body[page=detail] section.hero .descriptive[layer=quickstatements] .action p {
           flex-basis: 100%;
           margin-right: 0;
           margin-bottom: 1.200em; } }
-      body[page=detail] section.hero .descriptive[layer=detail] .action p span, body[page=detail] section.hero .descriptive[layer=mapping] .action p span {
+      body[page=detail] section.hero .descriptive[layer=detail] .action p span, body[page=detail] section.hero .descriptive[layer=mapping] .action p span, body[page=detail] section.hero .descriptive[layer=quickstatements] .action p span {
         font-weight: 600; }
     @media (max-width: 35.499em) and (orientation: portrait) {
-      body[page=detail] section.hero .descriptive[layer=detail] .action a, body[page=detail] section.hero .descriptive[layer=mapping] .action a {
+      body[page=detail] section.hero .descriptive[layer=detail] .action a, body[page=detail] section.hero .descriptive[layer=mapping] .action a, body[page=detail] section.hero .descriptive[layer=quickstatements] .action a {
         flex-basis: 100%; }
-        body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button {
+        body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button, body[page=detail] section.hero .descriptive[layer=quickstatements] .action a button {
           width: 100%; } }
     @media (max-width: 63.999em) and (orientation: landscape) {
-      body[page=detail] section.hero .descriptive[layer=detail] .action a, body[page=detail] section.hero .descriptive[layer=mapping] .action a {
+      body[page=detail] section.hero .descriptive[layer=detail] .action a, body[page=detail] section.hero .descriptive[layer=mapping] .action a, body[page=detail] section.hero .descriptive[layer=quickstatements] .action a {
         flex-basis: 100%; }
-        body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button {
+        body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button, body[page=detail] section.hero .descriptive[layer=quickstatements] .action a button {
           width: 100%; } }
-    body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button {
+    body[page=detail] section.hero .descriptive[layer=detail] .action a button, body[page=detail] section.hero .descriptive[layer=mapping] .action a button, body[page=detail] section.hero .descriptive[layer=quickstatements] .action a button {
       background: linear-gradient(to right top, #70a1ff, #18C8FF);
       color: #FFFFFF;
+      text-transform: uppercase;
       font-weight: 600;
+      display: flex;
+      align-items: center;
       white-space: nowrap; }
+      body[page=detail] section.hero .descriptive[layer=detail] .action a button i, body[page=detail] section.hero .descriptive[layer=mapping] .action a button i, body[page=detail] section.hero .descriptive[layer=quickstatements] .action a button i {
+        font-size: 1.100em;
+        margin-right: .500em; }
   body[page=detail] section.hero .descriptive[layer=detail] {
     margin-bottom: 2.500em; }
-    body[page=detail] section.hero .descriptive[layer=detail] .back {
-      background: linear-gradient(to right top, #70a1ff, #18C8FF);
-      color: #FFFFFF;
-      font-weight: 600;
-      margin: 1.000em 0 1.500em 0; }
-      body[page=detail] section.hero .descriptive[layer=detail] .back i {
-        margin-right: .500em; }
+    body[page=detail] section.hero .descriptive[layer=detail] h2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+      body[page=detail] section.hero .descriptive[layer=detail] h2 .back {
+        background: linear-gradient(to right top, #70a1ff, #18C8FF);
+        color: #FFFFFF;
+        font-weight: 600;
+        transform: translateY(-0.3em);
+        transition: all .5s ease;
+        padding: .500em 1.500em; }
+        body[page=detail] section.hero .descriptive[layer=detail] h2 .back:hover {
+          margin-right: .300em; }
+        body[page=detail] section.hero .descriptive[layer=detail] h2 .back:active {
+          margin-right: -.300em; }
+        body[page=detail] section.hero .descriptive[layer=detail] h2 .back i {
+          margin-right: .500em; }
     body[page=detail] section.hero .descriptive[layer=detail] p {
       color: rgba(47, 53, 66, 0.7);
       font-size: 1.000em; }
       body[page=detail] section.hero .descriptive[layer=detail] p span {
         font-weight: 600; }
-    body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td {
-      text-align: center; }
-    body[page=detail] section.hero .descriptive[layer=detail] .process {
-      margin: 2.000em 0 4.000em 0; }
-      body[page=detail] section.hero .descriptive[layer=detail] .process ul {
-        display: flex; }
-        body[page=detail] section.hero .descriptive[layer=detail] .process ul li {
-          width: 20em;
-          position: relative;
-          padding: .800em 0; }
-          body[page=detail] section.hero .descriptive[layer=detail] .process ul li:not(:last-child) .point {
-            right: -3%;
-            z-index: 1; }
-          body[page=detail] section.hero .descriptive[layer=detail] .process ul li .step, body[page=detail] section.hero .descriptive[layer=detail] .process ul li .unstep {
-            background: linear-gradient(to right top, #0246FF, #18C8FF);
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            border-radius: .350em;
-            width: 100%;
-            height: .400em; }
-          body[page=detail] section.hero .descriptive[layer=detail] .process ul li .unstep {
-            background: linear-gradient(to right top, #ced6e0, #ced6e0); }
-            body[page=detail] section.hero .descriptive[layer=detail] .process ul li .unstep + .point {
-              border: 0.2em solid rgba(206, 214, 224, 0.8); }
-          body[page=detail] section.hero .descriptive[layer=detail] .process ul li .point {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            right: 0;
-            background-color: white;
-            border: 0.2em solid rgba(2, 70, 255, 0.5);
-            border-radius: 50%;
-            width: 2.000em;
-            height: 2.000em; }
-            body[page=detail] section.hero .descriptive[layer=detail] .process ul li .point i {
-              background: linear-gradient(to right top, #0246FF, #18C8FF);
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              font-size: .800em; }
-          body[page=detail] section.hero .descriptive[layer=detail] .process ul li p {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            top: 120%;
-            font-size: .700em;
+    body[page=detail] section.hero .descriptive[layer=detail] .table {
+      margin-top: .500em; }
+      body[page=detail] section.hero .descriptive[layer=detail] .table table {
+        margin-top: .800em; }
+        body[page=detail] section.hero .descriptive[layer=detail] .table table tbody tr td {
+          text-align: center; }
+      body[page=detail] section.hero .descriptive[layer=detail] .table .process {
+        position: relative;
+        height: 7.000em;
+        padding: 1.500em 0; }
+        body[page=detail] section.hero .descriptive[layer=detail] .table .process ul {
+          display: flex;
+          position: absolute;
+          width: 100%;
+          height: 100%; }
+          body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li {
             text-align: center;
-            width: 100%; }
+            flex-basis: calc(100% / 6);
+            word-wrap: break-word; }
+            body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li:last-child .step .point, body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li:last-child .unstep .point {
+              right: 0; }
+            body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li:last-child p {
+              margin: 0 2.000em 0 1.000em; }
+            body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li .step, body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li .unstep {
+              background: linear-gradient(to right top, #0246FF, #18C8FF);
+              border-radius: .350em;
+              position: relative;
+              height: .400em;
+              width: 100%;
+              margin-bottom: .800em; }
+              body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li .step .point, body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li .unstep .point {
+                background-color: #FFFFFF;
+                border: 0.2em solid rgba(2, 70, 255, 0.5);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                right: -.800em;
+                top: 50%;
+                width: 2.000em;
+                height: 2.000em;
+                transform: translateY(-50%);
+                z-index: 1; }
+                body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li .step .point i, body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li .unstep .point i {
+                  background: linear-gradient(to right top, #0246FF, #18C8FF);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  font-size: .800em; }
+            body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li .unstep {
+              background: linear-gradient(to right top, #ced6e0, #ced6e0); }
+              body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li .unstep .point {
+                border: 0.2em solid rgba(206, 214, 224, 0.8); }
+            body[page=detail] section.hero .descriptive[layer=detail] .table .process ul li p {
+              font-size: .800em;
+              margin: 0 1.500em; }
   body[page=detail] section.hero .descriptive[layer=mapping] h2 {
     margin-bottom: .600em; }
-  body[page=detail] section.hero .descriptive[layer=mapping] .table table {
-    table-layout: auto; }
-    body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr:last-child td {
-      padding: 0 1.000em; }
-    body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td {
-      text-align: left !important;
-      min-width: 12.000em;
-      white-space: pre-line; }
-      body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td:first-child {
-        font-weight: 600;
-        white-space: nowrap; }
+  body[page=detail] section.hero .descriptive[layer=mapping] .table {
+    margin-bottom: 1.500em; }
+    body[page=detail] section.hero .descriptive[layer=mapping] .table table {
+      table-layout: auto; }
+      body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr:last-child td {
+        padding: 0 1.000em; }
+      body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td {
+        text-align: left !important;
+        min-width: 12.000em;
+        white-space: pre-line; }
+        body[page=detail] section.hero .descriptive[layer=mapping] .table table tbody tr td:first-child {
+          font-weight: 600;
+          white-space: nowrap; }
   body[page=detail] section.hero .descriptive[layer=raw] {
     position: fixed;
     top: 0;
