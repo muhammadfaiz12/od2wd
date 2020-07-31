@@ -1597,6 +1597,8 @@ body[page=about] section.article {
       line-height: 1.800em;
       transition: all .5s ease;
       padding: 2.200em 1.700em; }
+      body[page=about] section.article .descriptive[layer=reason] .text p abbr {
+        font-weight: 600; }
       body[page=about] section.article .descriptive[layer=reason] .text p:hover {
         transform: scale(1.02); }
         body[page=about] section.article .descriptive[layer=reason] .text p:hover span {
@@ -2380,6 +2382,12 @@ body[page=detail] section.hero {
         position: relative;
         height: 7.000em;
         padding: 1.500em 0; }
+        @media (max-width: 1280px) and (orientation: landscape) {
+          body[page=detail] section.hero .descriptive[layer=detail] .table .process {
+            width: 75.500em; } }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=detail] section.hero .descriptive[layer=detail] .table .process {
+            width: 75.500em; } }
         body[page=detail] section.hero .descriptive[layer=detail] .table .process ul {
           display: flex;
           position: absolute;
