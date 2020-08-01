@@ -19,7 +19,7 @@
 			</h1>
 			<p>Job Name : <span>{{ procId }}</span></p>
 
-			<form action="/form-metadata" method="POST">
+			<form action="{{parent_link}}/background-run/{{procId}}" method="POST">
 				<div class="form">
 					<h4>
 						Metadata Form
@@ -78,7 +78,7 @@
 						The conversion process will extract RDF 
 						triples from the document and then map the header and link the cells value to Wikidata.
 					</p>
-					<a href="{{parent_link}}/job-detail/{{procId}}">
+					<a href="{{parent_link}}/background-run/{{procId}}">
 						<button>
 							Start Conversion Process
 						</button>
