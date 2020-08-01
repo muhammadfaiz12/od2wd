@@ -16,7 +16,7 @@ def init_global_var():
     # parent_link="http://od2wd.id"
     # parent_api_link="http://localhost:8080/"
     #Staging
-    parent_link="http://od2wd.id/staging"
+    parent_link="https://od2wd.id/staging"
     parent_api_link="http://localhost:8080/"
     #Local
     parent_link="http://localhost:5000"
