@@ -65,7 +65,7 @@ body[page=index] section.catalogue .descriptive[layer=pagination] nav {
 }
 
 .dataframe {
-	table-layout: fixed !important;
+	table-layout: auto !important;
 }
 .dataframe thead tr th:first-child {
 	width: 3.000em;
