@@ -34,8 +34,7 @@ def index():
 def about():
     return render_template('about.html', parent_link=var_settings.parent_link)
 
-@app.route('/form-metadata', methods=['POST'])
-def submit_form_metadata():
+def ingest_metadata_form():
     req = request.form
     if 'job_id' not in req.keys():
         print("job id not found")
@@ -115,8 +114,14 @@ def create_qs(procId, sourceURL:str):
     print("[PROC-{}--[Phase 3]]-- Process Started Creating QS".format(procId))
     namaFile=procId
     df = load_data(namaFile,'processed')
+    metadata = var_settings.job_metadata_dict[procId]
+    context=[]
+    if "tags" in metadata:
+        context = metadata["tags"]
+    print("ABCDEFGHIJ")
+    print(context)
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
-    df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId])
+    df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId], context)
     save_linking_result(pd.DataFrame(df_mapping), procId)
     df_final = generate_qs(df_mapping,df,var_settings.protagonist_dict[procId],literal_columns_label,procId, sourceURL)
     res_address='data/results/{}'.format(namaFile)
@@ -173,6 +178,8 @@ def job_detail(procId):
             protagonist = checkProtagonist(procId)
             res = {}
             res["Protagonist Columns"]=protagonist
+            if procId in var_settings.job_metadata_dict:
+                res["metadata"]=var_settings.job_metadata_dict[procId]
             previews.append(res)
         else:
             res= load_data(procId,states[idx])
@@ -214,7 +221,19 @@ def background_run_thread(procId, sourceURL):
     create_qs(procId, sourceURL)
 
 @app.route('/background-run/<procId>', methods = ['GET', 'POST'])
-def background_run(procId, sourceURL=""):
+def background_run(procId, sourceURL="", metadata={}):
+    raw_req = request.form
+    #porting the req to dict object
+    req = raw_req.to_dict()
+    if 'job_id' in req.keys():
+        print("READING USER INPUTTED Metadata")
+        if "tags" in req.keys():
+            req["tags"] = req["tags"].split(",")
+            #lets clean this, remove trailing space
+            req["tags"] = [tag.strip() for tag in req["tags"]]
+        var_settings.job_metadata_dict[procId]=req
+    else:
+        var_settings.job_metadata_dict[procId]=metadata
     Thread(target=background_run_thread,args=(procId,sourceURL,)).start()
     print("[PROC-{}--[Phase 3]]--Thread Creation Success".format(procId))
     time.sleep(1)

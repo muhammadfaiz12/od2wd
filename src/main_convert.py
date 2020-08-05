@@ -42,7 +42,7 @@ def map_data(df,dt_type,protagonist,header_list):
     header_list.append(protagonist)
     return mapping, mappingLabel
 
-def link_data(df, protagonist,entity_column,mapping):
+def link_data(df, protagonist,entity_column,mapping, context=[]):
     dtMap = makeDatatypeIndex(df,entity_column)
     header_list=list(df.columns)
     convertMap = {} 
@@ -61,7 +61,7 @@ def link_data(df, protagonist,entity_column,mapping):
                     if(temp in convertMap): 
                         id = convertMap[temp] 
                     else: 
-                        id = searchID(protagonist == header, str(cell), header) 
+                        id = searchID(protagonist == header, str(cell), header, context) 
                         convertMap[temp] = id 
                 columnList.append(id) 
             print("[LINKING] finished processing {} datas".format(len(columnList))) 
