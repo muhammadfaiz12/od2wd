@@ -167,19 +167,18 @@ def job_detail(procId):
     idx = 0
     states = ['uncleaned', 'processed', 'metadataExtraction', 'mapped', 'linked', 'results']
     for status in job_status:
-        if states[idx] == 'metadataExtraction':
+        if status is not True:
+            break
+        elif states[idx] == 'metadataExtraction':
             protagonist = checkProtagonist(procId)
             res = {}
             res["Protagonist Columns"]=protagonist
             previews.append(res)
-            idx+=1
-            continue
-        res= load_data(procId,states[idx])
-        res = res.to_html(max_rows=15, justify='left', index=False).replace("border=\"1\"","'border=\"0\"'").replace("\"","")
-        previews.append(res)
+        else:
+            res= load_data(procId,states[idx])
+            res = res.to_html(max_rows=15, justify='left', index=False).replace("border=\"1\"","'border=\"0\"'").replace("\"","")
+            previews.append(res)
         idx+=1
-
-    print(previews[5])
     return render_template('job-detail.html', procId=procId, job_status=job_status, publish_url=publish_url, mapping=mapping, dataPreviews=previews)
 
 @app.route('/download-detail/<procId>/<phase>', methods=['GET', 'POST'])

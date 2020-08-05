@@ -47,14 +47,9 @@ def ranking(candidateList, goal, flag, propertyLbl,threshold=0):
     idx = scoreList.index(maxScore)
     return candidateList[idx]['id']
 
-def searchID(flag, cell, rowHead,limit=5):
-    json = searchEntity(cell.lower(), limit)['search']
-    id = ''
-    if(len(json) > 1):
-        id = ranking(json, cell.lower(), flag, rowHead)
-    elif(len(json) == 1):
-        id = json[0]['id']
-    
+def searchID(flag, cell, rowHead, context=[], limit=3):
+    # json = searchEntity(cell.lower(), limit)['search']
+    responseCode, id = link_entity_api(cell, rowHead, context, limit) 
     if(id == '' and flag):
         id = 'QNew'
     elif(id == ''):
@@ -385,10 +380,10 @@ def link_entity_api(item: str, headerValue: str, context, limit=3):
     payload['limit']=limit
     body['entities']=[payload]
     print("[PHASE-2], Calling Url for Entity Linking")
-    url = "{}/main/entity".format(parent_api_link)
+    url = "{}/main/entity".format(var_settings.parent_api_link)
     response = requests.post(url, json=body)
     if response.status_code != 200:
-        return response.status_code, response.text
+        return response.status_code, ''
     #Formatting to extract qid from response, because api response cannot be easily parsed
     #think of this as
     #qid = response['results'][0]["item"][0]["id"]
