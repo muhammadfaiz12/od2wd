@@ -145,9 +145,6 @@ form .group {
       form .group textarea:focus::placeholder, form .group select:focus::placeholder {
         opacity: 0;
         transform: translateX(1em); }
-      form .group input:focus + small,
-      form .group textarea:focus + small, form .group select:focus + small {
-        color: rgba(47, 53, 66, 0.7); }
     form .group input::placeholder,
     form .group textarea::placeholder, form .group select::placeholder {
       color: rgba(47, 53, 66, 0.25);
@@ -170,12 +167,6 @@ form .group {
         border: 0.1em solid rgba(2, 70, 255, 0.1) !important; }
   form .group select:read-only {
     background-color: white !important; }
-  form .group small {
-    color: rgba(47, 53, 66, 0.3);
-    font-size: .700em;
-    display: inline-block;
-    margin-top: .500em;
-    transition: all .5s ease; }
 
 form .action button {
   background: linear-gradient(to right top, #70a1ff, #18C8FF);
@@ -657,15 +648,13 @@ body[page=index] section.hero {
           body[page=index] section.hero .descriptive[layer=banner] .text p {
             font-size: .900em; } }
         body[page=index] section.hero .descriptive[layer=banner] .text p a {
-          color: #70a1ff;
-          background-color: #FFFFFF;
-          border-radius: .300em;
+          color: #FFFFFF;
           font-size: .650em;
           font-weight: 600;
           display: inline-block;
           transition: all .5s ease;
-          padding: .200em .500em;
-          transform: translateY(-0.4em); }
+          transform: translateY(-0.4em);
+          border-bottom: 2px dotted #FFFFFF; }
           body[page=index] section.hero .descriptive[layer=banner] .text p a:hover {
             margin-left: .300em; }
       body[page=index] section.hero .descriptive[layer=banner] .text .action a button {
@@ -873,6 +862,21 @@ body[page=index] section.form {
             font-size: .800em; } }
       body[page=index] section.form .descriptive[layer=convert] .convert form {
         margin-top: 2.000em; }
+        body[page=index] section.form .descriptive[layer=convert] .convert form .group .example {
+          display: flex;
+          align-items: center;
+          margin-top: .700em; }
+          body[page=index] section.form .descriptive[layer=convert] .convert form .group .example p, body[page=index] section.form .descriptive[layer=convert] .convert form .group .example button {
+            font-size: .700em; }
+          body[page=index] section.form .descriptive[layer=convert] .convert form .group .example p {
+            margin-right: .500em; }
+          body[page=index] section.form .descriptive[layer=convert] .convert form .group .example a button {
+            background: linear-gradient(to right top, #70a1ff, #18C8FF);
+            color: #FFFFFF;
+            font-weight: 600;
+            text-transform: capitalize;
+            padding: .650em 1.200em;
+            margin-right: .800em; }
         body[page=index] section.form .descriptive[layer=convert] .convert form .action {
           text-align: right;
           margin-top: 1.500em; }
@@ -1781,7 +1785,7 @@ body[page=about] section.team {
   body[page=about] section.team .descriptive[layer=info] {
     border-radius: .350em;
     text-align: center;
-    margin: 4.000em 10% 0 10%; }
+    margin: 4.000em 10% 0 8%; }
     @media (max-width: 91em) and (orientation: landscape) {
       body[page=about] section.team .descriptive[layer=info] {
         margin: 4.000em 0 0 0; } }
