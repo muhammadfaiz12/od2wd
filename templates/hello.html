@@ -11,8 +11,9 @@
 			<div class="text">
 				<h1>Publish Data From Open Data <br/> Portals To Wikidata Easily</h1>
 				<p>
-					OD2WD is a tool to convert CSV files from open data portals into Quickstatements files which can be
-					used to republish data into Wikidata. <a onclick="scrollSection('stages')">See how it works...</a>
+					OD2WD is a tool to convert CSV files from open data portals into Quickstatements files 
+					which can be used to republish data into Wikidata. 
+					<a onclick="scrollSection('stages')">See how it works</a>
 				</p>
 				<div class="action">
 					<a onclick="scrollSection('form')">
@@ -65,7 +66,15 @@
 							type = "file"
 							name = "file" 
 						/>
-						<small>ex : data-puskesmas.csv, wilayah.csv</small>
+						<div class="example">
+							<p>Example:</p>
+							<a href="{{parent_link}}/publication/upload-ex1.csv" download>
+								<button type="button">file example 1</button>
+							</a>
+							<a href="{{parent_link}}/publication/upload-ex2.csv" download>
+								<button type="button">file example 2</button>
+							</a>
+						</div>
 					</div>
 					<div class="action">
 						<button type="submit">submit</button>
@@ -89,7 +98,15 @@
 							placeholder = "link here" 
 							name        = "url"
 						/>
-						<small>ex : https://data.go.id/puskesmas-jakarta.csv</small>
+						<div class="example">
+							<p>Example:</p>
+							<a href="#" target="_blank">
+								<button type="button">link example 1</button>
+							</a>
+							<a href="#" target="_blank">
+								<button type="button">link example 2</button>
+							</a>
+						</div>
 					</div>
 					<div class="action">
 						<button type="submit">submit</button>
@@ -101,7 +118,7 @@
 	<section id="stages" class="stages">
 		<div class="descriptive" layer="title">
 			<h2>Conversion Process</h2>
-			<p>We converts and republishes CSV data to Wikidata knowledge graph</p>
+			<p>We convert and republish CSV data to Wikidata knowledge graph</p>
 		</div>
 		<div class="descriptive" layer="step">
 			<div class="container">
