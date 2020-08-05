@@ -376,6 +376,28 @@ def map_property_api(columns, dttype, parentApiURL="http://od2wd.id/api/"):
             result_label[str(obj['item'])] = ''
     return result, result_label
 
+def link_entity_api(item: str, headerValue: str, context, limit=3):
+    payload = {}
+    body ={}
+    payload['item']=item
+    payload['headerValue']=headerValue
+    payload['contexts']=context
+    payload['limit']=limit
+    body['entities']=[payload]
+    print("[PHASE-2], Calling Url for Entity Linking")
+    url = "{}/main/entity".format(parent_api_link)
+    response = requests.post(url, json=body)
+    json_data = json.loads(response.text)
+    print(response.text)
+    if response.status_code != 200:
+        return response.status_code, response.text
+    #Formatting to extract qid from response, because api response cannot be easily parsed
+    #think of this as
+    #qid = response['results'][0]["item"][0]["id"]
+    qid = response['results'][0]["item"]
+    qid.replace("{","").replace("}","").split(",")[0].split(":")[1].replace("'","").replace(" ","")
+    return response.status_code, qid
+
 def map_protagonist_api(protagonist, parentApiURL="https://od2wd.id/api/"):
     url="{}/main/protagonist".format(parentApiURL)
     payload = {}
