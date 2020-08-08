@@ -1,0 +1,473 @@
+{% extends "layout.html" %}
+{% block body %}
+<body page="detail">
+	<section class="hero">
+		<div class="descriptive" layer="detail">
+			<h2>
+				Job Detail
+				<a href="/#table">
+					<button type="button" class="back">
+						<i class="fas fa-chevron-left"></i>
+						Back
+					</button>
+				</a>
+			</h2>
+			<p>Job Name : <span>{{procId}}</span></p>
+			<div class="table">
+				<div class="process">
+					<ul>
+						<li>
+							{% if job_status[0] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Raw data processed to be converted</p>
+						</li>
+						<li>
+							{% if job_status[1] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Clean the data from null-valued row(s)</p>
+						</li>
+						<li>
+							{% if job_status[2] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Metadata (title, url link, tags, description) are being extracted</p>
+						</li>
+						<li>
+							{% if job_status[3] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Mapping preview column will be displayed through "view" buttons</p>
+						</li>
+						<li>
+							{% if job_status[4] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>Process on linking the same entities</p>
+						</li>
+						<li>
+							{% if job_status[5] %}
+								<div class="step">
+									<div class="point">
+										<i class="fas fa-check"></i>
+									</div>
+								</div>
+							{% else %}
+								<div class="unstep">
+									<div class="point">
+									</div>
+								</div>
+							{% endif %}
+							<p>When the process finished, The Execute Quickstatement button will appear.</p>
+						</li>
+					</ul>
+				</div>
+				<table>
+					<thead>
+						<th>Raw Data</th>
+						<th>Cleaned Data</th>
+						<th>Metadata Extraction</th>
+						<th>Property Mapping</th>
+						<th>Entity Linking</th>
+						<th>Quickstatement File</th>
+					</thead>
+					<tbody>
+						<tr>
+							{% for status_finished in job_status %}
+								{% if status_finished %}
+									<td>
+										<span>Finished</span>
+									</td>
+								{% else %}
+									<td>
+										<div class="meta">
+											<div class="loader">Loading...</div>
+										</div>
+									</td>
+								{% endif %}
+						  	{% endfor %}
+						</tr>
+						<tr>
+							<td>
+								{% if job_status[0] %}
+								<button type="button" class="view" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[1] %}
+								<button type="button" class="view" onclick="toggleModal('cleaned')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[2] %}
+								<button type="button" class="view" onclick="toggleModal('metadata')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[3] %}
+								<button type="button" class="view" onclick="toggleModal('map')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[4] %}
+								<button type="button" class="view" onclick="toggleModal('linked')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[5] %}
+								<button type="button" class="view" onclick="toggleModal('qs')">
+									<i class="fas fa-search"></i>
+									View
+								</button>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								{% if job_status[0] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/uncleaned">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+
+							<td>
+								{% if job_status[1] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/processed">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+
+							<td>
+								{% if job_status[2] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/processed">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+
+							<td>
+								{% if job_status[3] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/mapped">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+
+							<td>
+								{% if job_status[4] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/linked">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[5] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/results">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		{% if job_status[3] %}
+		<form action = "{{parent_link}}/choose-column/{{procId}}" method = "POST">
+		<div class="descriptive" layer="mapping">
+			<div class="collapse" id="mapping">
+			<h2>Property Mapping and Customization</h2>
+			<div class="table mapping">
+				<table>
+					<tbody>
+						<tr>
+							<td>Column Name</td>
+							{% for key, value in mapping.items() %}
+              					<td> {{ key }} </td>
+            				{% endfor %}
+						</tr>
+						<tr>
+							<td>Property Match</td>
+							{% for key, value in mapping.items() %}
+              					{% if value == "Padanan Tidak Ditemukan" %}
+              						<td><span class="matchnf">Match not found</span></td>
+              					{% else %}
+              						<td id="value"> {{ value }} </td>
+             				    {% endif %}
+            				{% endfor %}
+						</tr>
+						<tr>
+							<td>Customize Column</td>
+							{% for key, value in mapping.items() %}
+								{% if "[Protagonist]" in value %}
+									<td id="check">
+										<div class="checkbox">
+											<input 
+												type    = "checkbox" 
+												id      = {{key}} 
+												name    = "dropCol" 
+												value   = "{{key}}" 
+												checked = "true"
+											>
+											<label for={{key}}>{{key}} (Dropping P31-Is property)</label>
+										</div>
+									</td>
+       							{% elif "[Protagonist-Column]" in value %}
+								{% else %}
+									<td id="check">
+										<div class="checkbox">
+											<input 
+												type    = "checkbox" 
+												id      = {{key}} 
+												name    = "dropCol" 
+												value   = "{{key}}"
+												checked = "true"
+											>
+											<label for={{key}}>{{key}}</label>
+										</div>
+									</td>
+        						{% endif %}
+        					{% endfor %}
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="action">
+				<p>
+				   By clicking the <span>Customize Columns</span> button, the selected column 
+				   will be dropped from the conversion process.
+				</p>
+				<a>
+					<button type="submit">Customize Column(s)</button>
+				</a>
+			</div>
+		</div>
+		</div>
+		</form>
+		{% endif %}
+
+		{% if job_status[5] %}
+		<div class="descriptive" layer="quickstatements">
+			<div class="action">
+				<p>
+				   By clicking the <span>Execute QS</span> button, the converted file will be published into Wikidata 
+				   using Quickstatement tool. This Execute process makes use of the mapping and linking
+				   results and generate a Quickstatements serialization.
+				</p>
+				<a>
+					<button type="button">
+						<i class="fas fa-file-export"></i>
+						EXECUTE QS
+					</button>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+
+		<div class="descriptive" layer="raw" id="raw">
+			<div class="background" onclick="toggleModal('raw')"></div>
+			<div class="modal">
+				<h2>Raw Data</h2>
+				<div class="table">
+					{{dataPreviews[0]|safe}}
+				</div>
+				<div class="close">
+					<button onclick="toggleModal('raw')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="raw" id="cleaned">
+			<div class="background" onclick="toggleModal('cleaned')"></div>
+			<div class="modal">
+				<h2>Cleaned Data</h2>
+				<div class="table">
+					{{dataPreviews[1]|safe}}
+				</div>
+				<div class="close">
+					<button onclick="toggleModal('cleaned')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="raw" id="metadata">
+			<div class="background" onclick="toggleModal('metadata')"></div>
+			<div class="modal">
+				<h2>Extracted Metadata</h2>
+				<div class="table">
+					{{dataPreviews[2]|safe}}
+				</div>
+				<div class="close">
+					<button onclick="toggleModal('metadata')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="raw" id="map">
+			<div class="background" onclick="toggleModal('map')"></div>
+			<div class="modal">
+				<h2>Property Data Mapping</h2>
+				<div class="table">
+					{{dataPreviews[3]|safe}}
+				</div>
+				<div class="close">
+					<button onclick="toggleModal('map')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="raw" id="linked">
+			<div class="background" onclick="toggleModal('linked')"></div>
+			<div class="modal">
+				<h2>Entity Data Linking</h2>
+				<div class="table">
+					{{dataPreviews[4]|safe}}
+				</div>
+				<div class="close">
+					<button onclick="toggleModal('linked')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="raw" id="qs">
+			<div class="background" onclick="toggleModal('qs')"></div>
+			<div class="modal">
+				<h2>Quickstatements Result</h2>
+				<div class="table">
+					{{dataPreviews[5]|safe}}
+				</div>
+				<div class="close">
+					<button onclick="toggleModal('qs')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="/static/reface/script/script.js"></script>
+</body>
+{% endblock %}

@@ -1,14 +1,16 @@
 from src.mapper import mapProperty, mpRankWTypeSim
 import csv
+import shelve
 import pandas as pd
 from src.wikimedia import searchEntity, searchObjWProperty, searchProperty, searchPropertyRange
 from dateutil.parser import parse
 import operator
 import re
 import numpy as np
-import sys, os
+import sys, os, requests, json
 import scipy.stats 
 from dateutil.parser import parse
+import var_settings
 
 def is_date(string):
     try: 
@@ -45,14 +47,9 @@ def ranking(candidateList, goal, flag, propertyLbl,threshold=0):
     idx = scoreList.index(maxScore)
     return candidateList[idx]['id']
 
-def searchID(flag, cell, rowHead,limit=5):
-    json = searchEntity(cell.lower(), limit)['search']
-    id = ''
-    if(len(json) > 1):
-        id = ranking(json, cell.lower(), flag, rowHead)
-    elif(len(json) == 1):
-        id = json[0]['id']
-    
+def searchID(flag, cell, rowHead, context=[], limit=3):
+    # json = searchEntity(cell.lower(), limit)['search']
+    responseCode, id = link_entity_api(cell, rowHead, context, limit) 
     if(id == '' and flag):
         id = 'QNew'
     elif(id == ''):
@@ -61,9 +58,9 @@ def searchID(flag, cell, rowHead,limit=5):
     return id
 
 def isCordinatLike(col):
-    kordinatLike = ['koordinat','kordinat','latitude','longitude','latitude']
+    kordinatLike = ['koordinat','kordinat','latitude','longitude','latitude','bujur','lintang']
     for x in str(col).split(" "):
-        print("kata : {} , Kata in KordinatLike {}".format(x,x in kordinatLike))
+        print("[DEBUG-KordinatLike] kata : {} , Kata in KordinatLike {}".format(x,x in kordinatLike))
         if x in kordinatLike:
             return True
     
@@ -81,30 +78,37 @@ def makeDatatypeIndex(df, entityColumn):
     return dtMap
 
 def makeDatatypeMap(header_list, df):
-    reference_row0 = [str(x) for x in list(df.loc[0, header_list])]
-    reference_row1 = [str(x) for x in list(df.loc[1, header_list])]
-    reference_row2 = [str(x) for x in list(df.loc[2, header_list])]
+    num_of_row = df.shape[0]
+    rr0=0
+    rr1=int(num_of_row/2)
+    rr2=num_of_row-1
+    reference_row0 = [str(x) for x in list(df.loc[rr0, header_list])]
+    reference_row1 = [str(x) for x in list(df.loc[rr1, header_list])]
+    reference_row2 = [str(x) for x in list(df.loc[rr2, header_list])]
     ref_rows=[reference_row0,reference_row1,reference_row2]
+    print("[DEBUG] dttyemap rr indx : {}-{}-{}".format(rr0,rr1,rr2))
+    print(list(df.loc[rr1, header_list]))
     dtMap = []
     dtColTypes = {}
     for reference_row in ref_rows:
         index = 0
+        print("+====================== {} ==========".format(reference_row))
         for elem in reference_row:
+            print("+?????????====================== {} ==========".format(elem))
             dtColType=""
             pattern_quantity = re.compile("[-+.,()0-9]+")
             pattern_float = re.compile("[0-9\.-]+")
-            pattern_globe = re.compile("^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$")
+            pattern_globe = re.compile("^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$")
     #         pattern_web = re.compile("[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")
             pattern_web = re.compile("^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\.")
             pattern_literal = re.compile("[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]")
-            is_quantity = pattern_quantity.search(elem)
-#             print("Elem : {} , is_quantity : {}, is_date: {}".format(elem,bool(is_quantity),is_date(elem)))
-    #         print(list(df.loc[0, header_list]))
+            pattern_time = re.compile("^([0-2][0-9]|(3)[0-1])([\/,-])(((0)[0-9])|((1)[0-2]))([\/,-])\d{4}$")
+            is_quantity = pattern_quantity.match(elem)
             if is_quantity:
                 is_float = pattern_float.match(elem)
+                is_time = pattern_time.match(elem)
                 is_kordinatLike = isCordinatLike(header_list[reference_row.index(elem)])
-                print( is_float)
-                if not is_float and is_date(elem):
+                if is_time:
                      dtColType="Time"
                 elif pattern_globe.match(elem):
                      dtColType="GlobeCoordinate"
@@ -117,15 +121,14 @@ def makeDatatypeMap(header_list, df):
                     except ValueError:
                         dtColType="String"
             else:
-                is_literal_string = bool(pattern_literal.match(elem))
+                is_literal_string = bool(pattern_literal.search(elem))
                 is_url_string = bool(pattern_literal.match(elem))
-
+                print("[DEBUG] is_literal {} == {}".format(elem,is_literal_string))
                 if is_url_string:
                     dtColType="URL"
                 elif is_literal_string:
                     dtColType="String"
                 else :
-                    dtMap.append(header_list[reference_row.index(elem)])
                     dtColType="WikibaseItem"
 
             if header_list[index] in dtColTypes:
@@ -134,7 +137,7 @@ def makeDatatypeMap(header_list, df):
                 dtColTypes[header_list[index]] = [dtColType]
             index=index+1
 
-    print(dtColTypes)
+    print("[DEBUG] DtColTypes ON MakeDtType \n == {}".format(dtColTypes))
     for key, value in dtColTypes.items():
         value_score = {}
         max_score = 0
@@ -147,7 +150,9 @@ def makeDatatypeMap(header_list, df):
             if value_score[x] > max_score:
                 max_score = value_score[x]
                 max_dt = x
-        dtColTypes[key]=max_dt     
+        dtColTypes[key]=max_dt
+        if max_dt == 'WikibaseItem':
+            dtMap.append(key)
     return dtMap, dtColTypes
 
 
@@ -172,7 +177,11 @@ def check_protagonist(df):
     for col in df.columns:
         entities = set()
         for index, row in df.iterrows():
-            entities.add(str(row[col]))
+            if isinstance(row[col],str):
+                entities.add(str(row[col]))
+                print("[DEBUG] protagonist, row[col] string : {}".format(row[col]))
+            else:
+                entities.add(str(row[col].values[0]))
         ranking[col] = len(entities)
     return ranking
 
@@ -182,7 +191,7 @@ def give_verdict_base(df_entity, ranking_diversity):
     maxColumn = ""
     for key, value in ranking_diversity.items():
         score = value + len(df_entity.columns)-list(df_entity.columns).index(key)
-        if maxValue <= score:
+        if maxValue < score:
             maxValue = score
             maxColumn = key
         ranking[key] = score
@@ -197,7 +206,7 @@ def give_verdict_normalized(df_entity, ranking_diversity, weightDiverse=0.5, wei
         diverseScore = value/df_length
         columnOrderScore = 1 - (list(df_entity.columns).index(key)/len(df_entity.columns))
         score = (weightDiverse * diverseScore) + (weightColumnOrder * columnOrderScore)
-        if maxValue <= score:
+        if maxValue < score:
             maxValue = score
             maxColumn = key
         ranking[key] = score
@@ -227,7 +236,7 @@ def give_verdict_columntb(df_entity, ranking_diversity):
                 maxColumns[0] = col
                 maxOrderScore = columnOrderScore
             ranking[col] = ranking[col]+columnOrderScore
-    print(ranking_diversity)
+    print("[DEBUG] Ranking Diversity : {}".format(ranking_diversity))
     return maxColumns[0], maxValue, ranking
 
 #tie breaker on , if any, highest value that have multiplie instances ( So it could be , not the highest value , but highest value that has multiple instances)
@@ -247,7 +256,6 @@ def give_verdict_entropy(df_entity):
         for occ in counts:
             probs.append(occ/numbers_of_data)
         entropy = scipy.stats.entropy(probs)#base = e
-#         print(str(type(entropy))+ " " + str(maxEntropy))
         if entropy > maxEntropy:
             maxEntropy=entropy
             maxColumn=col
@@ -260,7 +268,6 @@ def determine_protagonist(df, dtMap):
     df_entity = df[entity_columns]
     ranking = check_protagonist(df_entity)
     hasil={}
-    print(dtMap)
     hasil['base'], score, info = give_verdict_base(df_entity, ranking)
     hasil['normalize-0.5:0.5'], score, info = give_verdict_normalized(df_entity, ranking)
     hasil['normalize-0.7:0.3'], score, info = give_verdict_normalized(df_entity, ranking, 0.7, 0.3)
@@ -286,7 +293,6 @@ def identify_literal_columns(df):
     for col in a.columns:
         isLiteral = False
         for index, row in a.iterrows():
-#             print("==========> " + row[[col]])
             pattern = re.compile("^Q([1-9]+)")#match the Q123123 pattern of entity name
             
             if pattern.match(str(row[col])):
@@ -296,7 +302,6 @@ def identify_literal_columns(df):
             else:
                 isLiteral = True
         if isLiteral and col != protagonist:
-#             print(col)
             literal_columns.append(col)
     return literal_columns
     
@@ -305,22 +310,211 @@ def identify_double_columns(df):
     columns = df.columns
     for col in columns:
         if "(" in col:
-            print(col + " " + col[:col.find("(")])
+            print("[DEBUG] Double Col "+col + " " + col[:col.find("(")])
             double_columns[col] = col[:col.find("(")]
     return double_columns
 
 def format_qs_df(df_qs, literal_columns):
-    print("START checking property range")
-    for liter_col in literal_columns:
-        print("checking for {}".format(liter_col))
-        range_type = check_wb_type(liter_col)
-        if range_type == 'String':
-            df_qs[liter_col]="\"\"\"\"" + df_qs[liter_col] + "\""
-        elif range_type == 'Monolingualtext':
-            df_qs[liter_col]="id:\"" + df_qs[liter_col] + "\""
-        elif range_type == 'GlobeCoordinate':
-            temp = list(df_qs[liter_col])
-            temp = ["@"+x.replace(",","/").replace(" ","") for x in temp]
-            df_qs[liter_col]=temp
+    print("[QS FORMATTING] Checking property range")
+    for liter_col in list(set(literal_columns)):
+        if liter_col in df_qs.columns:
+            print("[QS FORMATTING] checking for {}".format(liter_col))
+            range_type = check_wb_type(liter_col)
+            print(range_type)
+            if range_type == 'String' or range_type =='ExternalId' :
+                df_qs[liter_col]="\"" + df_qs[liter_col] + "\""
+            elif range_type == 'Time':
+                df_qs[liter_col]="+" + df_qs[liter_col] + "T00:00:00Z/9"
+            elif range_type == 'Monolingualtext':
+                df_qs[liter_col]="id:\"" + df_qs[liter_col] + "\""
+            elif range_type == 'GlobeCoordinate':
+                temp = df_qs[liter_col]
+                if len(temp.shape) > 1 and temp.shape[1] > 1:
+                    col1 = temp.iloc[:,0]
+                    col2 = temp.iloc[:,1]
+                    temp_col = "@"+col1.apply(str) + "/"+col2.apply(str)
+                    df_qs.drop(columns=[liter_col], inplace=True)
+                    df_qs[liter_col]=temp_col
+                elif len(temp.shape) == 1 or (len(temp.shape) > 1 and temp.shape[1] == 1) :
+                    temp = ["@"+x.replace(",","/").replace(" ","") for x in temp]
+                    df_qs[liter_col]=temp
     print("END checking property range")
     return df_qs
+
+def map_property_api(columns, dttype, parentApiURL="http://od2wd.id/api/"):
+    properties = []
+    parent_api_link=parentApiURL
+    for col in columns:
+        obj = {}
+        obj['item'] = col
+        obj['item_range'] = dttype[col]
+        obj['limit'] = 5
+        properties.append(obj)
+    payload = {}
+    payload['properties']=properties
+    # payload = json.dumps(payload)
+    print(payload)
+    print("[PHASE-2], Calling Url for Property Mapping")
+    url = "{}/main/property".format(parent_api_link)
+    response = requests.post(url, json=payload)
+    
+    json_data = json.loads(response.text)
+    result = {}
+    result_label = {}
+    print(json_data)
+    for obj in json_data['results']:
+        if len(obj['map_to']) > 0:
+            result[str(obj['item'])] = obj['map_to'][0]['id']
+            result_label[str(obj['item'])] = obj['map_to'][0]['label']
+        else:
+            result[str(obj['item'])] = ''
+            result_label[str(obj['item'])] = ''
+    return result, result_label
+
+def link_entity_api(item: str, headerValue: str, context, limit=3):
+    payload = {}
+    body ={}
+    payload['item']=item
+    payload['headerValue']=headerValue
+    payload['contexts']=context
+    payload['limit']=limit
+    body['entities']=[payload]
+    print("[PHASE-2], Calling Url for Entity Linking")
+    url = "{}/main/entity".format(var_settings.parent_api_link)
+    response = requests.post(url, json=body)
+    if response.status_code != 200:
+        return response.status_code, ''
+    #Formatting to extract qid from response, because api response cannot be easily parsed
+    #think of this as
+    #qid = response['results'][0]["item"][0]["id"]
+    response_body = json.loads(response.text)
+    qid = response_body['results'][0]["item"]
+    qid = qid.replace("{","").replace("}","").split(",")[0].split(":")[1].replace("'","").replace(" ","")
+    return response.status_code, qid
+
+def map_protagonist_api(protagonist, parentApiURL="https://od2wd.id/api/"):
+    url="{}/main/protagonist".format(parentApiURL)
+    payload = {}
+    payload['item'] = protagonist
+    payload['limit'] = 10
+    response = requests.get(url, params=payload)
+    print(response.text)
+     
+    json_data = json.loads(response.text)
+    # for obj in json_data['results']:
+    result = ''
+    result_label = 'Padanan Tidak Ditemukan'
+    result_description = ''
+    if len(json_data['results']) > 0:
+        result = json_data['results'][0]['id']
+        result_label = json_data['results'][0]['label']
+        result_description = json_data['results'][0]['description']
+
+    return result, result_label, result_description
+
+def qs_add_instance_of(df, procId, protagonist):
+    mapping = var_settings.mapping_dict[procId]
+    if protagonist not in mapping:
+        return df, False
+    protagonistMapping = mapping[protagonist]
+    pMapExist = len(protagonistMapping) > 1 
+    if pMapExist:
+        df['P31']=protagonistMapping
+    return df, pMapExist
+
+#col is original column name
+def getColumnName(procId, col, step):
+    colName = ""
+    try:
+        with shelve.open("db/col-db") as s:
+            colName=s[procId]['column'][col][step]
+            print("{}-{}".format(colName, step))
+            if step == 'results' and "(" in colName:
+                occ_num = int(colName[colName.find("(")+1:].replace(")",""))
+                occ_num-=1
+                colName=colName[:colName.find("(")]+".{}".format(occ_num)
+    except Exception as e:
+        print("EXCEPTION on Removing Inaccurate colum \n {} \n ==== END ===".format(str(e)))
+    return colName
+
+#Dropping P31
+def dropP31(procId, df_m, df_r):
+    df_m.columns = [x[:x.find('-')]+"-[Protagonist-Column]" if "[Protagonist]" in x else x for x in df_m.columns]
+    df_r.drop(["P31"], inplace=True, axis=1)
+
+    df_r.to_csv("data/results/{}".format(procId), index=False)
+    df_m.to_csv("data/mapped/{}".format(procId), index=False)
+    return
+
+def checkProtagonist(procId):
+    protagonist = ""
+    try:
+        with shelve.open("db/col-db") as s:
+            protagonist=s[procId]['protagonist-column']
+    except Exception as e:
+        print("EXCEPTION on checking protagonist colum \n {} \n ==== END ===".format(str(e)))
+    return protagonist
+
+def checkMergedColumn(procId, del_m, del_l, del_r):
+    isMerge = False
+    #check merged column
+    mergedColumn = "P625" #latitude/longitude into 1 column
+    for col in del_r:
+        if mergedColumn in col:
+            isMerge = True
+    if isMerge:
+            with shelve.open("db/col-db") as s:
+                for col in s[procId]['column'].keys():
+                    if mergedColumn in s[procId]['column'][col]['results'] and s[procId]['column'][col]['mapped'] not in del_m:
+                        del_m.append(s[procId]['column'][col]['mapped'])
+                        del_l.append(s[procId]['column'][col]['linked'])
+           # print("EXCEPTION on checking merged colum \n {} \n ==== END ===".format(e))
+    return del_m, del_l, del_r
+
+def drop_export_column(procId, delColumns):
+    df_r = load_data(procId, "results")
+    df_m = load_data(procId, "mapped")
+    df_l = load_data(procId, "linked")
+    protagonist = checkProtagonist(procId)
+    if protagonist in delColumns:
+        dropP31(procId, df_m, df_r)
+        delColumns.remove(protagonist)
+
+    if len(delColumns) < 1:
+        return
+    
+    print(delColumns)
+    delColumns_m = []
+    delColumns_l = []
+    delColumns_r = []
+
+    print(len(delColumns_m))
+    delColumns_m = [getColumnName(procId, x, 'mapped') for x in delColumns]
+    delColumns_l = [getColumnName(procId, x, 'linked') for x in delColumns]
+    delColumns_r = [getColumnName(procId, x, 'results') for x in delColumns]
+
+    delColumns_m, delColumns_l, delColumns_r = checkMergedColumn(procId, delColumns_m, delColumns_l, delColumns_r)
+
+    print(delColumns_m)
+    print(delColumns_r)
+    print(delColumns_l)
+    df_r.drop(delColumns_r, inplace=True, axis=1)
+    df_m.drop(delColumns_m, inplace=True, axis=1)
+    df_l.drop(delColumns_l, inplace=True, axis=1)
+    
+    print(len(delColumns_m))
+    print("[LOG] Dropping column {} on {}".format(delColumns, procId))
+
+    df_m.to_csv("data/mapped/{}".format(procId), index=False)
+    df_l.to_csv("data/linked/{}".format(procId), index=False)
+
+    temp_col = []
+    for col in df_r.columns:
+        if "." in col:
+            col=col[:col.find(".")]
+        temp_col.append(col)
+    df_r.columns=temp_col
+
+    df_r.to_csv("data/results/{}".format(procId), index=False)
+
+    return

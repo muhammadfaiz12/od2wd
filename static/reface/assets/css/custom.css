@@ -1,0 +1,75 @@
+body[page=index] section.catalogue .descriptive[layer=pagination] nav {
+	justify-content: center;
+	position: static;
+	padding: 0;
+}
+
+.page-item.active {	
+	background-color: #18C8FF !important;
+}
+.page-item.active a {
+	color: white !important;
+}
+
+#value {
+	padding: 1.000em;
+}
+
+.matchnf {
+	background: linear-gradient(to right top, #ff4757, #ff6b81) !important;
+}
+
+.mapping table tbody tr:first-child td {
+	text-transform: capitalize;
+}
+
+.mapping table tbody tr td#check {
+	white-space: nowrap;
+	padding: 1.800em 1.000em;
+}
+
+.notification {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+	transition: all .6s ease;
+}
+.notification.hide {
+	top: -101%;
+	opacity: 0;
+}
+.notification .alert {
+	background-color: #fff;
+	text-align: center;
+	border-radius: .350em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	overflow: hidden;
+	padding: 1.300em;
+}
+.notification h2 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.300em;
+	color: #ff6b81;
+	margin-bottom: .300em;
+	
+}
+.notification ul li {
+	color: #57606f;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.dataframe {
+	table-layout: auto !important;
+}
+.dataframe thead tr th:first-child {
+	width: 3.000em;
+}
+.dataframe thead tr th:not(:first-child) {
+	width: 12.000em;
+}

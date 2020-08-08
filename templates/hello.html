@@ -1,10 +1,301 @@
 {% extends "layout.html" %}
 {% block body %}
-      <h1>Welcome to OD2WD {{ name }}!</h1>
-      <p>Silakan Upload File Anda</p>
-      <form action = "http://localhost:5000/uploader" method = "POST" 
-         enctype = "multipart/form-data">
-         <input type = "file" name = "file" />
-         <input type = "submit"/>
-      </form>
+
+<body page="index">
+	<section class="hero">
+		<div class="descriptive" layer="background">
+			<img id="slider" src="/static/reface/img/page/index/slide1.jpg" alt="background">
+			<div class="overlay"></div>
+		</div>
+		<div class="descriptive" layer="banner">
+			<div class="text">
+				<h1>Publish Data From Open Data <br/> Portals To Wikidata Easily</h1>
+				<p>
+					OD2WD is a tool to convert CSV files from open data portals into Quickstatements files 
+					which can be used to republish data into Wikidata. 
+					<a onclick="scrollSection('stages')">See how it works</a>
+				</p>
+				<div class="action">
+					<a onclick="scrollSection('form')">
+						<button class="icon">
+							<i class="fas fa-exchange-alt"></i>
+							Convert Data
+						</button>
+					</a>
+					<a onclick="scrollSection('table')">
+						<button class="icon">
+							<i class="fas fa-project-diagram"></i>
+							Data Catalog
+						</button>
+					</a>
+				</div>
+			</div>
+			<div class="embed">
+				<div class="video">
+					<img src="/static/reface/img/page/index/hero2.png" />
+					<div class="play" onclick="toggleModal('videoAbout')">
+						<i class="fas fa-play"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="form" class="form">
+		<div class="descriptive" layer="background">
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+		</div>
+		<div class="descriptive" layer="title">
+			<h2>Convert Your Data Now</h2>
+			<p>Upload a CSV file to be converted or input a dataset link from an open data portal</p>
+		</div>
+		<div class="descriptive" layer="convert">
+			<div class="convert">
+				<h4>Upload your data</h4>
+				<p>Upload Open Data CSV file manually</p>
+				<form 
+					action  = "{{parent_link}}/uploader"
+					enctype = "multipart/form-data"
+					method  = "POST"
+				>
+					<div class="group">
+						<label>File</label>
+						<input 
+							type = "file"
+							name = "file" 
+						/>
+						<div class="example">
+							<p>Example:</p>
+							<a href="{{parent_link}}/publication/upload-ex1.csv" download>
+								<button type="button">file example 1</button>
+							</a>
+							<a href="{{parent_link}}/publication/upload-ex2.csv" download>
+								<button type="button">file example 2</button>
+							</a>
+						</div>
+					</div>
+					<div class="action">
+						<button type="submit">submit</button>
+					</div>
+				</form>
+			</div>
+			<div class="divider"></div>
+			<div class="convert">
+				<h4>Dataset Link</h4>
+				<p>Input dataset link from open data sites</p>
+				<form 
+					action       = "{{parent_link}}/url-upload"
+					enctype      = "multipart/form-data"
+					method       = "POST"
+					autocomplete = "off"
+				>
+					<div class="group">
+						<label>Link</label>
+						<input 
+							type        = "text" 
+							placeholder = "link here" 
+							name        = "url"
+						/>
+						<div class="example">
+							<p>Example:</p>
+							<a href="#" target="_blank">
+								<button type="button">link example 1</button>
+							</a>
+							<a href="#" target="_blank">
+								<button type="button">link example 2</button>
+							</a>
+						</div>
+					</div>
+					<div class="action">
+						<button type="submit">submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<section id="stages" class="stages">
+		<div class="descriptive" layer="title">
+			<h2>Conversion Process</h2>
+			<p>We convert and republish CSV data to Wikidata knowledge graph</p>
+		</div>
+		<div class="descriptive" layer="step">
+			<div class="container">
+				<ul>
+					<li>
+						<img src="/static/reface/img/illustrations/raw.svg"></img>
+						<h3>Raw Data Input</h3>
+						<p>
+							Phase when the user input the raw data with the CSV format to the site. The site will then
+							continue to the data cleaning phase.
+						</p>
+						<span>1</span>
+					</li>
+					<li>
+						<img src="/static/reface/img/illustrations/cleaning.svg"></img>
+						<h3>Data Cleaning</h3>
+						<p>
+							This process happens to evaluate the raw data which has been uploaded, the redundant value
+							will be removed during this process.
+						</p>
+						<span>2</span>
+					</li>
+					<li>
+						<img src="/static/reface/img/illustrations/mapping.svg"></img>
+						<h3>Property Mapping</h3>
+						<p>
+							Mapping phase utilize two tools: an index of Wikidata properties and a trained word
+							embedding model. Index made from query all the Wikidata properties and store them via index
+							(each property
+							contains ID, label, etc.). The trained word embedding model use Word2Vec technique which
+							applied to the Indonesian Wikipedia dump
+						</p>
+						<span>3</span>
+					</li>
+					<li>
+						<img src="/static/reface/img/illustrations/link.svg"></img>
+						<h3>Entity Linking</h3>
+						<p>
+							This linking process is where the class linking happens, This process purposes is to link
+							cell values from
+							open data portal to their apropriate wikidata entities.
+						</p>
+						<span>4</span>
+					</li>
+					<li>
+						<img src="/static/reface/img/illustrations/quickstatements.svg"></img>
+						<h3>Quickstatements File</h3>
+						<p>
+							The publishing phase aims to publish the conversion into Wikidata, which resulting in triple
+							format of protagonist-property-value
+						</p>
+						<span>5</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<section id="table" class="catalogue">
+		<div class="descriptive" layer="counter">
+			<div class="count">
+				<i class="fas fa-file"></i>
+				<p>{{pagination.total}}File(s) Converted</p>
+			</div>
+			<p class="desc">
+				We convert the CSV file quickly using our specialized tool for wikidata. The process is easy
+				and won't buy you much time.
+			</p>
+		</div>
+		<div class="descriptive" layer="title">
+			<h2>Data Catalog</h2>
+			<p>Files that have been uploaded to OD2WD System</p>
+		</div>
+		<div class="descriptive" layer="filter">
+			<form onsubmit="dataframe(event)">
+				{{ pagination.info }}
+				<div class="filter">
+					<div class="group">
+						<label>Search</label>
+						<div class="input">
+							<input placeholder="python.py" id="search"/>
+						</div>
+					</div>
+					<div class="group">
+						<label>Sort</label>
+						<div class="input">
+							<select id="select">
+								<option value="DESC">Upload Date (oldest)</option>
+								<option value="ASC">Upload Date (newest)</option>
+								<option value="ASC">Job Name (A-Z)</option>
+								<option value="ASC">Job Name (Z-A)</option>
+							</select>
+							<i class="fas fa-chevron-down"></i>
+						</div>
+					</div>
+					<div class="action">
+						<button type="submit">Submit</button>
+						<button type="button" onclick="dataframeBack(event)">Reset</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="descriptive" layer="catalogue">
+			<table class="catalogue-div">
+				<thead>
+					<th>Job Name</th>
+					<th>Upload Date</th>
+					<th>Detail</th>
+				</thead>
+				<tbody>
+					{% for job, time in file_catalogue %}
+					<tr>
+						<td>
+							{{job}}
+						</td>
+						<td id="datex">
+							{{time}}
+						</td>
+						<td>
+							<a href="{{parent_link}}/job-detail/{{job}}">
+								<button>
+									See Job Detail
+								</button>
+							</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+		<div class="descriptive" layer="pagination">
+			{{ pagination.links }}
+			<script type="text/javascript">
+				$(function () {
+					$('li.page-item').click(function(){
+					  console.log('Changing Page')
+					  $.ajax({
+						url: $(this).attr('href'),
+						success: function(response) {
+							$('.catalogue-div').replaceWith($(response).find('.catalogue-div'));
+						 },
+						error: function(response){
+							alert('Connection Error')
+						}
+					});
+					return false;
+				  });
+				});
+			</script>
+		</div>
+	</section>
+	<section class="modal">
+		<div class="descriptive" id="videoAbout">
+			<div class="video">
+				<iframe src="https://www.youtube.com/embed/oOjJdOQ8dwM">
+				</iframe>
+			</div>
+			<button onclick="toggleModal('videoAbout')">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+		<div class="descriptive" id="videoAPI">
+			<div class="video">
+				<iframe src="https://www.youtube.com/embed/SeKOgJ4PZMs">
+				</iframe>
+			</div>
+			<button onclick="toggleModal('videoAPI')">
+				<i class="fas fa-times"></i>
+			</button>
+		</div>
+	</section>
+	<footer>
+		<div class="divider"></div>
+		<p>© 2020 OD2WD – Universitas Indonesia | With support from Wikimedia Indonesia and Wikidata</p>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/static/reface/script/script.js"></script>
+	<script src="/static/reface/script/slider.js"></script>
+</body>
 {% endblock %}

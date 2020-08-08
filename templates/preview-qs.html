@@ -2,5 +2,5 @@
 {% block body %}
     <h1>Data Preview</h1>
     {{data | safe }}
-    <a href="http://localhost:5000/previewMap/{{procId}}">Petakan Dokumen Ini</a>
+    <a href="{{parent_link}}/previewMap/{{procId}}">Petakan Dokumen Ini</a>
 {% endblock %}

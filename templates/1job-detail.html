@@ -1,0 +1,324 @@
+{% extends "layout.html" %}
+{% block body %}
+<body page="detail">
+	<section class="hero">
+		<form action = "{{parent_link}}/choose-column/{{procId}}" method = "POST">
+		<div class="descriptive" layer="detail">
+			<h2>Job Detail</h2>
+			<p>Job Name : <span>{{procId}}</span></p>
+			<div class="table">
+				<table>
+					<thead>
+						<th>Job's Phase</th>
+						
+						<th>Raw Data</th>
+						<th>Cleaned Data</th>
+						<th>Metadata Extraction</th>
+						<th>Property Mapping</th>
+						<th>Entity Linking</th>
+						<th>Quickstatement File</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Status</td>
+							{% for status_finished in job_status %}
+								{% if status_finished %}
+									<td>
+										<span>Finished</span>
+									</td>
+								{% else %}
+									<td>
+										<div class="meta">
+											<div class="loader">Loading...</div>
+										</div>
+									</td>
+								{% endif %}
+						  	{% endfor %}
+						</tr>
+						<tr>
+							<td>Download</td>
+							<td>
+								{% if job_status[0] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/uncleaned">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[1] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/processed">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[2] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/processed">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[3] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/mapped">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[4] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/linked">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+							<td>
+								{% if job_status[5] %}
+									<a href="{{parent_link}}/download-detail/{{procId}}/results">
+										<button type="button">
+											<i class="fas fa-download"></i>
+											Download
+										</button>
+									</a>
+								{% else %}
+									<div class="meta">
+										<div class="loader">Loading...</div>
+									</div>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td>Data Preview</td>
+							<td>
+								<button class="preview" type="button" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+							</td>
+							<td>
+								<button class="preview" type="button" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+							</td>
+							<td>
+								<button class="preview" type="button" onclick="toggleModal('raw')">
+									<i class="fas fa-search"></i>
+									Preview
+								</button>
+							</td>
+							<td>
+								<div class="meta">
+									<div class="loader">Loading...</div>
+								</div>
+							</td>
+							<td>
+								<div class="meta">
+									<div class="loader">Loading...</div>
+								</div>
+							</td>
+							<td>
+								<div class="meta">
+									<div class="loader">Loading...</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			{% if job_status[5] %}
+			<div class="action">
+				<a href="{{publish_url}}">
+					<button type="button">Execute QS</button>
+				</a>
+				
+				<p>
+				   By clicking the <span>Execute QS</span> button, the converted file will be published into Wikidata 
+				   using Quickstatement tool. The conversion result will be in triple format of 
+				   protagonist-property-value. This Execute process makes use of the mapping and linking
+				   results and generate a Quickstatements serialization
+				</p>
+			</div>
+			<!-- <div class="action">
+				<a href="{{publish_url}}">
+					<button>Execute QS</button>
+				</a>
+				<p>By clicking this button you will be....</p>
+			</div> -->
+			{% endif %}
+		</div>
+
+		{% if job_status[3] %}
+		<div class="descriptive" layer="mapping">
+			<h2>Mapping Preview</h2>
+			<div class="table mapping">
+				<table>
+					<tbody>
+						<tr>
+							<td>Column Name</td>
+							{% for key, value in mapping.items() %}
+              					<td> {{ key }} </td>
+            				{% endfor %}
+						</tr>
+						<tr>
+							<td>Property Match</td>
+							{% for key, value in mapping.items() %}
+              					{% if value == "Padanan Tidak Ditemukan" %}
+              						<td><span class="matchnf">Match not found</span></td>
+              					{% else %}
+              						<td id="value"> {{ value }} </td>
+             				    {% endif %}
+            				{% endfor %}
+						</tr>
+						{% if job_status[3] %}
+						<tr>
+							<td>Drop a column</td>
+							{% for key, value in mapping.items() %}
+								{% if "[Protagonist]" in value %}
+									<td id="check">
+										<div class="checkbox">
+											<input type="checkbox" id={{key}} name="dropCol" value="{{key}}">
+											<label for={{key}}>{{key}} (Dropping P31-Is property)</label>
+										</div>
+									</td>
+       							{% elif "[Protagonist-Column]" in value %}
+								{% else %}
+									<td id="check">
+										<div class="checkbox">
+											<input type="checkbox" id={{key}} name="dropCol" value="{{key}}">
+											<label for={{key}}>{{key}}</label>
+										</div>
+									</td>
+        						{% endif %}
+        					{% endfor %}
+						</tr>
+						{% endif %}
+					</tbody>
+				</table>
+			</div>
+			<div class="action">
+				<button type="submit">Drop Column(s)</button>
+				<p>
+				   By clicking the <span>Drop Columns</span> button, the selected column 
+				   will be dropped from the conversion process.
+				</p>
+			</div>
+		</form>
+		</div>
+		{% endif %}
+
+	
+		<div class="descriptive" layer="raw" id="raw">
+			<div class="background" onclick="toggleModal('raw')"></div>
+			<div class="modal">
+				<h2>Raw Data</h2>
+				<div class="table">
+					<table>
+						<thead>
+							<th>id</th>
+							<th>street</th>
+							<th>city</th>
+							<th>zip</th>
+							<th>state</th>
+							<th>beds</th>
+							<th>baths</th>
+							<th>sq__ft</th>
+							<th>type</th>
+							<th>sale_date</th>
+							<th>price</th>
+							<th>latitude</th>
+							<th>longitude</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>9832 Justo. Road</td>
+								<td>Lagos</td>
+								<td>748503</td>
+								<td>Paraguay</td>
+								<td>Vivamus rhoncus. Donec est. Nunc</td>
+								<td>Donec Corp.</td>
+								<td>Pellentesque.habitant@eratvitae.ca</td>
+								<td>95-115</td>
+								<td>16941103 5059</td>
+								<td>LA</td>
+								<td>-58.94372</td>
+								<td>50.83961</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>261 Lorem Ave</td>
+								<td>Istanbul</td>
+								<td>755012</td>
+								<td>Guatemala</td>
+								<td>egestas, urna justo faucibus lectus, a sollicitudin</td>
+								<td>Lorem Lorem LLC</td>
+								<td>ac.mattis.ornare@acsem.net</td>
+								<td>11319</td>
+								<td>16971022 7894</td>
+								<td>Ist</td>
+								<td>64.72132</td>
+								<td>-90.64199</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>P.O. Box 867, 4214 Blandit Avenue</td>
+								<td>Berlin</td>
+								<td>183305</td>
+								<td>Iran</td>
+								<td>et ultrices posuere cubilia Curae;</td>
+								<td>Eu Tellus Phasellus Associates</td>
+								<td>Nullam.enim@liberoduinec.edu</td>
+								<td>91580</td>
+								<td>16700104 8888</td>
+								<td>BE</td>
+								<td>-43.67485</td>
+								<td>-104.09663</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="action">
+					<button onclick="toggleModal('raw')">Close Preview</button>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="/staging/static/script/script.js"></script>
+</body>
+{% endblock %}

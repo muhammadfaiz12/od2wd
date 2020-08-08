@@ -1,6 +1,94 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h1>Data Preview</h1>
-    {{data | safe }}
-    <a href="http://localhost:5000/previewMap/{{procId}}">Petakan Dokumen Ini</a>
+<body page="preview">
+	<section class="hero">
+		<div class="descriptive" layer="background">
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+		</div>
+		<div class="descriptive" layer="table">
+			<h1>Data Preview
+				<a href="/#form">
+					<button class="back">
+						<i class="fas fa-chevron-left"></i>
+						Back
+					</button>
+				</a>
+			</h1>
+			<p>Job Name : <span>{{ procId }}</span></p>
+
+			<form action="{{parent_link}}/background-run/{{procId}}" method="POST">
+				<div class="form">
+					<h4>
+						Metadata Form
+						<button type="button" onclick="collapse('metadata', 'icon')" id="icon">
+							<i class="fas fa-chevron-down"></i>
+						</button>
+					</h4>
+					<div class="collapse" id="metadata">
+					<div class="group">
+						<label id="label_title">Title</label>
+						<input 
+							type        = "text" 
+							placeholder = "title" 
+							name        = "title"
+							id          = "input_title"
+						/>
+						<input 
+							type        = "hidden" 
+							placeholder = "jobid" 
+							name        = "job_id"
+							value       = "{{procId}}" 
+						/>
+					</div>
+					<div class="group">
+						<label id="label_url">URL</label>
+						<input
+							type        = "text" 
+							placeholder = "url" 
+							name        = "url"
+							id          = "input_url"]
+						/>
+					</div>
+					<div class="group">
+						<label id="label_tag">Tags</label>
+						<input 
+							type        = "text" 
+							placeholder = "tags" 
+							name        = "tags" 
+							id          = "input_tag"
+						/>
+					</div>
+					<div class="group">
+						<label id="label_desc">Short Description</label>
+						<textarea 
+							placeholder = "short description" 
+							rows        = "5" 
+							name        = "description" 
+							id          = "input_desc"
+						></textarea>
+					</div>
+				</div>
+				</div>
+				<div class="table">
+					{{data | safe }}
+				</div>
+				<div class="action">
+					<p>
+						The conversion process will extract RDF 
+						triples from the document and then map the header and link the cells value to Wikidata.
+					</p>
+					<a href="{{parent_link}}/background-run/{{procId}}">
+						<button>
+							Start Conversion Process
+						</button>
+					</a>
+				</div>
+			</form>
+		</div>
+	</section>
+	<script src="/static/reface/script/script.js"></script>
+</body>
 {% endblock %}

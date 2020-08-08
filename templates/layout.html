@@ -1,13 +1,91 @@
-<!doctype html>
-<title>OD2WD</title>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="/static/reface/assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/static/reface/assets/css/custom.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+	<title>OD2WD</title>
+</head>
+<nav>
+	<div class="descriptive" layer="logo">
+		<div class="media">
+			<a href="{{parent_link}}/">
+				<img src="/static/reface/img/brand/od2wd-neutral.png" alt="od2wd" id="white"/>
+			</a>
+			<a href="{{parent_link}}/">
+				<img src="/static/reface/img/brand/od2wd.png" alt="od2wd" id="blue"/>
+			</a>
+		</div>
+	</div>
+	<div class="descriptive" layer="toggle">
+		<button onclick="toggleNav()">
+			<i id="button" class="fas fa-ellipsis-v"></i>
+		</button>
+	</div>
+	<div class="descriptive" layer="menu">
+		<ul id="nav" class="">
+			<li>
+				<a href="{{parent_link}}/">Home</a>
+			</li>
+			<li>
+				<a onclick="toSection('table')">Data Catalog</a>
+			</li>
+			<li>
+				<a href="https://od2wd.id/api/" target="_blank">
+					API
+				</a>
+			</li>
+			<li onmouseover="toggleSubmenu()" onmouseout="toggleSubmenu()">
+				<a>Code</a>
+				<ul id="submenu">
+					<li>
+						<a href="https://github.com/muhammadfaiz12/od2wd" target="_blank">
+							Web
+						</a>
+					</li>
+					<li>
+						<a href="https://github.com/gibranmfw/od2wd_api" target="_blank">
+							API
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="{{parent_link}}/publication/od2wd_paper.pdf" download>
+					Paper
+				</a>
+			</li>
+			<li>
+				<a href="{{parent_link}}/about">About</a>
+			</li>
+			<li>
+				<button class="icon" onclick="toSection('form')">
+					<i class="fas fa-exchange-alt"></i>
+					Convert Data
+				</button>
+			</li>
+		</ul>
+	</div>
+</nav>
+
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <strong>STATUS BAR</strong>
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+{% if messages %}
+<div id="notif" class="notification" onclick="notification()">
+	<div class="alert">
+		<h2>Error Messages</h2>
+		<ul class=flashes>
+			{% for message in messages %}
+				<li>{{ message }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+{% endif %}
 {% endwith %}
 {% block body %}{% endblock %}
+</html>

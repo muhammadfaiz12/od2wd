@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block body %}
+<body page="about">
+	<section class="about">
+		<div class="descriptive" layer="about">
+			<div class="text">
+				<h1>What is <span>OD2WD</span> ?</h1>
+				<p>
+					OD2WD is a project supported by Wikimedia foundation. OD2WD is made for the Wikimedia
+					Foundation-funded project <span>"Enhancing the Indonesian content of Wikidata"</span>, supported by
+					<span>Wikimedia Indonesia</span>. The project is co-administered by Adila Krisnadhi, Fariz Darari,
+					Muhammad Faiz, and Gibran Wisesa from Faculty of Computer Science, Universitas Indonesia
+				</p>
+			</div>
+			<div class="media">
+				<img src="/static/reface/img/page/about/od2wd.png" alt="image" />
+			</div>
+		</div>
+	</section>
+	<section class="article">
+		<div class="descriptive" layer="background">
+			<div></div>
+			<img src="/static/reface/img/page/about/reason.jpeg"></img>
+		</div>
+		<div class="descriptive" layer="title">
+			<h2>Why <span>OD2WD</span> ?</h2>
+		</div>
+		<div class="descriptive" layer="reason">
+			<div class="text">
+				<p>
+					The Open Data initiative has been adopted in various degrees by many countries
+					around the world due to a number of benefits it offers. However, challenges remain
+					on the findability as well as usability of such data. A solution to improve this situation involves the cooperation of Open Data
+					providers (i.e., governments and public institutions) to provide Linked Data infrastructure beyond just putting CSV files online.
+					The OD2WD project provide a semantic bridge between Wikidata, one of the most prominent Linked Data repository, and Open Data portals in Indonesia, providing linking between those publishers. 
+					This project mainly divided into two fold: Data Import and Semantic Enrichment. Data Import is a method 
+					on how to identify potential data which can be imported to wikidata sourced from open data portals, 
+					while Semantic Enrichemnt is method to analyze potentially enriched dataa in Open Data Portals by 
+					linking its entities, create semantic enrichment framework, and implement the proposed semantic 
+					enrichment over the Open Data Portal's datasets and demonstrate its added value. The goal or output 
+					of the OD2WD project is the <abbr>creation of links between data in Wikidata and Open Data portals of 
+					Indonesia through data imports and semantic enrichment</abbr>.
+					<span>OD2WD</span>
+				</p>
+			</div>
+		</div>
+	</section>
+	<section class="team">
+		<div class="descriptive" layer="title">
+			<h2>OD2WD <span>Team</span></h2>
+			<p>We worked hard, so it will be easier</p>
+		</div>
+		<div class="descriptive" layer="card">
+			<div class="card">
+				<div class="media">
+					<img src="/static/reface/img/page/about/teamadila2.jpeg" />
+				</div>
+				<div class="text">
+					<h4>Adila Krisnadhi Ph.D.</h4>
+				</div>
+			</div>
+			<div class="card">
+				<div class="media">
+					<img src="/static/reface/img/page/about/teamfariz.jpeg" />
+				</div>
+				<div class="text">
+					<h4>Fariz Darari Ph.D.</h4>
+				</div>
+			</div>
+			<div class="card">
+				<div class="media">
+					<img src="/static/reface/img/page/about/teamfaiz.jpeg" />
+				</div>
+				<div class="text">
+					<h4>Muhammad Faiz</h4>
+				</div>
+			</div>
+			<div class="card">
+				<div class="media">
+					<img src="/static/reface/img/page/about/teamgibran.jpeg" />
+				</div>
+				<div class="text">
+					<h4>Gibran Wisesa</h4>
+				</div>
+			</div>
+		</div>
+		<div class="descriptive" layer="info">
+			<div class="infos">
+				<div class="info">
+					<h5>Email us for more information or OD2WD related issues</h5>
+					<a href="mailto:support@od2wd.com">
+						<div class="icon">
+							<i class="fas fa-envelope"></i>
+							<p>support@OD2WD.com</p>
+						</div>
+					</a>
+				</div>
+				<p>OR</p>
+				<div class="info">
+					<h5>Post any Issues regarding OD2WD on our github page</h5>
+					<a href="https://github.com/muhammadfaiz12/od2wd/issues" target="_blank">
+					<div class="icon">
+						<i class="fab fa-github"></i>
+						<p>od2wd</p>
+					</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<div class="divider"></div>
+		<p>© 2020 OD2WD – Universitas Indonesia | With support from Wikimedia Indonesia and Wikidata</p>
+	</footer>
+	<script src="/static/reface/script/script.js"></script>
+</body>
+{% endblock %}

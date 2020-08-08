@@ -280,11 +280,13 @@ def mpRank(header_list, thresh=0):
     return result, resultLabel
 
 def mpRankWTypeSim(header_list, type_list, thresh=0):
+    print("AAAA")
     namaFileModel = "data/dump/w2vec_wiki_id_case"
     model = Word2Vec.load(namaFileModel)
     print("kicut")
     logging.basicConfig(level=logging.ERROR)
     es = connect_elasticsearch()
+    print("connected")
 
     result = {}
     resultLabel = {}

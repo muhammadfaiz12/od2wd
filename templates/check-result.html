@@ -1,7 +1,33 @@
+<link rel="stylesheet" media="screen" href = "{{ url_for('static', filename='bootstrap.min.css') }}">
 {% extends "layout.html" %}
 {% block body %}
-    <h1>Check Result</h1>
-    {{data | safe }}
-    <a href="http://localhost:5000/">Kembali Ke Menu Utama</a>
-    <a href="http://localhost:5000//download/{{procId}}">Unduh hasil CSV</a>
+<body style="background:#F6F8FA">
+	<div class="warper" style="padding: 24px">
+	<div class="container-fluid" style="">
+	<div class="row">
+		<div class="col-md-12" style="background: white;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); padding: 24px; border-radius: 8px">
+			{% if result_finished == True %}
+		    <h1>Check Result</h1>
+			<div class="table-warper" style="overflow-x: scroll;">
+			    {{data | safe }}
+			</div>
+			<!-- <p>* Suatu baris yang mempunyai nilai NaN di kolom qid adalah baris yang menjadi entity baru</p> -->
+			<p>* A row that has NaN as it's qid column value, is a row that would create new entity</p>
+				<a class = "btn btn-warning" href="{{parent_link}}/">Main Menu</a>
+			    <a class = "btn btn-primary" href="{{parent_link}}/download-result/{{procId}}">Download CSV Result</a>
+			    <a class = "btn btn-primary" href="{{publish_url}}">Execute Quickstatements</a>
+			<!-- <a href= "{{address}}" download="result.csv">Download</a> -->
+			{% else %}
+		<!-- 	<h1>Dokumen ini Sedang Di Proses</h1>
+			<p> Dokumen masih dalam proses konversi , harap muat ulang (reload) halaman ini atau tekan tombol di bawah dalam beberapa saat</p> -->
+			<h1>Document is still being processed</h1>
+			<p> Document is still being processed, please reload this page or press the button below in a few minutes</p>
+			<a class = "btn btn-warning" href="{{parent_link}}/check-result/{{procId}}">Reload Page</a>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
 {% endblock %}
