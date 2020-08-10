@@ -2,6 +2,7 @@ import os, shelve
 import pandas as pd
 from src.utils import *
 from src.main_utils import get_label_from_map_file
+from var_settings import *
 
 def migrate(file_name=""):
 	results_files=[]
@@ -28,6 +29,17 @@ def migrate(file_name=""):
 		s[file_name]=db_payload
 	print("Success : {}, Fail: {}".format(str(len(results_files)), str(len(errors))))
 	s.close()
+
+def migrate_write_metadata(metadata: dict):
+	with shelve.open('db/metadata-db') as s:
+		s["metadata"] = metadata
+
+def migrate_read_metadata() -> dict:
+	with shelve.open('db/metadata-db') as s:
+		temp = {}
+		if "metadata" in s.keys():
+			temp = s["metadata"]
+		return temp
 
 def getMapInfo(file_name, db_payload):
     df = load_data(file_name, "mapped")

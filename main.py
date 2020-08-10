@@ -5,7 +5,7 @@ from src.main_convert import *
 from src.utils import load_data
 from src.main_utils import *
 from var_settings import *
-from migrate import migrate
+from migrate import migrate, migrate_read_metadata, migrate_write_metadata
 from threading import Thread
 import time
 
@@ -14,6 +14,7 @@ import time
 app = Flask(__name__)
 app.secret_key="super secret key"
 var_settings.init_global_var()
+var_settings.job_metadata_dict = migrate_read_metadata()
 
 @app.route('/')
 def index():
@@ -232,8 +233,12 @@ def background_run(procId, sourceURL="", metadata={}):
             #lets clean this, remove trailing space
             req["tags"] = [tag.strip() for tag in req["tags"]]
         var_settings.job_metadata_dict[procId]=req
+    elif var_settings.job_metadata_dict[procId] is not None:
+        pass
     else:
+        #if both cases above null, then assign whatever metadata is sent, could be empty dict (default value)
         var_settings.job_metadata_dict[procId]=metadata
+    migrate_write_metadata(var_settings.job_metadata_dict)
     Thread(target=background_run_thread,args=(procId,sourceURL,)).start()
     print("[PROC-{}--[Phase 3]]--Thread Creation Success".format(procId))
     time.sleep(1)
