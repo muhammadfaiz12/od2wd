@@ -152,11 +152,6 @@ def download(procId):
     filename=procId
     return send_file(directory+filename, attachment_filename='qs_result.csv', mimetype='text/csv',as_attachment=True)
 
-@app.route('/download-paper', methods=['GET'])
-def download_publication():
-    filename='publication/od2wd_paper.pdf'
-    return send_file(filename, attachment_filename='OD2WD_paper.pdf', mimetype='application/pdf',as_attachment=True)
-
 @app.route('/job-detail/<procId>')
 def job_detail(procId):
     publish_url = ''
