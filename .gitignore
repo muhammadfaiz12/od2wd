@@ -5,6 +5,7 @@ data/results/*.csv
 data/mapped/*.csv
 data/linked/*.csv
 data/dump/*
+db/*
 .vscode/*
 .ipynb_checkpoints/*
 __pycache__
