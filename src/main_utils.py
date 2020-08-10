@@ -125,7 +125,8 @@ def get_publish_qs_url(procId):
     print("[Phase-6-{}] Getting publication link :\n".format(procId))
     return final_url
 
-def fetch_csv_from_link(url):
+#Return filename and metadatas
+def fetch_csv_from_link(url) -> (str,dict):
     startIdx=url.index("data.")
     fileName = url[startIdx:]
 
@@ -144,7 +145,22 @@ def fetch_csv_from_link(url):
     response = requests.get(url=base_url, params=params)
     json_data = json.loads(response.text)
     fetch_link = json_data['result']['results'][0]['resources'][0]['url']
+    metadata = extract_metadata_ckan(json_data['result']['results'][0])
     file_name=check_file_name('{}.csv'.format(queryName))
     print("[PHASE-1] Fetching from "+str(fetch_link))
     wget.download(fetch_link, 'data/uncleaned/{}'.format(file_name))
-    return file_name
+    return file_name, metadata
+
+#this func extract metadata of csv at result['result']['results'][<idx>] lvl of ckan api repsonse
+def extract_metadata_ckan(infos) -> dict:
+    metadata = {}
+    #extract tags
+    tags =[]
+    if "tags" in infos.keys():
+        for tag in infos['tags']:
+            if 'name' in tag.keys():
+                tags.append(tag['name'])
+            else:
+                print("[PHASE-1] Error on extracting metadata, no name tags. Tags is : {}".format(tag.keys()))
+    metadata["tags"] = tags
+    return metadata

@@ -41,7 +41,6 @@ def ingest_metadata_form():
         print("job id not found")
         return jsonify(error_message="job id not found")
     var_settings.job_metadata_dict[req['job_id']]=req
-    print(str(var_settings.job_metadata_dict))
     return jsonify(message="ok")
 
 @app.route('/uploader', methods = ['GET', 'POST'])
@@ -68,14 +67,14 @@ def upload_file():
 def integrated_file():
     url = request.form['url']
     try:
-        file_name = fetch_csv_from_link(url.lower())
+        file_name, metadata = fetch_csv_from_link(url.lower())
     except Exception as e:
         print("ERROR in FETCH FILE \n"+str(e))
         flash("Error occured, please ensure you insert the correct URL and try again")
         return redirect(url_for('index'))
     res= load_data(file_name,'uncleaned')
     res = res.to_html(max_rows=15, justify='left',classes=['table','table-striped'])
-    return background_run(file_name, url)
+    return background_run(file_name, url, metadata)
 
 @app.route('/previewMap/<procId>', methods = ['GET', 'POST'])
 def render_map(procId):
@@ -119,7 +118,6 @@ def create_qs(procId, sourceURL:str):
     context=[]
     if "tags" in metadata:
         context = metadata["tags"]
-    print("ABCDEFGHIJ")
     print(context)
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId], context)
@@ -228,7 +226,7 @@ def background_run(procId, sourceURL="", metadata={}):
             #lets clean this, remove trailing space
             req["tags"] = [tag.strip() for tag in req["tags"]]
         var_settings.job_metadata_dict[procId]=req
-    elif var_settings.job_metadata_dict[procId] is not None:
+    elif procId in var_settings.job_metadata_dict.keys() and var_settings.job_metadata_dict[procId] is not None:
         pass
     else:
         #if both cases above null, then assign whatever metadata is sent, could be empty dict (default value)
