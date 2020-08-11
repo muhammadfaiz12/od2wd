@@ -8,33 +8,28 @@ window.onscroll = () => {
 		blue.classList.add('show')
 	} else {
 		navbar.classList.remove('scrolled')
-		if (window.location.pathname.includes('uploader') || window.location.pathname.includes('job-detail') || window.location.pathname.includes('about')) {
-			white.classList.add('hide')
-			blue.classList.add('show')
-		} else {
-			white.classList.remove('hide')
-			blue.classList.remove('show')
-		}
+		white.classList.remove('hide')
+		blue.classList.remove('show')
 	}
 }
 
 window.onload = () => {
 	let navbar = document.querySelector('nav')
-	let white  = document.getElementById('white')
-	let blue   = document.getElementById('blue')
 	if (window.location.pathname.includes('uploader') || window.location.pathname.includes('job-detail') || window.location.pathname.includes('about')) {
 		navbar.classList.add('static')
-		white.classList.add('hide')
-		blue.classList.add('show')
 	}
 }
 
 toggleNav = () => {
-	let navbar = document.getElementById("nav")
-	navbar.classList.toggle('show')
 	let buttonicon = document.getElementById("button")
 	buttonicon.classList.toggle('toggle')
 
+	let menu = document.getElementById("menu")
+	menu.classList.toggle('show')
+
+	let navbar = document.querySelector('nav')
+	navbar.classList.toggle('show')
+	
 	let white  = document.getElementById('white')
 	let blue   = document.getElementById('blue')
 	blue.classList.toggle('toggle')
@@ -49,6 +44,10 @@ toggleSubmenu = () => {
 toggleModal = (id) => {
 	let modal = document.getElementById(id)
 	modal.classList.toggle('show')
+
+	let ysrc   = document.getElementById('videoIframe').src
+  	var newsrc = ysrc.replace('&autoplay=1', '')
+  	document.getElementById('videoIframe').src = newsrc
 }
 
 collapse = (id, indicator = null) => {
