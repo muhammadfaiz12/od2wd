@@ -9,10 +9,10 @@
 		</div>
 		<div class="descriptive" layer="banner">
 			<div class="text">
-				<h1>Publish Data From Open Data <br/> Portals To Wikidata Easily</h1>
+				<h1>Publish Data from Open Data <br/>Portals to Wikidata Easily</h1>
 				<p>
-					OD2WD is a tool to convert CSV files from open data portals into Quickstatements files 
-					which can be used to republish data into Wikidata. 
+					OD2WD automatically converts CSV files from Open Data portals into 
+					QuickStatements for Wikidata republishing.
 					<a onclick="scrollSection('stages')">See how it works</a>
 				</p>
 				<div class="action">
@@ -49,11 +49,12 @@
 		</div>
 		<div class="descriptive" layer="title">
 			<h2>Convert Your Data Now</h2>
-			<p>Upload a CSV file to be converted or input a dataset link from an open data portal</p>
+			<p>Upload a CSV file to be converted or input a dataset link from an Open Data portal</p>
 		</div>
 		<div class="descriptive" layer="convert">
 			<div class="convert">
-				<h4>Upload your data</h4>
+				<i class="fas fa-file-upload"></i>
+				<h4>Upload Your Data</h4>
 				<p>Upload Open Data CSV file manually</p>
 				<form 
 					action  = "{{parent_link}}/uploader"
@@ -83,8 +84,9 @@
 			</div>
 			<div class="divider"></div>
 			<div class="convert">
+				<i class="fas fa-link"></i>
 				<h4>Dataset Link</h4>
-				<p>Input dataset link from open data sites</p>
+				<p>Input dataset link from Open Data portals</p>
 				<form 
 					action       = "{{parent_link}}/url-upload"
 					enctype      = "multipart/form-data"
@@ -273,19 +275,10 @@
 	<section class="modal">
 		<div class="descriptive" id="videoAbout">
 			<div class="video">
-				<iframe src="https://www.youtube.com/embed/oOjJdOQ8dwM">
+				<iframe id="videoIframe" src="https://www.youtube.com/embed/oOjJdOQ8dwM?enablejsapi=1">
 				</iframe>
 			</div>
 			<button onclick="toggleModal('videoAbout')">
-				<i class="fas fa-times"></i>
-			</button>
-		</div>
-		<div class="descriptive" id="videoAPI">
-			<div class="video">
-				<iframe src="https://www.youtube.com/embed/SeKOgJ4PZMs">
-				</iframe>
-			</div>
-			<button onclick="toggleModal('videoAPI')">
 				<i class="fas fa-times"></i>
 			</button>
 		</div>

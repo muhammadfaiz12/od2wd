@@ -7,52 +7,90 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="/static/reface/assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="/static/reface/assets/css/custom.css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 	<title>OD2WD</title>
 </head>
 <nav>
 	<div class="descriptive" layer="logo">
 		<div class="media">
 			<a href="{{parent_link}}/">
-				<img src="/static/reface/img/brand/od2wd-neutral.png" alt="od2wd" id="white"/>
+				<img 
+					src = "/static/reface/img/brand/od2wd-neutral.png" 
+					alt = "od2wd" 
+					id  = "white" 
+				/>
 			</a>
 			<a href="{{parent_link}}/">
-				<img src="/static/reface/img/brand/od2wd.png" alt="od2wd" id="blue"/>
+				<img 
+					src = "/static/reface/img/brand/od2wd.png" 
+					alt = "od2wd" 
+					id  = "blue" 
+				/>
 			</a>
 		</div>
 	</div>
 	<div class="descriptive" layer="toggle">
-		<button onclick="toggleNav()">
+		<button 
+			onclick="toggleNav()"
+		>
 			<i id="button" class="fas fa-ellipsis-v"></i>
 		</button>
 	</div>
 	<div class="descriptive" layer="menu">
-		<ul id="nav" class="">
+		<ul id="menu">
 			<li>
-				<a href="{{parent_link}}/">Home</a>
+				<a 
+					href  = "{{parent_link}}/" 
+					class = "anchor"
+				>
+					Home
+				</a>
 			</li>
 			<li>
-				<a onclick="toSection('table')">Data Catalog</a>
+				<a 
+					onclick = "toSection('table')" 
+					class   = "anchor"
+				>
+					Data Catalog
+				</a>
 			</li>
 			<li>
-				<a href="https://od2wd.id/api/" target="_blank">
+				<a 
+					class  = "anchor"
+					href   = "https://od2wd.id/api/" 
+					target = "_blank" 
+					rel    = "noopener noreferrer" 
+				>
 					API
 				</a>
 			</li>
-			<li onmouseover="toggleSubmenu()" onmouseout="toggleSubmenu()">
-				<a>Code</a>
-				<ul id="submenu">
-					<li>
-						<a href="https://github.com/muhammadfaiz12/od2wd" target="_blank">
+			<li 
+				class       = "child"
+				onmouseover = "toggleSubmenu()" 
+				onmouseout  = "toggleSubmenu()"
+			>
+				<a class="anchor">Code</a>
+				<div id="submenu" class="submenu">
+					<div class="link">
+						<a 
+							href   = "https://github.com/muhammadfaiz12/od2wd" 
+							target = "_blank" 
+							rel    = "noopener noreferrer"
+						>
 							Web
 						</a>
-					</li>
-					<li>
-						<a href="https://github.com/gibranmfw/od2wd_api" target="_blank">
+					</div>
+					<div class="link">
+						<a 
+							href   = "https://github.com/gibranmfw/od2wd_api" 
+							target = "_blank" 
+							rel    = "noopener noreferrer"
+						>
 							API
 						</a>
-					</li>
-				</ul>
+					</div>
+				</div>
 			</li>
 			<li>
 				<a href="/static/publication/od2wd_paper.pdf" download>
@@ -60,10 +98,18 @@
 				</a>
 			</li>
 			<li>
-				<a href="{{parent_link}}/about">About</a>
+				<a 
+					class = "anchor"
+					href  = "{{parent_link}}/about"
+				>
+					About
+				</a>
 			</li>
-			<li>
-				<button class="icon" onclick="toSection('form')">
+			<li class="convert">
+				<button 
+					class   = "icon" 
+					onclick = "toSection('form')"
+				>
 					<i class="fas fa-exchange-alt"></i>
 					Convert Data
 				</button>
@@ -74,12 +120,16 @@
 
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-<div id="notif" class="notification" onclick="notification()">
+<div 
+	class   = "notification"
+	id      = "notif"  
+	onclick = "notification()"
+>
 	<div class="alert">
 		<h2>Error Messages</h2>
 		<ul class=flashes>
 			{% for message in messages %}
-				<li>{{ message }}</li>
+			<li>{{ message }}</li>
 			{% endfor %}
 		</ul>
 	</div>
@@ -88,4 +138,5 @@
 {% endif %}
 {% endwith %}
 {% block body %}{% endblock %}
+
 </html>
