@@ -240,8 +240,9 @@ def background_run(procId, sourceURL="", metadata={}):
 
 @app.route('/choose-column/<procId>', methods = ['POST'])
 def choose_column_handler(procId):
-    dropCol = request.form.getlist('dropCol')
-    drop_export_column(procId, dropCol)
+    #checked columns are the one that stay, the rest are deleted
+    stay_column = request.form.getlist('dropCol')
+    drop_export_column(procId, stay_column)
     url_redirect="{}/job-detail/{}".format(var_settings.parent_link, procId)
     return redirect(url_redirect, code=302)
 
