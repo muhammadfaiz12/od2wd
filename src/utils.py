@@ -2,6 +2,7 @@ from src.mapper import mapProperty, mpRankWTypeSim
 import csv
 import shelve
 import pandas as pd
+from src.main_utils import get_label_from_map_file
 from src.wikimedia import searchEntity, searchObjWProperty, searchProperty, searchPropertyRange
 from dateutil.parser import parse
 import operator
@@ -434,7 +435,7 @@ def getColumnName(procId, col, step):
                 occ_num-=1
                 colName=colName[:colName.find("(")]+".{}".format(occ_num)
     except Exception as e:
-        print("EXCEPTION on Removing Inaccurate colum \n {} \n ==== END ===".format(str(e)))
+        print("EXCEPTION on Removing Inaccurate colum \n {} \n ==== END ===".format(str(e.with_traceback)))
     return colName
 
 #Dropping P31
@@ -460,18 +461,21 @@ def checkMergedColumn(procId, del_m, del_l, del_r):
     #check merged column
     mergedColumn = "P625" #latitude/longitude into 1 column
     for col in del_r:
-        if mergedColumn in col:
+        if col is not None and mergedColumn in col:
             isMerge = True
     if isMerge:
             with shelve.open("db/col-db") as s:
                 for col in s[procId]['column'].keys():
-                    if mergedColumn in s[procId]['column'][col]['results'] and s[procId]['column'][col]['mapped'] not in del_m:
+                    if s[procId]['column'][col]['results'] is not None and mergedColumn in s[procId]['column'][col]['results'] and s[procId]['column'][col]['mapped'] not in del_m:
                         del_m.append(s[procId]['column'][col]['mapped'])
                         del_l.append(s[procId]['column'][col]['linked'])
            # print("EXCEPTION on checking merged colum \n {} \n ==== END ===".format(e))
     return del_m, del_l, del_r
 
-def drop_export_column(procId, delColumns):
+def drop_export_column(procId, stayColumns):
+    mapping = get_label_from_map_file(procId)
+    delColumns = [x for x in mapping.keys() if x not in stayColumns]
+
     df_r = load_data(procId, "results")
     df_m = load_data(procId, "mapped")
     df_l = load_data(procId, "linked")
@@ -482,18 +486,19 @@ def drop_export_column(procId, delColumns):
 
     if len(delColumns) < 1:
         return
-    
+    print("WAHAHA")
     print(delColumns)
     delColumns_m = []
     delColumns_l = []
     delColumns_r = []
 
     print(len(delColumns_m))
-    delColumns_m = [getColumnName(procId, x, 'mapped') for x in delColumns]
-    delColumns_l = [getColumnName(procId, x, 'linked') for x in delColumns]
-    delColumns_r = [getColumnName(procId, x, 'results') for x in delColumns]
+    delColumns_m = [getColumnName(procId, x, 'mapped') for x in delColumns if x is not None]
+    delColumns_l = [getColumnName(procId, x, 'linked') for x in delColumns if x is not None]
+    delColumns_r = [getColumnName(procId, x, 'results') for x in delColumns if x is not None]
 
     delColumns_m, delColumns_l, delColumns_r = checkMergedColumn(procId, delColumns_m, delColumns_l, delColumns_r)
+    delColumns_m, delColumns_l, delColumns_r = [x for x in delColumns_m if x is not None], [x for x in delColumns_l if x is not None], [x for x in delColumns_r if x is not None]
 
     print(delColumns_m)
     print(delColumns_r)
