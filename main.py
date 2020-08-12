@@ -170,10 +170,12 @@ def job_detail(procId):
             break
         elif states[idx] == 'metadataExtraction':
             protagonist = checkProtagonist(procId)
-            res = {}
-            res["Protagonist Columns"]=protagonist
+            tags = []
             if procId in var_settings.job_metadata_dict:
-                res["metadata"]=var_settings.job_metadata_dict[procId]
+                metadata=var_settings.job_metadata_dict[procId]
+                if "tags" in metadata.keys():
+                    tags = metadata["tags"]
+            res = format_metadata_job_detail(protagonist, tags)
             previews.append(res)
         else:
             res= load_data(procId,states[idx])

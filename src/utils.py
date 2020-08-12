@@ -523,3 +523,9 @@ def drop_export_column(procId, stayColumns):
     df_r.to_csv("data/results/{}".format(procId), index=False)
 
     return
+
+def format_metadata_job_detail(protagonist:str, tags: list) -> str:
+    #Result format is based on FE Designer's request
+    stringified_tags = str(tags).replace("[","").replace("]","")
+    result = "<div><a>Protagonist Column</a><a>{}</a><a>Tags</a><p>{}</p></div>".format(protagonist, stringified_tags)
+    return result
