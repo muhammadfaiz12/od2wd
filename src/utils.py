@@ -529,3 +529,11 @@ def format_metadata_job_detail(protagonist:str, tags: list) -> str:
     stringified_tags = str(tags).replace("[","").replace("]","")
     result = "<div><a>Protagonist Column</a><a>{}</a><a>Tags</a><p>{}</p></div>".format(protagonist, stringified_tags)
     return result
+
+def get_result_csv_text(procId: str) -> str:
+    try:
+        with open("data/results/{}".format(procId)) as csv_file:
+            return csv_file
+    except Exception as e:
+            print("Error on getting clipboard \n {} \n ".format(e.with_traceback))
+            return ""

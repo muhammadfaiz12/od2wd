@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, flash, redirect, url_for, jso
 from flask_paginate import Pagination, get_page_args
 from werkzeug import secure_filename
 from src.main_convert import *
-from src.utils import load_data
+from src.utils import load_data, get_result_csv_text
 from src.main_utils import *
 from var_settings import *
 from migrate import migrate, migrate_read_metadata, migrate_write_metadata
@@ -161,6 +161,7 @@ def job_detail(procId):
         mapping = get_label_from_map_file(procId)
     if job_status[5]:
         publish_url = get_publish_qs_url(procId)
+        clipboard = get_result_csv_text
     #preview are html string, unless phase 2(zero based), it will be just string
     previews = []
     idx = 0
@@ -182,7 +183,7 @@ def job_detail(procId):
             res = res.to_html(max_rows=15, justify='left', index=False).replace("border=\"1\"","'border=\"0\"'").replace("\"","")
             previews.append(res)
         idx+=1
-    return render_template('job-detail.html', procId=procId, job_status=job_status, publish_url=publish_url, mapping=mapping, dataPreviews=previews)
+    return render_template('job-detail.html', procId=procId, job_status=job_status, publish_url=publish_url, mapping=mapping, dataPreviews=previews, clipboard_value=clipboard)
 
 @app.route('/download-detail/<procId>/<phase>', methods=['GET', 'POST'])
 def download_detail(procId, phase):
