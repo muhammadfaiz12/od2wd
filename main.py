@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, flash, redirect, url_for, jso
 from flask_paginate import Pagination, get_page_args
 from werkzeug import secure_filename
 from src.main_convert import *
-from src.utils import load_data, get_result_csv_text
+from src.utils import load_data, get_result_csv_text, get_column_dict, get_label_of_linked_df
 from src.main_utils import *
 from var_settings import *
 from migrate import migrate, migrate_read_metadata, migrate_write_metadata
@@ -178,6 +178,17 @@ def job_detail(procId):
                 if "tags" in metadata.keys():
                     tags = metadata["tags"]
             res = format_metadata_job_detail(protagonist, tags)
+            previews.append(res)
+        elif states[idx] == 'linked':
+            df_m = load_data(procId, "mapped")
+            df_l = load_data(procId, "results")
+            res_df = df_l
+            try:
+                columns = get_column_dict(procId)
+                res_df = get_label_of_linked_df(df_l, df_m, columns)
+            except Exception as e:
+                print("Exception on Job detail \n {} \n".format(e))
+            res = res_df.to_html(max_rows=15, justify='left', index=False).replace("border=\"1\"","'border=\"0\"'").replace("\"","")
             previews.append(res)
         else:
             res= load_data(procId,states[idx])
