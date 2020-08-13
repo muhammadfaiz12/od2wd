@@ -480,8 +480,10 @@ def drop_export_column(procId, stayColumns):
     df_m = load_data(procId, "mapped")
     df_l = load_data(procId, "linked")
     protagonist = checkProtagonist(procId)
-    if protagonist in delColumns:
-        dropP31(procId, df_m, df_r)
+    if protagonist in delColumns: 
+        #check if p31 exists
+        if "P31" in df_r.columns:
+            dropP31(procId, df_m, df_r)
         delColumns.remove(protagonist)
 
     if len(delColumns) < 1:
@@ -533,7 +535,8 @@ def format_metadata_job_detail(protagonist:str, tags: list) -> str:
 def get_result_csv_text(procId: str) -> str:
     try:
         with open("data/results/{}".format(procId)) as csv_file:
-            return csv_file
+            result = csv_file.read()
+            return result
     except Exception as e:
             print("Error on getting clipboard \n {} \n ".format(e.with_traceback))
             return ""
