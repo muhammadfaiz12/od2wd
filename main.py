@@ -162,7 +162,7 @@ def job_detail(procId):
         mapping = get_label_from_map_file(procId)
     if job_status[5]:
         publish_url = get_publish_qs_url(procId)
-        clipboard = get_result_csv_text()
+        clipboard = get_result_csv_text(procId)
     #preview are html string, unless phase 2(zero based), it will be just string
     previews = []
     idx = 0
