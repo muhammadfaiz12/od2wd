@@ -456,6 +456,14 @@ def checkProtagonist(procId):
         print("EXCEPTION on checking protagonist colum \n {} \n ==== END ===".format(str(e)))
     return protagonist
 
+def get_column_dict(procId):
+    colName = ""
+    try:
+        with shelve.open("db/col-db") as s:
+            return s[procId]['column']
+    except Exception as e:
+        print("EXCEPTION on Getting Column Dict \n {} \n ==== END ===".format(str(e.with_traceback)))
+
 def checkMergedColumn(procId, del_m, del_l, del_r):
     isMerge = False
     #check merged column
@@ -540,3 +548,45 @@ def get_result_csv_text(procId: str) -> str:
     except Exception as e:
             print("Error on getting clipboard \n {} \n ".format(e.with_traceback))
             return ""
+
+def get_label_of_linked_df(df_l, df_m, columns: dict):
+    pattern = re.compile("(Q[1-9])\w+")
+    entity_col = []
+    entity_col_pair = {}
+
+    #identify entity column
+    for l_col in df_l.columns:
+        print(str(df_l[l_col][0]))
+        if bool(pattern.match(str(df_l[l_col][0]))):
+            entity_col.append(l_col)
+
+    #loop e col
+    for ec in entity_col:
+        for col in columns.keys():
+            #getting mapped label of the linked
+            if columns[col]['linked'] == ec:
+                entity_col_pair[ec] = columns[col]['mapped']
+
+    #mash old label with link result
+    df_result = df_l.copy()
+    for ec in entity_col:
+        #Skipping P31 because its auto generated column, hence no old label
+        if ec == "P31":
+            continue
+        df_result[ec] = df_m[entity_col_pair[ec]]+" - "+df_l[ec]
+    
+    #Add protagonist column label
+    protagonist_col_l = "qid"
+    
+    protagonist_col_m = df_m.columns[0]
+    for col_m in df_m.columns:
+        if "[Protagonist]" in col_m:
+            protagonist_col_m=col_m
+
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    print(protagonist_col_l)
+    print(protagonist_col_m)
+    print(df_result.columns)
+    df_result[protagonist_col_l] = df_m[protagonist_col_m]+" - "+df_l[protagonist_col_l]
+
+    return df_result
