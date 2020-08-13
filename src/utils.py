@@ -480,8 +480,10 @@ def drop_export_column(procId, stayColumns):
     df_m = load_data(procId, "mapped")
     df_l = load_data(procId, "linked")
     protagonist = checkProtagonist(procId)
-    if protagonist in delColumns:
-        dropP31(procId, df_m, df_r)
+    if protagonist in delColumns: 
+        #check if p31 exists
+        if "P31" in df_r.columns:
+            dropP31(procId, df_m, df_r)
         delColumns.remove(protagonist)
 
     if len(delColumns) < 1:
