@@ -206,9 +206,9 @@
 					<div class="group">
 						<label>Group By</label>
 						<div class="input">
-							<select id="select">
-								<option value="DESC">Upload Date (oldest)</option>
-								<option value="ASC">Job Name (Z-A)</option>
+							<select id="group">
+								<option value="job">Job Name</option>
+								<option value="date">Upload Date</option>
 							</select>
 							<i class="fas fa-chevron-down"></i>
 						</div>
@@ -216,7 +216,7 @@
 					<div class="group">
 						<label>Sort</label>
 						<div class="input">
-							<select id="select">
+							<select id="sort">
 								<option value="DESC">Oldest</option>
 								<option value="ASC">Newest</option>
 							</select>
@@ -297,6 +297,5 @@
 	</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="/static/reface/script/script.js"></script>
-	<script src="/static/reface/script/slider.js"></script>
 </body>
 {% endblock %}
