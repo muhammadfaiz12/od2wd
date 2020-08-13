@@ -533,7 +533,8 @@ def format_metadata_job_detail(protagonist:str, tags: list) -> str:
 def get_result_csv_text(procId: str) -> str:
     try:
         with open("data/results/{}".format(procId)) as csv_file:
-            return csv_file
+            result = csv_file.read()
+            return result
     except Exception as e:
             print("Error on getting clipboard \n {} \n ".format(e.with_traceback))
             return ""
