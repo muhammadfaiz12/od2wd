@@ -1038,13 +1038,21 @@ body[page=index] section.catalogue {
           body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group {
             flex-basis: 100%;
             margin-bottom: 1.200em; } }
-        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group:first-child {
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group:first-child, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group:nth-child(2) {
           margin-right: .800em; }
           @media (max-width: 35.499em) and (orientation: portrait) {
-            body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group:first-child {
+            body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group:first-child, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group:nth-child(2) {
               margin-right: 0; } }
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group label {
           font-size: .800em; }
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select {
+          width: 18.000em; }
+          @media (max-width: 89.999em) and (orientation: landscape) {
+            body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select {
+              width: 100%; } }
+          @media (max-width: 63.999em) and (orientation: portrait) {
+            body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select {
+              width: 100%; } }
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group .input select {
           -moz-appearance: none;
           -webkit-appearance: none; }
@@ -2416,3 +2424,20 @@ body[page=detail] section.hero {
           background: linear-gradient(to right top, #70a1ff, #18C8FF);
           color: #FFFFFF;
           font-weight: 600; }
+    body[page=detail] section.hero .descriptive[layer=raw]#metadata .modal .table {
+      background-color: rgba(2, 70, 255, 0.1);
+      box-shadow: unset;
+      overflow: unset;
+      padding: .800em; }
+      body[page=detail] section.hero .descriptive[layer=raw]#metadata .modal .table div a {
+        display: block; }
+        body[page=detail] section.hero .descriptive[layer=raw]#metadata .modal .table div a:nth-child(odd) {
+          color: rgba(47, 53, 66, 0.7);
+          font-weight: 600;
+          font-size: 1.200em; }
+        body[page=detail] section.hero .descriptive[layer=raw]#metadata .modal .table div a:nth-child(even) {
+          color: rgba(47, 53, 66, 0.6);
+          font-size: 1.000em;
+          margin-top: .300em; }
+        body[page=detail] section.hero .descriptive[layer=raw]#metadata .modal .table div a:nth-child(2) {
+          margin-bottom: .800em; }
