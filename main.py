@@ -155,6 +155,7 @@ def job_detail(procId):
     publish_url = ''
     job_status = get_job_status(procId)
     mapping = {}
+    clipboard=""
     #if procId in var_settings.mappingbeautified_dict:
     #    mapping = var_settings.mappingbeautified_dict[procId]
     if job_status[3] :
