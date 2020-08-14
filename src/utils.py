@@ -51,6 +51,10 @@ def ranking(candidateList, goal, flag, propertyLbl,threshold=0):
 def searchID(flag, cell, rowHead, context=[], limit=3):
     # json = searchEntity(cell.lower(), limit)['search']
     responseCode, id = link_entity_api(cell, rowHead, context, limit) 
+    print("HIYAHIYA")
+    print(cell)
+    print(responseCode)
+    print(id)
     if(id == '' and flag):
         id = 'QNew'
     elif(id == ''):
@@ -372,12 +376,12 @@ def map_property_api(columns, dttype, parentApiURL="http://od2wd.id/api/"):
             result_label[str(obj['item'])] = ''
     return result, result_label
 
-def link_entity_api(item: str, headerValue: str, context, limit=3):
+def link_entity_api(item: str, headerValue: str, context=[], limit=3):
     payload = {}
     body ={}
     payload['item']=item
     payload['headerValue']=headerValue
-    payload['contexts']=context
+    payload['contexts']= [x for x in context if len(x) > 0]
     payload['limit']=limit
     body['entities']=[payload]
     print("[PHASE-2], Calling Url for Entity Linking")
@@ -583,7 +587,6 @@ def get_label_of_linked_df(df_l, df_m, columns: dict):
         if "[Protagonist]" in col_m:
             protagonist_col_m=col_m
 
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     print(protagonist_col_l)
     print(protagonist_col_m)
     print(df_result.columns)

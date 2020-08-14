@@ -14,6 +14,7 @@ import time
 app = Flask(__name__)
 app.secret_key="super secret key"
 var_settings.init_global_var()
+migrate()
 var_settings.job_metadata_dict = migrate_read_metadata()
 
 @app.route('/')
