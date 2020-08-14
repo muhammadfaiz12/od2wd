@@ -29,7 +29,7 @@ def index():
     catalogue = split_paginate(catalogue, offset=offset, per_page=per_page)
     catalogue_time = split_paginate(catalogue_time, offset=offset, per_page=per_page)
     pagination = Pagination(page=page, per_page=per_page, total=ori_catalogue_len,
-                            css_framework='bootstrap4')
+                            css_framework='bootstrap4', href="/?page={0}#table")
     return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination, parent_link=var_settings.parent_link)
 
 @app.route('/about')
