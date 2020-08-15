@@ -97,6 +97,14 @@ dataframeBack = (event) => {
 	window.location.href = '/#table'
 }
 
+copyQS = () => {
+	let copyText = document.getElementById("copyThis")
+	copyText.select()
+	copyText.setSelectionRange(0, 99999)
+	document.execCommand("copy")
+	alert("QuickStatements !" + copyText.value)
+}
+
 convertDate = () => {
 	var date = document.querySelectorAll('#datex')
 	date.forEach((date) => {

@@ -464,7 +464,11 @@
 					{{dataPreviews[5]|safe}}
 				</div>
 				<div class="close">
-					<button value={{clipboard_value}}>Copy</button>
+					<input style="opacity: 0;" type="text" value={{clipboard_value}} id="copyThis"></input>
+					<button style="margin-right: .700em;" type="button" onclick="copyQS()">
+						<i class="fas fa-copy" style="margin-right: .300em;font-size: 1.200em;"></i>
+						Copy
+					</button>
 					<button onclick="toggleModal('qs')">Close Preview</button>
 				</div>
 			</div>
