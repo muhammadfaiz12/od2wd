@@ -98,11 +98,15 @@ dataframeBack = (event) => {
 }
 
 copyQS = () => {
-	let copyText = document.getElementById("copyThis")
+	let copyText  = document.getElementById('copyThis')
+	let modalCopy = document.getElementById('modalCopy')  
 	copyText.select()
 	copyText.setSelectionRange(0, 99999)
 	document.execCommand("copy")
-	alert("QuickStatements !" + copyText.value)
+	modalCopy.classList.toggle('hide')
+	setTimeout(() => {
+		modalCopy.classList.toggle('hide')
+	}, 3000)
 }
 
 convertDate = () => {
@@ -124,8 +128,8 @@ deleteBorder()
 autoReload = () => {
 	if (window.location.pathname.includes('job-detail')) {
 		setTimeout(function(){
-			window.location.reload(1);
-		 }, 30000);
+			window.location.reload(1)
+		}, 30000)
 	}
 }
 autoReload()
