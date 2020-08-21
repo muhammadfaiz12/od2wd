@@ -103,6 +103,7 @@ copyQS = () => {
 	copyText.select()
 	copyText.setSelectionRange(0, 99999)
 	document.execCommand("copy")
+	
 	modalCopy.classList.toggle('hide')
 	setTimeout(() => {
 		modalCopy.classList.toggle('hide')
