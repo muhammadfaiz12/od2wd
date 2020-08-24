@@ -169,6 +169,13 @@ form .group {
         border: 0.1em solid rgba(2, 70, 255, 0.1) !important; }
   form .group select:read-only {
     background-color: white !important; }
+  form .group small {
+    color: rgba(47, 53, 66, 0.6);
+    display: inline-block;
+    font-size: .750em;
+    margin-top: .300em; }
+    form .group small span {
+      font-weight: 600; }
 
 form .action button {
   background: linear-gradient(to right top, #70a1ff, #18C8FF);
@@ -1003,7 +1010,7 @@ body[page=index] section.catalogue {
     @media (max-width: 74.999em) and (orientation: portrait) {
       body[page=index] section.catalogue .descriptive[layer=filter] form {
         flex-wrap: wrap; } }
-    @media (max-width: 89.999em) and (orientation: landscape) {
+    @media (max-width: 75em) and (orientation: landscape) {
       body[page=index] section.catalogue .descriptive[layer=filter] form {
         flex-wrap: wrap; } }
     body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
@@ -1011,10 +1018,12 @@ body[page=index] section.catalogue {
       font-family: 'Montserrat', sans-serif; }
       @media (max-width: 74.999em) and (orientation: portrait) {
         body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
-          order: 2; } }
-      @media (max-width: 89.999em) and (orientation: landscape) {
+          order: 2;
+          margin-top: 1.000em; } }
+      @media (max-width: 75em) and (orientation: landscape) {
         body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info {
-          order: 2; } }
+          order: 2;
+          margin-top: 1.000em; } }
       body[page=index] section.catalogue .descriptive[layer=filter] form .pagination-page-info::first-letter {
         text-transform: capitalize; }
     body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
@@ -1023,12 +1032,10 @@ body[page=index] section.catalogue {
       align-items: center; }
       @media (max-width: 74.999em) and (orientation: portrait) {
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
-          flex-basis: 100%;
-          margin-bottom: .500em; } }
-      @media (max-width: 89.999em) and (orientation: landscape) {
+          flex-basis: 100%; } }
+      @media (max-width: 75em) and (orientation: landscape) {
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
-          flex-basis: 100%;
-          margin-bottom: .500em; } }
+          flex-basis: 100%; } }
       @media (max-width: 35.499em) and (orientation: portrait) {
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter {
           flex-wrap: wrap; } }
@@ -1045,14 +1052,16 @@ body[page=index] section.catalogue {
               margin-right: 0; } }
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group label {
           font-size: .800em; }
-        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select {
-          width: 18.000em; }
-          @media (max-width: 89.999em) and (orientation: landscape) {
-            body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select {
-              width: 100%; } }
-          @media (max-width: 63.999em) and (orientation: portrait) {
-            body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select {
-              width: 100%; } }
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select {
+          width: 20.000em; }
+        body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input {
+          width: 30.000em; }
+        @media (max-width: 74.999em) and (orientation: portrait) {
+          body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input {
+            width: 100%; } }
+        @media (max-width: 75em) and (orientation: landscape) {
+          body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input {
+            width: 100%; } }
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group .input select {
           -moz-appearance: none;
           -webkit-appearance: none; }
@@ -1066,10 +1075,9 @@ body[page=index] section.catalogue {
           font-size: .800em;
           right: 5%; }
       body[page=index] section.catalogue .descriptive[layer=filter] form .filter .action {
-        display: flex;
-        margin-left: 1.200em; }
+        display: flex; }
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter .action button:first-child {
-          margin-right: .500em; }
+          margin-right: .800em; }
         body[page=index] section.catalogue .descriptive[layer=filter] form .filter .action button:last-child {
           background: linear-gradient(to right top, #ffa502, #eccc68); }
       body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group input, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .group select, body[page=index] section.catalogue .descriptive[layer=filter] form .filter .action button {

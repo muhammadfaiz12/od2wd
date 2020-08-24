@@ -1,7 +1,7 @@
 window.onscroll = () => {
 	let navbar = document.querySelector('nav')
-	let white = document.getElementById('white')
-	let blue = document.getElementById('blue')
+	let white  = document.getElementById('white')
+	let blue   = document.getElementById('blue')
 	if (window.pageYOffset > 0) {
 		navbar.classList.add('scrolled')
 		white.classList.add('hide')
@@ -44,9 +44,14 @@ toggleSubmenu = () => {
 toggleModal = (id) => {
 	let modal = document.getElementById(id)
 	modal.classList.toggle('show')
+}
 
-	let ysrc = document.getElementById('videoIframe').src
-	var newsrc = ysrc.replace('&autoplay=1', '')
+toggleYoutube = (id) => {
+	let modal = document.getElementById(id)
+	modal.classList.toggle('show')
+
+	let ysrc   = document.getElementById('videoIframe').src
+	let newsrc = ysrc.replace('&autoplay=1', '')
 	document.getElementById('videoIframe').src = newsrc
 }
 
@@ -87,9 +92,9 @@ scrollSection = (id) => {
 dataframe = (event) => {
 	event.preventDefault()
 	let searchValue = document.getElementById('search').value
-	let groupValue  = document.getElementById('group').value
 	let sortValue   = document.getElementById('sort').value
-	window.location.href = `/?query=${searchValue}&group=${groupValue}&order=${sortValue}#table`
+	let param       = sortValue.split('&')
+	window.location.href = `/?query=${searchValue}&group=${param[0]}&order=${param[1]}#table`
 }
 
 dataframeBack = (event) => {
@@ -111,18 +116,20 @@ copyQS = () => {
 }
 
 convertDate = () => {
-	var date = document.querySelectorAll('#datex')
+	let date = document.querySelectorAll('#datex')
 	date.forEach((date) => {
-		var raw = date.innerHTML.split(/-|\s|:/)
-		var newDate = new Date(raw[8], raw[9] - 1, raw[10], raw[11], raw[12], raw[13]).toLocaleString()
+		let raw     = date.innerHTML.split(/-|\s|:/)
+		let newDate = new Date(raw[8], raw[9] - 1, raw[10], raw[11], raw[12], raw[13]).toLocaleString()
 		date.innerHTML = newDate
 	})
 }
 convertDate()
 
 deleteBorder = () => {
-	var table = document.querySelector('.dataframe')
-	table.removeAttribute('border')
+	if (window.location.pathname.includes('job-detail')) {
+		const table = document.querySelector('.dataframe')
+		table.removeAttribute('border')
+	}
 }
 deleteBorder()
 
@@ -130,8 +137,15 @@ autoReload = () => {
 	if (window.location.pathname.includes('job-detail')) {
 		setTimeout(function(){
 			window.location.reload(1)
-		}, 30000)
+		}, 20000)
 	}
 }
-autoReload()
-
+reload = () => {
+	const quickstatements = document.getElementById('quickstatements')
+	if (window.location.pathname.includes('job-detail')) {
+		if (quickstatements === null) {
+			autoReload()
+		}
+	}
+}
+reload()
