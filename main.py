@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, flash, redirect, url_for, jso
 from flask_paginate import Pagination, get_page_args
 from werkzeug import secure_filename
 from src.main_convert import *
-from src.utils import load_data, get_result_csv_text, get_column_dict, get_label_of_linked_df
+from src.utils import load_data, get_result_csv_text, get_column_dict, get_label_of_linked_df, get_ner_context
 from src.main_utils import *
 from var_settings import *
 from migrate import migrate, migrate_read_metadata, migrate_write_metadata
@@ -117,8 +117,21 @@ def create_qs(procId, sourceURL:str):
     df = load_data(namaFile,'processed')
     metadata = var_settings.job_metadata_dict[procId]
     context=[]
+    title = ""
     if "tags" in metadata:
         context = metadata["tags"]
+    if "title" in metadata:
+        title = metadata["title"]
+        #enrich context with title
+        if len(title) > 1:
+            print("ABCDEFG - "+title)
+            tags_from_title = get_ner_context(title)
+            context = context + tags_from_title
+        #removing duplicate tags
+        context = set(context)
+    metadata["tags"]=context
+    var_settings.job_metadata_dict[procId] = metadata
+
     print(context)
     literal_columns_label = [x for x in df.columns if x not in var_settings.entityheader_dict[procId]]
     df_mapping = link_data(df,var_settings.protagonist_dict[procId],var_settings.entityheader_dict[procId],var_settings.mapping_dict[procId], context)
@@ -237,6 +250,7 @@ def background_run(procId, sourceURL="", metadata={}):
     req = raw_req.to_dict()
     if 'job_id' in req.keys():
         print("READING USER INPUTTED Metadata")
+        print(req)
         if "tags" in req.keys():
             req["tags"] = req["tags"].split(",")
             #lets clean this, remove trailing space
