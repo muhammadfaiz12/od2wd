@@ -162,5 +162,7 @@ def extract_metadata_ckan(infos) -> dict:
                 tags.append(tag['name'])
             else:
                 print("[PHASE-1] Error on extracting metadata, no name tags. Tags is : {}".format(tag.keys()))
+    if "title" in infos.keys():
+        metadata["title"]=infos["title"]
     metadata["tags"] = tags
     return metadata
