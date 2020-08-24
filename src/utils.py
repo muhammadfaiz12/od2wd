@@ -48,10 +48,18 @@ def ranking(candidateList, goal, flag, propertyLbl,threshold=0):
     idx = scoreList.index(maxScore)
     return candidateList[idx]['id']
 
+def get_ner_context(title:str):
+    url = "{}/main/ner".format(var_settings.parent_api_link)
+    raw_response = requests.get(url, params={"title":title})
+    response = json.loads(raw_response.text)
+    if raw_response.status_code == 200 and 'results' in response:
+        return response['results']
+    return []
+
+
 def searchID(flag, cell, rowHead, context=[], limit=3):
     # json = searchEntity(cell.lower(), limit)['search']
     responseCode, id = link_entity_api(cell, rowHead, context, limit) 
-    print("HIYAHIYA")
     print(cell)
     print(responseCode)
     print(id)
