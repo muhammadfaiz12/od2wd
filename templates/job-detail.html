@@ -104,7 +104,7 @@
 									</div>
 								</div>
 							{% endif %}
-							<p>When the process finished, The Execute Quickstatement button will appear.</p>
+							<p>When the process finished, The Execute QuickStatements button will appear.</p>
 						</li>
 					</ul>
 				</div>
@@ -115,7 +115,7 @@
 						<th>Metadata Extraction</th>
 						<th>Property Mapping</th>
 						<th>Entity Linking</th>
-						<th>Quickstatement File</th>
+						<th>QuickStatements File</th>
 					</thead>
 					<tbody>
 						<tr>
@@ -379,14 +379,14 @@
 		{% endif %}
 
 		{% if job_status[5] %}
-		<div class="descriptive" layer="quickstatements">
+		<div class="descriptive" layer="quickstatements" id="quickstatements">
 			<div class="action">
 				<p>
 				   By clicking the <span>Execute QS</span> button, the converted file will be published into Wikidata 
-				   using Quickstatement tool. This Execute process makes use of the mapping and linking
-				   results and generate a Quickstatements serialization.
+				   using QuickStatements tool. This Execute process makes use of the mapping and linking
+				   results and generate a QuickStatements serialization.
 				</p>
-				<a>
+				<a href="{{publish_url}}">
 					<button type="button">
 						<i class="fas fa-file-export"></i>
 						EXECUTE QS
@@ -459,7 +459,7 @@
 		<div class="descriptive" layer="raw" id="qs">
 			<div class="background" onclick="toggleModal('qs')"></div>
 			<div class="modal">
-				<h2>Quickstatements Result</h2>
+				<h2>QuickStatements Result</h2>
 				<div class="table">
 					{{dataPreviews[5]|safe}}
 				</div>

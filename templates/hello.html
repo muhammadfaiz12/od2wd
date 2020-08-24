@@ -33,7 +33,7 @@
 			<div class="embed">
 				<div class="video">
 					<img src="/static/reface/img/page/index/hero2.png" />
-					<div class="play" onclick="toggleModal('videoAbout')">
+					<div class="play" onclick="toggleYoutube('videoAbout')">
 						<i class="fas fa-play"></i>
 					</div>
 				</div>
@@ -167,7 +167,7 @@
 					</li>
 					<li>
 						<img src="/static/reface/img/illustrations/quickstatements.svg"></img>
-						<h3>Quickstatements File</h3>
+						<h3>QuickStatements File</h3>
 						<p>
 							The publishing phase aims to publish the conversion into Wikidata, which resulting in triple
 							format of protagonist-property-value
@@ -204,21 +204,13 @@
 						</div>
 					</div>
 					<div class="group">
-						<label>Group By</label>
-						<div class="input">
-							<select id="group">
-								<option value="job">Job Name</option>
-								<option value="date">Upload Date</option>
-							</select>
-							<i class="fas fa-chevron-down"></i>
-						</div>
-					</div>
-					<div class="group">
 						<label>Sort</label>
 						<div class="input">
 							<select id="sort">
-								<option value="DESC">Oldest</option>
-								<option value="ASC">Newest</option>
+								<option value="job&ASC">Job Name ( A-Z )</option>
+								<option value="job&DESC">Job Name ( Z-A )</option>
+								<option value="date&ASC">Upload Date ( Oldest )</option>
+								<option value="date&DESC">Upload Date ( Newest )</option>
 							</select>
 							<i class="fas fa-chevron-down"></i>
 						</div>
@@ -261,23 +253,6 @@
 		</div>
 		<div class="descriptive" layer="pagination">
 			{{ pagination.links }}
-			<script type="text/javascript">
-				$(function () {
-					$('li.page-item').click(function(){
-					  console.log('Changing Page')
-					  $.ajax({
-						url: $(this).attr('href'),
-						success: function(response) {
-							$('.catalogue-div').replaceWith($(response).find('.catalogue-div'));
-						 },
-						error: function(response){
-							alert('Connection Error')
-						}
-					});
-					return false;
-				  });
-				});
-			</script>
 		</div>
 	</section>
 	<section class="modal">
@@ -286,7 +261,7 @@
 				<iframe id="videoIframe" src="https://www.youtube.com/embed/oOjJdOQ8dwM?enablejsapi=1">
 				</iframe>
 			</div>
-			<button onclick="toggleModal('videoAbout')">
+			<button onclick="toggleYoutube('videoAbout')">
 				<i class="fas fa-times"></i>
 			</button>
 		</div>
