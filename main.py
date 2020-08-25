@@ -195,7 +195,7 @@ def job_detail(procId):
             previews.append(res)
         elif states[idx] == 'linked':
             df_m = load_data(procId, "mapped")
-            df_l = load_data(procId, "results")
+            df_l = load_data(procId, "linked")
             res_df = df_l
             try:
                 columns = get_column_dict(procId)
