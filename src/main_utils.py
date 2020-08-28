@@ -5,6 +5,10 @@ import pandas as pd
 from datetime import datetime
 
 def get_catalogue(queryInclude="", group="date", order="DESC"):
+    #set Default Value
+    group = group if len(group) > 0 else "date"
+    order = order if len(order) > 0 else "DESC"
+
     listOfFile = os.listdir('data/uncleaned/')
     if group == "job":
         if order=="ASC":
