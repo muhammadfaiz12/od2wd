@@ -19,17 +19,19 @@ var_settings.job_metadata_dict = migrate_read_metadata()
 
 @app.route('/')
 def index():
-    query = request.args.get('query')
-    sort = request.args.get('sort')
-    catalogue, catalogue_time = get_catalogue(query)
-    if sort=="DESC":
-        catalogue, catalogue_time = sorted(catalogue, reverse=True), sorted(catalogue_time, reverse=True)
+    query = request.args.get('query') if request.args.get('query') is not None else ""
+    group = request.args.get('group') if request.args.get('group') is not None else ""
+    order = request.args.get('order') if request.args.get('order') is not None else ""
+
+    catalogue, catalogue_time = get_catalogue(query, group=group, order=order)
     page, per_page, offset = get_page_args()
     ori_catalogue_len = len(catalogue)
     catalogue = split_paginate(catalogue, offset=offset, per_page=per_page)
     catalogue_time = split_paginate(catalogue_time, offset=offset, per_page=per_page)
+
+    custom_href = "/?page={0}&query={1}&group={2}&order={3}#table".format("{0}",query, group, order)
     pagination = Pagination(page=page, per_page=per_page, total=ori_catalogue_len,
-                            css_framework='bootstrap4', href="/?page={0}#table")
+                            css_framework='bootstrap4', href=custom_href)
     return render_template('hello.html', file_catalogue=zip(catalogue,catalogue_time), page=page, per_page=per_page, pagination=pagination, parent_link=var_settings.parent_link)
 
 @app.route('/about')
@@ -255,6 +257,9 @@ def background_run(procId, sourceURL="", metadata={}):
             req["tags"] = req["tags"].split(",")
             #lets clean this, remove trailing space
             req["tags"] = [tag.strip() for tag in req["tags"]]
+        if "url" in req.keys():
+            if len(req["url"])>0:
+                sourceURL = req["url"]
         var_settings.job_metadata_dict[procId]=req
     elif procId in var_settings.job_metadata_dict.keys() and var_settings.job_metadata_dict[procId] is not None:
         pass
