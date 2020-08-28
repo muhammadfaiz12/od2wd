@@ -4,9 +4,18 @@ import requests, json, wget
 import pandas as pd
 from datetime import datetime
 
-def get_catalogue(queryInclude=""):
+def get_catalogue(queryInclude="", group="date", order="DESC"):
     listOfFile = os.listdir('data/uncleaned/')
-    date_map = {}
+    if group == "job":
+        if order=="ASC":
+            print("ASC")
+            listOfFile = sorted(listOfFile)
+        else:
+            print("DESC")
+            listOfFile = sorted(listOfFile, reverse=True)
+
+    #array of tuples, [(<filename>, <date>)...]
+    res_and_time = []
     res = []
     res_time = []
     time = None
@@ -24,15 +33,19 @@ def get_catalogue(queryInclude=""):
                 # Linux Probably 
                 time = stat.st_mtime
         time = datetime.fromtimestamp(time).strftime('%Y-%m-%d %H:%M:%S')
-        res_time.append(time)
-        if time in date_map:
-            date_map[time] = date_map[time].append(f)
-        else:
-            date_map[time] = [f]
-    res_time = sorted(res_time, reverse=True)
-    for time in res_time:
-        for f in date_map[time]:
-            res.append(f)
+        res_and_time.append((f, time))
+ 
+    #lets sort and group
+    if len(res_and_time )> 0:
+        reversed = order == "DESC"
+        index = 1 if group == "date" else 0
+        res_and_time = sorted(res_and_time, key= lambda tup:tup[index], reverse=reversed)
+    
+    #lets form it
+    for file_info in res_and_time:
+        res.append(file_info[0])
+        res_time.append(file_info[1])
+
     return res, res_time
 
 def split_paginate(arr, offset=0, per_page=10):
