@@ -63,17 +63,18 @@ def ranking(candidateList, goal, flag, propertyLbl):
     idx = scoreList.index(maxScore)
     return candidateList[idx]['id']
 
-def searchID(flag, cell, rowHead):
+def searchID(is_protagonist, cell, rowHead):
     json = searchEntity(cell.lower(), limit)['search']
     id = ''
     if(len(json) > 1):
-        id = ranking(json, cell.lower(), flag, rowHead)
+        id = ranking(json, cell.lower(), is_protagonist, rowHead)
     elif(len(json) == 1):
         id = json[0]['id']
-    
-    if(id == '' and flag):
+
+    not_found = id == '' or "NOTFOUND" in id
+    if(not_found and is_protagonist):
         id = 'QNew'
-    elif(id == ''):
+    elif(not_found):
         id = 'QNPNew'
         
     return id

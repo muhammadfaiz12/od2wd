@@ -427,7 +427,7 @@ def map_protagonist_api(protagonist, parentApiURL="https://od2wd.id/api/"):
 
 def qs_add_instance_of(df, procId, protagonist):
     mapping = var_settings.mapping_dict[procId]
-    if protagonist not in mapping:
+    if protagonist not in mapping or "NOTFOUND" in mapping[protagonist]:
         return df, False
     protagonistMapping = mapping[protagonist]
     pMapExist = len(protagonistMapping) > 1 
@@ -581,6 +581,9 @@ def get_label_of_linked_df(df_l, df_m, columns: dict):
 
     #mash old label with link result
     df_result = df_l.copy()
+    print(df_l.columns)
+    print(entity_col_pair.keys())
+    print(df_m.columns)
     for ec in entity_col:
         #Skipping P31 because its auto generated column, hence no old label
         if ec == "P31":
