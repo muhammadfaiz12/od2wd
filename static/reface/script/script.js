@@ -92,10 +92,31 @@ scrollSection = (id) => {
 dataframe = (event) => {
 	event.preventDefault()
 	let searchValue = document.getElementById('search').value
+	
 	let sortValue   = document.getElementById('sort').value
 	let param       = sortValue.split('&')
 	window.location.href = `/?query=${searchValue}&group=${param[0]}&order=${param[1]}#table`
 }
+
+dataload = () => {
+	if (window.location.pathname.includes('about') || window.location.pathname.includes('job-detail') || window.location.pathname.includes('preview')) {
+		return null
+	} else {
+		const url = new URLSearchParams(window.location.search)
+		const search = url.get('query')
+		document.getElementById('search').value = search
+		const group  = url.get('group')
+		const order  = url.get('order')
+		if (!group) {
+			const dropdown = `date&DESC`
+			document.getElementById('sort').value = dropdown
+		} else {
+			const dropdown = `${group}&${order}`
+			document.getElementById('sort').value = dropdown
+		}
+	}
+}
+dataload()
 
 dataframeBack = (event) => {
 	event.preventDefault()

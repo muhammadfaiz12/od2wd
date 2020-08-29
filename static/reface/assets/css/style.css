@@ -134,6 +134,7 @@ form .group {
     background-color: white; }
   form .group input,
   form .group textarea, form .group select {
+    color: #C1C2C6;
     border: 0.1em solid rgba(47, 53, 66, 0.1);
     outline: none;
     border-radius: .450em;
