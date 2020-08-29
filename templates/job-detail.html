@@ -378,24 +378,6 @@
 		</form>
 		{% endif %}
 
-		{% if job_status[5] %}
-		<div class="descriptive" layer="quickstatements" id="quickstatements">
-			<div class="action">
-				<p>
-				   By clicking the <span>Execute QS</span> button, the converted file will be published into Wikidata 
-				   using QuickStatements tool. This Execute process makes use of the mapping and linking
-				   results and generate a QuickStatements serialization.
-				</p>
-				<a href="{{publish_url}}">
-					<button type="button">
-						<i class="fas fa-file-export"></i>
-						EXECUTE QS
-					</button>
-				</a>
-			</div>
-		</div>
-		{% endif %}
-
 		<div class="descriptive" layer="raw" id="raw">
 			<div class="background" onclick="toggleModal('raw')"></div>
 			<div class="modal">
