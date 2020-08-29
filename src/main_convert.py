@@ -120,7 +120,7 @@ def generate_qs(df_map,df_asli,protagonist,literal_columns_label,procId, sourceU
 
     df_final = format_qs_df(df_qs,literal_columns)
     valid_column = [x for x in list(df_final.columns) if len(x) >= 1 ]
-    df_final = df_final[['qid'] + [c for c in list(set(valid_column)) if c != 'qid']]
+    df_final = df_final[['qid'] + ['Lid'] + [c for c in list(set(valid_column)) if c != 'qid']]
     #mindain qid ke depan
     print("[PROC-{}--[Phase 3]]-- Generate QS df_final Columns {}".format(procId, str(df_final.columns)))
 
