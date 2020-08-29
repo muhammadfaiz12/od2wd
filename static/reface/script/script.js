@@ -141,9 +141,10 @@ autoReload = () => {
 	}
 }
 reload = () => {
-	const quickstatements = document.getElementById('quickstatements')
+	const quickstatements = document.getElementById('qs-results')
 	if (window.location.pathname.includes('job-detail')) {
 		if (quickstatements === null) {
+			console.log("quickstatements is null")
 			autoReload()
 		}
 	}
