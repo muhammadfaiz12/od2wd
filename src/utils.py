@@ -63,9 +63,10 @@ def searchID(flag, cell, rowHead, context=[], limit=3):
     print(cell)
     print(responseCode)
     print(id)
-    if(id == '' and flag):
+    not_found = id == '' or id =='NOTFOUND'
+    if(not_found and flag):
         id = 'QNew'
-    elif(id == ''):
+    elif(not_found):
         id = 'QNPNew'
         
     return id
