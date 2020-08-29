@@ -191,9 +191,7 @@ def job_detail(procId):
             tags = []
             if procId in var_settings.job_metadata_dict:
                 metadata=var_settings.job_metadata_dict[procId]
-                if "tags" in metadata.keys():
-                    tags = metadata["tags"]
-            res = format_metadata_job_detail(protagonist, tags)
+            res = format_metadata_job_detail(protagonist, metadata)
             previews.append(res)
         elif states[idx] == 'linked':
             df_m = load_data(procId, "mapped")

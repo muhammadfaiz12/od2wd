@@ -162,7 +162,11 @@ def fetch_csv_from_link(url) -> (str,dict):
     response = requests.get(url=base_url, params=params)
     json_data = json.loads(response.text)
     fetch_link = json_data['result']['results'][0]['resources'][0]['url']
+
+    #extract and store metadata
     metadata = extract_metadata_ckan(json_data['result']['results'][0])
+    metadata["url"]=url
+
     file_name=check_file_name('{}.csv'.format(queryName))
     print("[PHASE-1] Fetching from "+str(fetch_link))
     wget.download(fetch_link, 'data/uncleaned/{}'.format(file_name))
@@ -180,6 +184,8 @@ def extract_metadata_ckan(infos) -> dict:
             else:
                 print("[PHASE-1] Error on extracting metadata, no name tags. Tags is : {}".format(tag.keys()))
     if "title" in infos.keys():
+        metadata["title"]=infos["title"]
+    if "description" in infos.keys():
         metadata["title"]=infos["title"]
     metadata["tags"] = tags
     return metadata

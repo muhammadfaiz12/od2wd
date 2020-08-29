@@ -546,10 +546,18 @@ def drop_export_column(procId, stayColumns):
 
     return
 
-def format_metadata_job_detail(protagonist:str, tags: list) -> str:
-    #Result format is based on FE Designer's request
-    stringified_tags = str(tags).replace("[","").replace("]","")
-    result = "<div><a>Protagonist Column</a><a>{}</a><a>Tags</a><p>{}</p></div>".format(protagonist, stringified_tags)
+def format_metadata_job_detail(protagonist:str, metadata: dict) -> str:
+    stringified_tags, title, url, description = "", "", "", ""
+    if "tags" in metadata.keys():
+        #Result format is based on FE Designer's request
+        stringified_tags = str(metadata["tags"]).replace("[","").replace("]","")
+    if "title" in metadata.keys():
+        title = str(metadata["title"])
+    if "url" in metadata.keys():
+        url = str(metadata["url"])
+    if "description" in metadata.keys():
+        description = str(metadata["description"])
+    result = "<div><a>Title</a><p>{}</p><a>Protagonist Column</a><p>{}</p><a>URL</a><p>{}</p><a>Tags</a><p>{}</p><a>Description</a><p>{}</p></div>".format(protagonist, title, url, stringified_tags, description)
     return result
 
 def get_result_csv_text(procId: str) -> str:
