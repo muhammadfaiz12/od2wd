@@ -454,7 +454,11 @@ def getColumnName(procId, col, step):
 #Dropping P31
 def dropP31(procId, df_m, df_r):
     df_m.columns = [x[:x.find('-')]+"-[Protagonist-Column]" if "[Protagonist]" in x else x for x in df_m.columns]
-    df_r.drop(["P31"], inplace=True, axis=1)
+    #dropping P31 and its accompanying source column
+    source = []
+    if "url" in var_settings.job_metadata_dict[procId].keys():
+        source = [df_r.columns[list(df_r.columns).index("P31")+1]]
+    df_r.drop(["P31"]+source, inplace=True, axis=1)
 
     df_r.to_csv("data/results/{}".format(procId), index=False)
     df_m.to_csv("data/mapped/{}".format(procId), index=False)
@@ -523,6 +527,9 @@ def drop_export_column(procId, stayColumns):
     delColumns_m, delColumns_l, delColumns_r = checkMergedColumn(procId, delColumns_m, delColumns_l, delColumns_r)
     delColumns_m, delColumns_l, delColumns_r = [x for x in delColumns_m if x is not None], [x for x in delColumns_l if x is not None], [x for x in delColumns_r if x is not None]
 
+    #Adding accomapnying source columns to be dropped(if exitst)
+    if "url" in var_settings.job_metadata_dict[procId].keys():
+        delColumns_r = delColumns_r + [df_r.columns[list(df_r.columns).index(x)+1] for x in delColumns_r]
     print(delColumns_m)
     print(delColumns_r)
     print(delColumns_l)
