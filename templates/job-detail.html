@@ -12,7 +12,7 @@
 					</button>
 				</a>
 			</h2>
-			<p>Job Name : <span>{{procId}}</span></p>
+			<p>Job Name:<span>{{procId}}</span></p>
 			<div class="table">
 				<div class="process">
 					<ul>
@@ -29,7 +29,7 @@
 									</div>
 								</div>
 							{% endif %}
-							<p>Raw data processed to be converted</p>
+							<p>Raw data to be converted</p>
 						</li>
 						<li>
 							{% if job_status[1] %}
@@ -44,7 +44,7 @@
 									</div>
 								</div>
 							{% endif %}
-							<p>Clean the data from null-valued row(s)</p>
+							<p>Clean null-valued row(s) from the data</p>
 						</li>
 						<li>
 							{% if job_status[2] %}
@@ -59,7 +59,7 @@
 									</div>
 								</div>
 							{% endif %}
-							<p>Metadata (title, url link, tags, description) are being extracted</p>
+							<p>Extract metadata: title, URL, description, tags </p>
 						</li>
 						<li>
 							{% if job_status[3] %}
@@ -74,7 +74,7 @@
 									</div>
 								</div>
 							{% endif %}
-							<p>Mapping preview column will be displayed through "view" buttons</p>
+							<p>Map column names to Wikidata properties</p>
 						</li>
 						<li>
 							{% if job_status[4] %}
@@ -89,7 +89,7 @@
 									</div>
 								</div>
 							{% endif %}
-							<p>Process on linking the same entities</p>
+							<p>Link cell values to Wikidata entities</p>
 						</li>
 						<li>
 							{% if job_status[5] %}
@@ -104,18 +104,18 @@
 									</div>
 								</div>
 							{% endif %}
-							<p>When the process finished, The Execute QuickStatements button will appear.</p>
+							<p>Converted data in QuickStatements format</p>
 						</li>
 					</ul>
 				</div>
 				<table>
 					<thead>
 						<th>Raw Data</th>
-						<th>Cleaned Data</th>
+						<th>Data Cleaning</th>
 						<th>Metadata Extraction</th>
 						<th>Property Mapping</th>
 						<th>Entity Linking</th>
-						<th>QuickStatements File</th>
+						<th>QuickStatements</th>
 					</thead>
 					<tbody>
 						<tr>
@@ -393,7 +393,7 @@
 		<div class="descriptive" layer="raw" id="cleaned">
 			<div class="background" onclick="toggleModal('cleaned')"></div>
 			<div class="modal">
-				<h2>Cleaned Data</h2>
+				<h2>Data Cleaning</h2>
 				<div class="table">
 					{{dataPreviews[1]|safe}}
 				</div>
@@ -417,7 +417,7 @@
 		<div class="descriptive" layer="raw" id="map">
 			<div class="background" onclick="toggleModal('map')"></div>
 			<div class="modal">
-				<h2>Property Data Mapping</h2>
+				<h2>Property Mapping</h2>
 				<div class="table">
 					{{dataPreviews[3]|safe}}
 				</div>
