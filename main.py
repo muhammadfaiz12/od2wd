@@ -130,7 +130,7 @@ def create_qs(procId, sourceURL:str):
             tags_from_title = get_ner_context(title)
             context = context + tags_from_title
         #removing duplicate tags
-        context = set(context)
+        context = list(set(context))
     metadata["tags"]=context
     var_settings.job_metadata_dict[procId] = metadata
 
