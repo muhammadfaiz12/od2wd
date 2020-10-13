@@ -221,41 +221,16 @@ nav {
     nav .descriptive[layer=logo] {
       flex-basis: 50%;
       z-index: 2; } }
-  @media (max-width: 63.999em) and (orientation: landscape) {
-    nav .descriptive[layer=logo] {
-      flex-basis: 50%;
-      z-index: 2; } }
   nav .descriptive[layer=logo] .media img {
     height: 1.800em; }
-    @media (max-width: 1024px) and (orientation: landscape) {
-      nav .descriptive[layer=logo] .media img {
-        height: 1.500em; } }
-    @media (max-width: 35.499em) and (orientation: portrait) {
-      nav .descriptive[layer=logo] .media img {
-        height: 1.300em; } }
-    @media (max-width: 63.999em) and (orientation: landscape) {
-      nav .descriptive[layer=logo] .media img {
-        height: 1.500em; } }
     nav .descriptive[layer=logo] .media img#white.hide {
       width: 0; }
     nav .descriptive[layer=logo] .media img#white.toggle {
       width: auto; }
     nav .descriptive[layer=logo] .media img#blue {
       opacity: 0; }
-      @media (max-width: 1024px) and (orientation: landscape) {
-        nav .descriptive[layer=logo] .media img#blue {
-          display: none; } }
-      @media (max-width: 35.499em) and (orientation: portrait) {
-        nav .descriptive[layer=logo] .media img#blue {
-          display: none; } }
       nav .descriptive[layer=logo] .media img#blue.show {
         opacity: 1; }
-        @media (max-width: 1024px) and (orientation: landscape) {
-          nav .descriptive[layer=logo] .media img#blue.show {
-            display: inline; } }
-        @media (max-width: 35.499em) and (orientation: portrait) {
-          nav .descriptive[layer=logo] .media img#blue.show {
-            display: inline; } }
       nav .descriptive[layer=logo] .media img#blue.toggle {
         opacity: 0 !important; }
   nav .descriptive[layer=toggle] {
@@ -277,56 +252,13 @@ nav {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 2.000em;
-            transition: all .5s ease; } }
-      @media (max-width: 74.999em) and (orientation: portrait) and (max-width: 35.499em) and (orientation: portrait) {
-        nav .descriptive[layer=toggle] button i {
-          font-size: 1.700em; } }
-    @media (max-width: 74.999em) and (orientation: portrait) {
-            nav .descriptive[layer=toggle] button i.toggle {
-              transform: rotate(360deg); } }
-    @media (max-width: 63.999em) and (orientation: landscape) {
-      nav .descriptive[layer=toggle] {
-        flex-basis: 50%;
-        text-align: right;
-        display: inline;
-        z-index: 2; }
-        nav .descriptive[layer=toggle] button {
-          background: none;
-          text-align: right;
-          padding-right: 0;
-          padding-top: .400em;
-          padding-bottom: .400em; }
-          nav .descriptive[layer=toggle] button i {
-            background: linear-gradient(to right, #FFFFFF, #FFFFFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2.000em;
-            transition: all .5s ease; } }
-      @media (max-width: 63.999em) and (orientation: landscape) and (max-width: 35.499em) and (orientation: portrait) {
-        nav .descriptive[layer=toggle] button i {
-          font-size: 1.700em; } }
-    @media (max-width: 63.999em) and (orientation: landscape) {
+            transition: all .5s ease; }
             nav .descriptive[layer=toggle] button i.toggle {
               transform: rotate(360deg); } }
   nav .descriptive[layer=menu] ul {
     display: flex;
     align-items: center; }
     @media (max-width: 74.999em) and (orientation: portrait) {
-      nav .descriptive[layer=menu] ul {
-        background: linear-gradient(to right top, rgba(2, 70, 255, 0.9), #70a1ff);
-        justify-content: center;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: all .5s ease; }
-        nav .descriptive[layer=menu] ul.show {
-          opacity: 1;
-          left: 0; } }
-    @media (max-width: 63.999em) and (orientation: landscape) {
       nav .descriptive[layer=menu] ul {
         background: linear-gradient(to right top, rgba(2, 70, 255, 0.9), #70a1ff);
         justify-content: center;
@@ -350,12 +282,6 @@ nav {
       @media (max-width: 74.999em) and (orientation: portrait) {
         nav .descriptive[layer=menu] ul li .anchor {
           font-size: 1.600em; } }
-      @media (max-width: 35.499em) and (orientation: portrait) {
-        nav .descriptive[layer=menu] ul li .anchor {
-          font-size: 1.100em; } }
-      @media (max-width: 1024px) and (orientation: landscape) {
-        nav .descriptive[layer=menu] ul li .anchor {
-          font-size: 1.000em; } }
       nav .descriptive[layer=menu] ul li .anchor::after {
         content: 'a';
         background: linear-gradient(to right, #FFFFFF, #FFFFFF);
@@ -374,13 +300,6 @@ nav {
         nav .descriptive[layer=menu] ul li:not(:last-child) {
           margin-right: 0;
           margin-bottom: 2.000em; } }
-      @media (max-width: 1024px) and (orientation: landscape) {
-        nav .descriptive[layer=menu] ul li:not(:last-child) {
-          margin-right: 1.500em; } }
-      @media (max-width: 63.999em) and (orientation: landscape) {
-        nav .descriptive[layer=menu] ul li:not(:last-child) {
-          margin-right: 0;
-          margin-bottom: .900em; } }
     nav .descriptive[layer=menu] ul li.child {
       position: relative; }
       nav .descriptive[layer=menu] ul li.child a::after {
@@ -428,12 +347,6 @@ nav {
       @media (max-width: 74.999em) and (orientation: portrait) {
         nav .descriptive[layer=menu] ul li.convert button {
           font-size: 1.100em; } }
-      @media (max-width: 35.499em) and (orientation: portrait) {
-        nav .descriptive[layer=menu] ul li.convert button {
-          font-size: .800em; } }
-      @media (max-width: 1024px) and (orientation: landscape) {
-        nav .descriptive[layer=menu] ul li.convert button {
-          padding: .700em 1.200em; } }
   nav.static {
     background-color: #0246FF;
     box-shadow: 0px 10px 21px -9px rgba(4, 89, 216, 0.23);
@@ -472,11 +385,6 @@ nav {
       background: linear-gradient(to right top, #70a1ff, #18C8FF);
       color: #FFFFFF; }
     @media (max-width: 74.999em) and (orientation: portrait) {
-      nav.scrolled .descriptive[layer=toggle] button i {
-        background: linear-gradient(to right, #0246FF, #18C8FF);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent; } }
-    @media (max-width: 63.999em) and (orientation: landscape) {
       nav.scrolled .descriptive[layer=toggle] button i {
         background: linear-gradient(to right, #0246FF, #18C8FF);
         -webkit-background-clip: text;
@@ -582,9 +490,6 @@ body[page=index] section.hero {
         body[page=index] section.hero .descriptive[layer=banner] .text {
           flex-basis: 100%;
           text-align: center; } }
-      @media (max-width: 22.5em) and (orientation: portrait) {
-        body[page=index] section.hero .descriptive[layer=banner] .text {
-          padding-top: 5.000em; } }
       body[page=index] section.hero .descriptive[layer=banner] .text h1,
       body[page=index] section.hero .descriptive[layer=banner] .text p {
         color: #FFFFFF; }
