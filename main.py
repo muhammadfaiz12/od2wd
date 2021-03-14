@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, flash, redirect, url_for, jsonify, send_from_directory, send_file
 from flask_paginate import Pagination, get_page_args
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 from src.main_convert import *
 from src.utils import load_data, get_result_csv_text, get_column_dict, get_label_of_linked_df, get_ner_context
 from src.main_utils import *
@@ -37,6 +37,10 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html', parent_link=var_settings.parent_link)
+
+@app.route('/pattern')
+def pattern():
+    return render_template('pattern.html', parent_link=var_settings.parent_link)
 
 def ingest_metadata_form():
     req = request.form
