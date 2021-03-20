@@ -1,0 +1,20 @@
+od2wd:QuantityTypeRuleShape
+ a sh:NodeShape ;
+ sh:targetSubjectsOf <Col> ;
+ sh:rule [
+ a sh:TripleRule ;
+ sh:subject sh:this ;
+ sh:predicate [ od2wd:concat ( <Col> "-hastype" ) ] ;
+ sh:object odw2d:quantity-datatype ;
+ sh:condition [
+ a sh:PropertyShape ;
+ sh:path <Col> ;
+ sh:pattern "[-+.,()0-9]+" ;
+ sh:not [ sh:pattern "^([0-2][0-9]|(3)[0-1])([\/,-])(((0)[0-9])|14 ((1)[0-2]))([\/,-])\d{4}" ] ;
+ sh:flags "x" ;
+ ] ;
+ sh:not [ sh:pattern "^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]? (180(\.0+)?((1[0-7]\d)|([1-9]?\d))(\.\d+)?)" ] ;
+ sh:flags "x" ;
+ ] ;
+ ] ;
+ ] .

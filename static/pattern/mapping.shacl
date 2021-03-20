@@ -1,0 +1,4 @@
+od2wd:concat a sh:SPARQLFunction ;
+sh:parameter [ sh:path od2wd:op1 ; ] ;
+sh:parameter [ sh:path od2wd:op2 ; ] ;
+sh:select """SELECT (iri(concat(str($op1), str($op2))) AS ?out) WHERE {}""" .

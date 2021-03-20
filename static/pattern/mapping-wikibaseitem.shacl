@@ -1,0 +1,14 @@
+od2wd:WikibaseItemTypeRuleShape a sh:NodeShape ;
+ sh:targetSubjectsOf <Col> ;
+ sh:rule [ a sh:TripleRule ;
+  sh:subject sh:this ;
+  sh:predicate [ od2wd:concat ( <Col> "-hastype" ) ] ;
+  sh:object odw2d:wikibaseitem-datatype ;
+  sh:condition [ a sh:PropertyShape ;
+   sh:path <Col> ;
+   sh:not [ sh:pattern "[-+.,()0-9]+" ] ;
+   sh:not [ sh:pattern "^[a-zA-Z0-9_\-\@]+\.[a-zA-Z0-9]_\-\." ] ;
+   sh:not [
+    sh:pattern "[\.\,\!\?\>\<\/\\\)\(\-\_\+\=\*\&\^\%\$\#\@\!\:\;\~]" ;
+    ]; ];
+ ] .
